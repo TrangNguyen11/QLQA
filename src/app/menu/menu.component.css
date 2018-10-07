@@ -1,0 +1,122 @@
+.scroll{
+  width: 70%;
+  float: left;
+  height: 300px;
+  overflow-y: scroll;
+  margin-top: 24px;
+}
+.fixed{
+  width: 30%;
+  float: left;
+  margin-top: 24px;
+}
+.foot{
+  position: fixed;
+  width: 100%;
+  bottom: 0px;
+  left: 0px;
+  background : black;
+  color: white;
+}
+.menu ul{
+  position: fixed;
+  background: #5ed90e;
+  list-style-type: none;
+  overflow: hidden;
+  width: 100%;
+  top: 0px;
+  text-align: center;
+}
+.menu li{
+  color: #f1f1f1;
+  float: left;
+  width: 120px;
+  height: 50px;
+  line-height: 50px;
+  font-weight: bold;
+}
+.menu a {
+  text-decoration: none;
+  color: #fff;
+  display: block;
+}
+.menu a:hover {
+  background: #F1F1F1;
+  color: #5ed90e;
+}
+
+.relative{
+  position: relative;
+  width: 180px;
+  height: 150px;
+}
+.absolute{
+  position: absolute;
+  bottom: 0px;
+  height: 20px;
+  background-color: #F1F1F1;
+  text-align: center;
+  width: 100%;
+}
+.note{
+  display: block;
+  bottom: 0px;
+  position: relative;
+  width: 100%;
+}
+.btnDat{
+  position: absolute;
+  top: 50px;
+  text-align: center;
+  left: 60px;
+}
+.button{
+  display: none;
+  top: 70px;
+}
+.relative:hover .button{
+  display: block;
+}
+.relative:hover .note {
+  display: block;
+}
+.btnMenuRight{
+  position: absolute;
+  bottom: 0px;
+}
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.nav-tabs ul{
+  position: fixed;
+  background: #5ed90e;
+  list-style-type: none;
+  overflow: hidden;
+  width: 100%;
+  top: 0px;
+  text-align: center;
+}
+.nav-tabs li{
+  color: #5ed90e;
+  float: left;
+  width: 120px;
+  height: 50px;
+  line-height: 50px;
+  font-weight: bold;
+  text-align: center;
+}
+.nav-tabs a {
+  text-decoration: none;
+  color: #5ed90e;
+  display: block;
+}
+.nav-tabs a:hover {
+  background-color: #5ed90e;
+  color:white;
+}

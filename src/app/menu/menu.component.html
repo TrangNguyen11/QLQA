@@ -1,0 +1,33 @@
+
+<div class = "menu">
+    <!-- BEGIN HEADER MENU -->
+      <ul>
+        <li class="dropdown dropdown-fw dropdown-fw-disabled  active open selected">          
+          <a  class="nav-link" routerLink="/order"  ><i class="fa fa-pencil-square-o" style="font-size:20px;"></i>
+             Order </a>
+        </li>
+        <li class="dropdown dropdown-fw dropdown-fw-disabled  ">
+          <a  class="nav-link" routerLink="/sodo">
+            <i class="fa fa-map-o" style="font-size:20px;"></i> Sơ đồ </a>
+        </li>
+        <li class="dropdown dropdown-fw dropdown-fw-disabled  ">
+          <a  class="nav-link" routerLink="">
+            <i class="fa fa-edit" style="font-size:20px;"></i> Trả món </a>
+        </li>
+        <li class="dropdown dropdown-fw dropdown-fw-disabled  ">
+          <a  class="nav-link" routerLink="/hoadon">
+            <i class="fa fa-calculator" style="font-size:20px;"></i>Hóa đơn</a>
+        </li>
+          <!-- <button> -->
+            <i class="" style="font-size:20px;float:right;margin-top: 15px; margin-right: 5px;">
+              <a class="nav-link" routerLink="/order"><i class="fa fa-user-circle-o">Mang về</i></a></i>
+          <!-- </button> -->
+      </ul>
+</div>
+<div class=" container-fluid" style="margin-top: 70px;">
+
+  <router-outlet></router-outlet>
+</div>
+<!-- <input type="text" [(ngModel)]="email" />
+<input type="text" [(ngModel)]="pass" />
+<input type="button" (click)="getData()" value="Đăng Nhập"/> -->

@@ -1,0 +1,162 @@
+
+<div class="row" style="height: 600px; width: 100%">
+    <div class="col-md-8">
+        <div class="container">
+            <ngb-tabset>
+                <ngb-tab title="Hay dùng">
+                  <ng-template ngbTabContent>
+                      <div class="row">                        
+                          <div class="col-md-3" *ngFor="let order of data; index as i;">
+                              <div class="relative" >
+                                <img src="data:image/jpeg;base64,{{order.hinh}}" width="180px" height="150px"/>
+                                <div class="note">
+                                    <div class="absolute">{{ order.tenmon }}</div>
+                                </div>
+                                <div class="button">
+                                  <button class = "btnDat btn btn-danger" (click)="datMon(order)">Đặt</button>
+                                </div> 
+                              </div>
+                          </div>
+                      </div>
+                  </ng-template>
+                </ngb-tab>
+                <ngb-tab title="Mì cay">
+                    <ng-template ngbTabContent>
+                        <div class="row">
+                            <div class="col-md-3" *ngFor="let mc of micay; index as i;">
+                                <div class="relative" >
+                                  <img src="data:image/jpeg;base64,{{mc.hinh}}" width="180px" height="150px"/>
+                                  <div class="note">
+                                      <div class="absolute">{{ mc.tenmon }}</div>
+                                  </div>
+                                  <div class="button">
+                                    <button class = " btnDat btn btn-danger" (click)="datMon(mc)">Đặt</button>
+                                  </div> 
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </ngb-tab>
+                <ngb-tab title="Món ăn hàn quốc">
+                    <ng-template ngbTabContent>
+                        <div class="row">
+                            <div class="col-md-3" *ngFor="let mahq of monanhanquoc; index as i;">
+                                <div class="relative" >
+                                    <img src="data:image/jpeg;base64,{{mahq.hinh}}" width="180px" height="150px"/>
+                                    <div class="note">
+                                        <div class="absolute">{{ mahq.tenmon }}</div>
+                                    </div>
+                                    <div class="button">
+                                    <button class = " btnDat btn btn-danger" (click)="datMon(mahq)">Đặt</button>
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </ngb-tab>
+                <ngb-tab title="Lẩu">
+                    <ng-template ngbTabContent>
+                        <div class="row">                        
+                            <div class="col-md-3" *ngFor="let l of lau; index as i;">
+                                <div class="relative" >
+                                  <img src="data:image/jpeg;base64,{{l.hinh}}" width="180px" height="150px"/>
+                                  <div class="note">
+                                      <div class="absolute">{{ l.tenmon }}</div>
+                                  </div>
+                                  <div class="button">
+                                    <button class = " btnDat btn btn-danger" (click)="datMon(l)">Đặt</button>
+                                  </div> 
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </ngb-tab>
+                <ngb-tab title="Combo">
+                    <ng-template ngbTabContent>
+                        <div class="row">                        
+                            <div class="col-md-3" *ngFor="let cb of combo; index as i;">
+                                <div class="relative" >
+                                  <img src="data:image/jpeg;base64,{{cb.hinh}}" width="180px" height="150px"/>
+                                  <div class="note">
+                                      <div class="absolute">{{ cb.tenmon }}</div>
+                                  </div>
+                                  <div class="button">
+                                    <button class = " btnDat btn btn-danger" (click)="datMon(cb)">Đặt</button>
+                                  </div> 
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </ngb-tab>
+                <ngb-tab title="Ăn vặt">
+                    <ng-template ngbTabContent>
+                        <div class="row">                        
+                            <div class="col-md-3" *ngFor="let av of anvat; index as i;">
+                                <div class="relative" >
+                                  <img src="data:image/jpeg;base64,{{av.hinh}}" width="180px" height="150px"/>
+                                  <div class="note">
+                                      <div class="absolute">{{ av.tenmon }}</div>
+                                  </div>
+                                  <div class="button">
+                                    <button class = " btnDat btn btn-danger" (click)="datMon(av)">Đặt</button>
+                                  </div> 
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </ngb-tab>
+                <ngb-tab title="Đồ uống">
+                    <ng-template ngbTabContent>
+                        <div class="row">                        
+                            <div class="col-md-3" *ngFor="let du of douong; index as i;">
+                                <div class="relative" >
+                                  <img src="data:image/jpeg;base64,{{du.hinh}}" width="180px" height="150px"/>
+                                  <div class="note">
+                                      <div class="absolute">{{ du.tenmon }}</div>
+                                  </div>
+                                  <div class="button">
+                                    <button class = " btnDat btn btn-danger" (click)="datMon(du)">Đặt</button>
+                                  </div> 
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </ngb-tab>
+                
+            </ngb-tabset>
+          </div>
+      
+    </div>
+    <div class = "col-md-4">
+        <div class="row">
+            <div class="col-md-6">Tên bàn:</div>
+            <div class="col-md-6">Số lượng:</div>
+        </div>
+      
+      <table class="table table-striped">
+        <tr>
+          <td>Tên món</td>
+          <td style="width: 80px">Số lượng</td>
+          <td>Thành tiền</td>
+          <td></td>
+        </tr>
+        <tr *ngFor="let datmon of dlDatMon; index as i">
+          <td>{{ datmon.tenmon }}</td>
+          <td ><input type="number" [(ngModel)]="datmon.soluong" class="form-control"> </td>
+          <td>{{ datmon.dongia * datmon.soluong }}</td>
+          <td>
+            <a ><i (click)="deleteItem(datmon)" style="color: red" class="fa fa-trash"></i></a>
+            </td>
+        </tr>
+      </table>
+           
+      <div class="btnMenuRight">
+        <div class="tongtien">
+            Tổng tiền: <label>{{tongtien()}}</label><label> VND</label>
+        </div>
+        <button class="btn btn-primary">Hủy bỏ</button>
+        <button class="btn btn-success">Gửi bếp</button>
+        <button class="btn btn-danger">Tính tiền</button>
+      </div>
+    </div>
+  </div>
