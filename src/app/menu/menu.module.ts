@@ -11,6 +11,7 @@ import { SodoService } from './sodo/sodo.service';
 import { HoadonService } from './hoadon/hoadon.service';
 import { HoadonComponent } from './hoadon/hoadon.component';
 import { NgbTooltipConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { NgbTooltipConfig } from '@ng-bootstrap/ng-bootstrap';
     MenuRoutingModule,
     FormsModule,
     NgbModule.forRoot(),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbTooltipModule
    
   ],
   providers: [
