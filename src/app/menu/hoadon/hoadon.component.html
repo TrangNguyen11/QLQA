@@ -4,23 +4,56 @@
           <ngb-tabset>
               <ngb-tab title="Chờ thanh toán">
                 <ng-template ngbTabContent>
-                    <div class="row">                        
-                        <p>aa</p>
+                    <div class="col-md-12">
+                        <div class="row">                        
+                            <div class="hoadon col-md-3" *ngFor="let chotht of chothanhtoan; index as i">
+                                <div class="tenhoadon"><b>{{ chotht.name }}</b></div>
+                                <p>Thời gian vào: <b>{{ chotht.datetimedatmon}}</b></p>
+                                <p>Thành tiền: <b>{{ chotht.gia}}</b></p>
+                                <p>Nhân viên: <b>{{ chotht.hoten}}</b></p>
+                                <div class="row">
+                                    <button class="btnhoadon btn btn-link">Thanh toán</button>
+                                    <button class="btnhoadon btn btn-link">Xem</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </ng-template>
               </ngb-tab>
               <ngb-tab title="Mang về">
                   <ng-template ngbTabContent>
-                      <div class="row">
-                          b
-                      </div>
+                        <div class="col-md-12">
+                            <div class="row">                        
+                                <div class="hoadon col-md-3" *ngFor="let datht of dathanhtoan; index as i">
+                                    <div class="tenhoadon"><b>{{ datht.name }}</b></div>
+                                    <p>Thời gian vào: <b>{{ datht.datetimedatmon}}</b></p>
+                                    <p>Thành tiền: <b>{{ datht.gia}}</b></p>
+                                    <p>Nhân viên: <b>{{ datht.hoten}}</b></p>
+                                    <div class="row">
+                                        <button class="btnhoadon btn btn-link">Thanh toán</button>
+                                        <button class="btnhoadon btn btn-link">Xem</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                   </ng-template>
               </ngb-tab>
               <ngb-tab title="Giao hàng">
                   <ng-template ngbTabContent>
-                      <div class="row">
-                          
-                      </div>
+                        <div class="col-md-12">
+                            <div class="row">                        
+                                <div class="hoadon col-md-3" *ngFor="let gh of giaohang; index as i">
+                                    <div class="tenhoadon"><b>{{ gh.name }}</b></div>
+                                    <p>Thời gian vào: <b>{{ gh.datetimedatmon}}</b></p>
+                                    <p>Thành tiền: <b>{{ gh.gia}}</b></p>
+                                    <p>Nhân viên: <b>{{ gh.hoten}}</b></p>
+                                    <div class="row">
+                                        <button class="btnhoadon btn btn-link">Thanh toán</button>
+                                        <button class="btnhoadon btn btn-link">Xem</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                   </ng-template>
               </ngb-tab>
               <ngb-tab title="Đặt trước">
@@ -30,6 +63,24 @@
                       </div>
                   </ng-template>
               </ngb-tab>
+              <ngb-tab title="Đã thanh toán">
+                    <ng-template ngbTabContent>
+                        <div class="col-md-12">
+                            <div class="row">                        
+                                <div class="hoadon col-md-3" *ngFor="let datht of dathanhtoan; index as i">
+                                    <div class="tenhoadon"><b>{{ datht.name }}</b></div>
+                                    <p>Thời gian vào: <b>{{ datht.datetimedatmon}}</b></p>
+                                    <p>Thành tiền: <b>{{ datht.gia}}</b></p>
+                                    <p>Nhân viên: <b>{{ datht.hoten}}</b></p>
+                                    <div class="row">
+                                        <button class="btnhoadon btn btn-link">Thanh toán</button>
+                                        <button class="btnhoadon btn btn-link">Xem</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </ngb-tab>
           </ngb-tabset>
         </div>
     </div>

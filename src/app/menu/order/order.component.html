@@ -131,29 +131,30 @@
         <div class="row">
             <div class="col-md-6">Tên bàn:</div>
         </div>
-      <table class="table table-striped">
-        <tr>
-          <td>Tên món</td>
-          <td style="width: 80px">Số lượng</td>
-          <td>Thành tiền</td>
-          <td></td>
-        </tr>
-        <tr *ngFor="let datmon of dlDatMon; index as i">
-          <td>{{ datmon.tenmon }}</td>
-          <td ><input type="number" [(ngModel)]="datmon.soluong" class="form-control"> </td>
-          <td>{{ datmon.dongia * datmon.soluong }}</td>
-          <td>
-            <a ><i (click)="deleteItem(datmon)" style="color: red" class="fa fa-trash"></i></a>
-            </td>
-        </tr>
-      </table>
-           
-      <div class="btnMenuRight">
-        <div class="tongtien">
-            Tổng tiền: <label>{{tongtien()}}</label><label> VND</label>
+        <div style="height: 560px; overflow-y: auto">
+            <table class="table table-striped">
+                <tr>
+                <td>Tên món</td>
+                <td style="width: 80px">Số lượng</td>
+                <td style="width: 90px">Thành tiền</td>
+                <td></td>
+                </tr>
+                <tr *ngFor="let datmon of dlDatMon; index as i">
+                <td>{{ datmon.tenmon }}</td>
+                <td ><input type="number" [(ngModel)]="datmon.soluong" class="form-control"> </td>
+                <td>{{ datmon.dongia * datmon.soluong }}</td>
+                <td>
+                    <a ><i (click)="deleteItem(datmon)" style="color: red" class="fa fa-trash"></i></a>
+                    </td>
+                </tr>
+            </table>
         </div>
-        <button class="btn btn-success">Gửi bếp</button>
-        <button class="btn btn-danger">Tính tiền</button>
-      </div>
+        <div class="btnMenuRight">
+            <div class="tongtien">
+                Tổng tiền: <label>{{tongtien()}}</label><label> VND</label>
+            </div>
+            <button class="btn btn-success">Gửi bếp</button>
+            <button class="btn btn-danger">Tính tiền</button>
+        </div>
     </div>
-  </div>
+</div>

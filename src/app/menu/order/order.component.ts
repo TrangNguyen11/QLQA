@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OrderService } from './order.service';
+import { ActivatedRoute } from '@angular/router';
+
 @Component({
   selector: 'menu-order',
   templateUrl: './order.component.html',
@@ -7,8 +9,9 @@ import { OrderService } from './order.service';
 })
 
 export class OrderComponent implements OnInit {
-  constructor( private service: OrderService ) { 
+  constructor( private service: OrderService, private route: ActivatedRoute ) { 
   }
+  idban :string ;
   ngOnInit() {
     this.getDataOrder();
     this.getMicay();
@@ -17,7 +20,16 @@ export class OrderComponent implements OnInit {
     this.getAnvat();
     this.getDouong();
     this.getMonanhanquoc();
+    // this.route.queryParams
+    //   .filter(params => params.order)
+    //   .subscribe(params => {
+    //     console.log(params); // {order: "popular"}
+
+    //     this.order = params.order;
+    //     console.log(this.order); // popular
+    //   });
   }
+  
   data :any = [];
   micay :any = [];
   lau :any = [];

@@ -2,43 +2,97 @@
   <div class = "col-md-12">
     <h1 style="color:red; text-align: center">Sơ đồ</h1>
     <div class="row">
-        <div class="col-md-2" *ngFor="let sodo of dlSoDo; index as i">
+        <div class="col-md-2" *ngFor="let sodo of dlSoDo; index as i">    
             <ng-template #tipContent>
-              <div>
-                
-                <button type="button" class="btn btn-link mr-2" (click) = "getChonban(sodo.id)">
+              <div>                
+                <button type="button" class="btn btn-link mr-2" (click) = "getChonban(sodo.id, sodo.color)">
                   <i class="fa fa-street-view iconBtnLink" >
                     <b style="font-size: 14px">Sử dụng</b>
                   </i>
                 </button>
-                <button type="button" class="btn btn-link mr-2" (click)="openModal('chonbanghep')">
+                <button type="button" class="btn btn-link mr-2" (click)="open(content, sodo.id)">
                   <i class="fa fa-street-view iconBtnLink" >
                     <b style="font-size: 14px">Ghép bàn</b>
                   </i>
                 </button>
-                <button type="button" class="btn btn-link mr-2">
+                <button type="button" class="btn btn-link mr-2" (click)="openChuyenBan(chuyenban, sodo.id, sodo.session)" >
                   <i class="fa fa-street-view iconBtnLink" >
                     <b style="font-size: 14px">Chuyển bàn</b>
                   </i>
                 </button>
+                
               </div>
             </ng-template>
-            <button class="btn btn-light" tooltipClass="my-custom-class" [ngbTooltip]="tipContent">
+            <button class="btn btn-light" [ngStyle]="{'border': '5px solid ' + sodo.colorActive }" tooltipClass="my-custom-class" [ngbTooltip]="tipContent">
                   <div class="relative">
                     <img  width="123px" height="115px" 
                     src="{{ !!sodo.status ? hinhdasudung : hinhchuasudung }}" />
                     <div class="nameBan">
-                        {{ sodo.name}}
+                        {{ sodo.name }}
                     </div>
                   </div>
             </button>
-              <!-- <div class="backgroundTable">
-                  <div class="nameBan">
-                      {{ sodo.name}}
-                  </div>
-              </div> -->
         </div>
     </div>
      
   </div>
 </div>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Chọn bàn muốn ghép {{i}}</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="form-group">
+          <div class="row col-md-12">
+              <div class="col-md-3" *ngFor="let sodo of dlMod; index as i">
+                <button class="btn btn-light"  tooltipClass="my-custom-class" [ngbTooltip]="tipContent" (click)="changeCheckGhepBan(sodo.id)">
+                    <div class="relative"   >
+                      <img  width="123px" height="115px" 
+                      src="{{ !!sodo.status ? hinhdasudung : hinhchuasudung }}" />
+                      <div class="nameBan">
+                          {{ sodo.name}}
+                      </div>
+                      <input type="checkbox" class="check" [checked]="!!listCheckbox[sodo.id]">
+                    </div>
+                </button>
+              </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="saveGhepBan()">Save</button>
+    </div>
+</ng-template>
+<ng-template #chuyenban let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Chọn bàn muốn chuyển</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="form-group">
+          <div class="row col-md-12">
+              <div class="col-md-3" *ngFor="let sodo of dlChuyenban; index as i">
+                <button class="btn btn-light"  tooltipClass="my-custom-class" [ngbTooltip]="tipContent" (click)="chooseChuyen(sodo.id)">
+                    <div class="relative"   >
+                      <img  width="123px" height="115px" 
+                      src="{{ !!sodo.status ? hinhdasudung : hinhchuasudung }}" />
+                      <div class="nameBan">
+                          {{ sodo.name}}
+                      </div>
+                    </div>
+                </button>
+              </div>
+          </div>
+        </div>
+      </form>
+    </div>
+</ng-template>

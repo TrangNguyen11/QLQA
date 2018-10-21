@@ -9,4 +9,13 @@ export class HoadonService {
   constructor(
     private http: HttpClient
   ) { }
+  getDataChoThanhToan = ()=>{
+    return this.http.get("http://localhost:8000/api/hoadon/chothanhtoan");
+  }
+  getDataDaThanhToan = ()=>{
+    return this.http.get("http://localhost:8000/api/hoadon/dathanhtoan");
+  }
+  getDataGiaoHang = ()=>{
+    return this.http.get("http://localhost:8000/api/hoadon/giaohang");
+  }
 }

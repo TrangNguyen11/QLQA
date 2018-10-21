@@ -10,6 +10,8 @@ import { SodoComponent } from './sodo/sodo.component';
 import { SodoService } from './sodo/sodo.service';
 import { HoadonService } from './hoadon/hoadon.service';
 import { HoadonComponent } from './hoadon/hoadon.component';
+import { CheckorderService } from './checkorder/checkorder.service';
+import { CheckorderComponent } from './checkorder/checkorder.component';
 import { NgbTooltipConfig } from '@ng-bootstrap/ng-bootstrap';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -18,7 +20,8 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
     MonanComponent,
     OrderComponent,
     SodoComponent,
-    HoadonComponent
+    HoadonComponent,
+    CheckorderComponent
    
   ],
   imports: [
@@ -33,6 +36,7 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
   providers: [
     SodoService,
     HoadonService,
+    CheckorderService,
     NgbTooltipConfig
     
   ],

@@ -6,6 +6,7 @@ import { MonanComponent } from './monan/monan.component';
 import { OrderComponent } from './order/order.component';
 import { SodoComponent } from './sodo/sodo.component';
 import { HoadonComponent } from './hoadon/hoadon.component';
+import { CheckorderComponent } from './checkorder/checkorder.component';
 
 
 const routes: Routes = [
@@ -53,6 +54,18 @@ const routes: Routes = [
       {
         path: "",
         component: HoadonComponent
+
+      }
+    ]
+  },
+  {
+    path: 'checkorder',    
+    canActivate: [AuthGuard],
+    component: MenuComponent,
+    children: [
+      {
+        path: "",
+        component: CheckorderComponent
 
       }
     ]
