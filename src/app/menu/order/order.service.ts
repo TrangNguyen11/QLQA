@@ -1,34 +1,38 @@
 import { Injectable } from '@angular/core';
 import { HttpClient }    from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
-  
+  socket;
+  baseAPI = environment.base_api;
+  baseReal = environment.base_realtime;
   constructor(
     private http: HttpClient
-  ) { }
+  ) { 
+  }
   getData = ()=>{
-    return this.http.get("http://localhost:8000/api/order/micay");
+    return this.http.get(`${ this.baseAPI }order/monan`);
   }
-  getDataMicay = ()=>{
-    return this.http.get("http://localhost:8000/api/order/micay");
+  getDanhMuc = ()=>{
+    return this.http.get(`${ this.baseAPI }danhmuc`);
   }
-  getDataLau = ()=>{
-    return this.http.get("http://localhost:8000/api/order/lau");
+  //get name ban
+  getName = (id) => {
+    let data = { id : id};
+    return this.http.post(`${this.baseAPI}sodo/nameban`, data);
   }
-  getDataCombo = ()=>{
-    return this.http.get("http://localhost:8000/api/order/combo");
+  //insert vao bang chi tiet dat mon khi bam nut gui bep
+  insertChiTietDM = (item)=>{
+    let data = { item };
+    return this.http.post(`${this.baseAPI}order/insertchitiet`, data );
   }
-  getDataAnvat = ()=>{
-    return this.http.get("http://localhost:8000/api/order/anvat");
+  getSession = ()=>{
+    return this.http.get(`${this.baseReal}getListTable`);
   }
-  getDataDouong = ()=>{
-    return this.http.get("http://localhost:8000/api/order/douong");
-  }
-  getMonanhq = ()=>{
-    return this.http.get("http://localhost:8000/api/order/monanhanquoc");
-  }
+  
+  
 }
  

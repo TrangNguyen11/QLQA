@@ -5,18 +5,18 @@
         <div class="col-md-2" *ngFor="let sodo of dlSoDo; index as i">    
             <ng-template #tipContent>
               <div>                
-                <button type="button" class="btn btn-link mr-2" (click) = "getChonban(sodo.id, sodo.color)">
+                <button type="button" class="btn btn-link mr-2" [disabled] = "ttBtnSuDung" (click) = "getChonban(sodo.id, sodo.color, sodo.session); ttBtnChuyenBan = 0 ">
                   <i class="fa fa-street-view iconBtnLink" >
                     <b style="font-size: 14px">Sử dụng</b>
                   </i>
                 </button>
-                <button type="button" class="btn btn-link mr-2" (click)="open(content, sodo.id)">
-                  <i class="fa fa-street-view iconBtnLink" >
+                <button type="button" class="btn btn-link mr-2" [disabled] = "ttBtnGhepBan" (click)="open(content, sodo.id)">
+                  <i class="fa fa-american-sign-language-interpreting iconBtnLink" >
                     <b style="font-size: 14px">Ghép bàn</b>
                   </i>
                 </button>
-                <button type="button" class="btn btn-link mr-2" (click)="openChuyenBan(chuyenban, sodo.id, sodo.session)" >
-                  <i class="fa fa-street-view iconBtnLink" >
+                <button type="button" class="btn btn-link mr-2" [disabled] = "ttBtnChuyenBan" (click)="openChuyenBan(chuyenban, sodo.id, sodo.session)" >
+                  <i class="fa fa-external-link iconBtnLink" >
                     <b style="font-size: 14px">Chuyển bàn</b>
                   </i>
                 </button>
@@ -57,7 +57,10 @@
                       <div class="nameBan">
                           {{ sodo.name}}
                       </div>
-                      <input type="checkbox" class="check" [checked]="!!listCheckbox[sodo.id]">
+                      <div class="check custom-control custom-checkbox">
+                        <input type="checkbox" class=" custom-control-input" [checked]="!!listCheckbox[sodo.id]">
+                        <label class="custom-control-label" for="defaultUnchecked"></label>
+                      </div>
                     </div>
                 </button>
               </div>

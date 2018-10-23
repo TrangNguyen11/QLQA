@@ -21,6 +21,7 @@ export class SodoService {
     return this.http.get(`${this.baseAPI}sodo/bandasudung`);
   }
   getSession = () =>{
-    return this.http.get( `${this.baseReal}getListTable`)
+    return this.http.get(`${this.baseReal}getListTable`)
   }
+  
 }

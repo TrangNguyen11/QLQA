@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
     this.service.login(this.email, this.password)
     .subscribe(
       (reponse)=>{
+        this.storage.set("id", 1);
         this.storage.set("username", this.email);
         this.storage.set("password", this.password);
         this.router.navigateByUrl('');

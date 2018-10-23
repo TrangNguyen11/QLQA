@@ -10,6 +10,10 @@ import { CheckorderComponent } from './checkorder/checkorder.component';
 
 
 const routes: Routes = [
+  { path: '', 
+    redirectTo: '/sodo', 
+    pathMatch: 'full' 
+  },
   {
     path: 'monan',
     canActivate: [AuthGuard],
@@ -24,7 +28,7 @@ const routes: Routes = [
 
   },
   {
-    path: "order",    
+    path: "order/:idsession",    
     canActivate: [AuthGuard],
     component: MenuComponent,
     children: [

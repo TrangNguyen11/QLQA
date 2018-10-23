@@ -20,6 +20,7 @@
 }
 .menu ul{
   position: fixed;
+  z-index: 9999999;
   background: #5ed90e;
   list-style-type: none;
   overflow: hidden;
@@ -119,4 +120,14 @@
 .nav-tabs a:hover {
   background-color: #5ed90e;
   color:white;
+}
+.setFullbody{ 
+  height: 100%;
+  width: 100%;
+  padding:0px;
+}
+.bodyContent{
+  padding-top: 63px;
+  height: 100%;
+  width: 100%;
 }

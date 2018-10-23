@@ -15,10 +15,10 @@
   position: absolute;
 }
 .my-custom-class .tooltip-inner{
-  border: 3px solid #5ed90e;
+  border: 1px solid #5ed90e;
   background: whitesmoke;
   padding: 0px;
-
+  width: 150px;
 }
 .iconBtnLink{
   font-size: 25px;
@@ -32,6 +32,11 @@
 }
 .check{
   position: absolute;
-  top: 0px;
-  right: 0px;
+  top: -27px;
+  right: -20px;
+}
+.btn-link:hover{
+  /* -webkit-transform: scale(1.1); */
+  background: #31708f;
+  width: 150px;
 }
