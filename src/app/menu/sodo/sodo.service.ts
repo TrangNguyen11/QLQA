@@ -9,7 +9,6 @@ export class SodoService {
   baseReal = environment.base_realtime;
   constructor(private http: HttpClient) {
       this.socket = io(this.baseReal);
-
    }
   getData = ()=>{
     return this.http.get(`${this.baseAPI}sodo/sodo`);

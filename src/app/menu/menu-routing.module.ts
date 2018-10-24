@@ -7,6 +7,7 @@ import { OrderComponent } from './order/order.component';
 import { SodoComponent } from './sodo/sodo.component';
 import { HoadonComponent } from './hoadon/hoadon.component';
 import { CheckorderComponent } from './checkorder/checkorder.component';
+import { BepComponent } from './bep/bep.component';
 
 
 const routes: Routes = [
@@ -70,6 +71,18 @@ const routes: Routes = [
       {
         path: "",
         component: CheckorderComponent
+
+      }
+    ]
+  },
+  {
+    path: 'bep',    
+    canActivate: [AuthGuard],
+    component: MenuComponent,
+    children: [
+      {
+        path: "",
+        component: BepComponent
 
       }
     ]

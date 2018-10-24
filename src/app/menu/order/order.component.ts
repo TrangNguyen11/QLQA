@@ -4,6 +4,8 @@ import { ActivatedRoute, Params } from '@angular/router';
 import {LOCAL_STORAGE, WebStorageService} from 'angular-webstorage-service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { SodoService } from '../sodo/sodo.service';
+import * as moment from 'moment';
+
 
 @Component({
   selector: 'menu-order',
@@ -16,7 +18,7 @@ export class OrderComponent implements OnInit {
      @Inject(LOCAL_STORAGE) private storage: WebStorageService, private modalService: NgbModal) { 
   }
   idban :string ;
-  nameBan: string ;
+  nameBan = "" ;
   dataSession;
   private sub: any;
   closeResult: string;
@@ -26,20 +28,19 @@ export class OrderComponent implements OnInit {
   monanhanquoc : any = [];
   dlDatMon :any = [];
   dlDat :any = [];
+  lstBan ;
   ngOnInit() {
     this.getDataOrder();
     this.sub = this.route.params.subscribe(params => {
       this.service.getSession().subscribe( (lst:any) =>{
         this.dataSession = {...lst[params.idsession] , id: params.idsession}
-
         this.dlDatMon = !!this.dataSession.monan ? this.dataSession.monan: [] ;
-      });
-      // if(!!this.id){
-      //   this.service.getName(this.id).subscribe( (lst:any) =>{
-      //     this.storage.set("id", this.id);
-      //     this.nameBan = lst.name.name;
-      //   })
-      // }      
+        this.dataSession.ban.forEach((e)=>{
+          this.service.getName(e).subscribe( (lst:any) =>{
+            this.nameBan += lst.name.name + "  ";
+          });
+        });
+      });   
     });
   }
 
@@ -92,7 +93,6 @@ export class OrderComponent implements OnInit {
     }else{
       this.dlDatMon[dem].soluong++;
     }
-    
     // this.dlDat.push({...this.dlDatMon, tongtien: tongtien});
     //console.log(this.dlDat);
   }
@@ -106,14 +106,13 @@ export class OrderComponent implements OnInit {
   }
   //btn gui bep 
   btnGuiBep(){
-    let monan = this.dlDatMon.map( e=> (e.status === undefined ? {...e, status: 0} : e ));
+    let monan = this.dlDatMon.map( e=> (e.status === undefined ? {...e, idsession: this.nameBan } : e ));
     this.sodoservice.socket.emit('dataDatMon', {sessionID: this.dataSession.id, monan})
     // totalDatmon = totalDatmon.map(e => {
     //   let { id, dongia, soluong} = e;      
     //   return ({ id:null, idmonan: id, idban: 1, gia: dongia, soluong: soluong, tenkh: "a", 
     //   trangthai: 0, idnhanvien: this.storage.get("id")})
     // });
-
     // this.service.insertChiTietDM(totalDatmon).subscribe((lst: any) => {
     //   if(lst.count == true){
     //     alert("Gửi thành công");
@@ -123,8 +122,7 @@ export class OrderComponent implements OnInit {
     // });
   }
   //open dialog tinh tien 
-  openthanhtoan(thanhtoan, id){
-    
+  openthanhtoan(thanhtoan, id){    
     this.modalService.open(thanhtoan).result.then(
       (result) => {
       this.closeResult = `Closed with: ${result}`;

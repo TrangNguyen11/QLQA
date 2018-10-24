@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
-
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
 import { LoginComponent } from './login/login.component';
@@ -15,8 +14,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { StorageServiceModule} from 'angular-webstorage-service';
 import { AuthGuard } from './auth-guard.service';
 import { MenuModule } from './menu/menu.module';
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 
-
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true
+};
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,11 +36,16 @@ import { MenuModule } from './menu/menu.module';
     AppRoutingModule,
     StorageServiceModule,
     MenuModule,
+    PerfectScrollbarModule
   ],
   providers: [
     MenuService,
     LoginService,
-    AuthGuard
+    AuthGuard,
+    {
+      provide: PERFECT_SCROLLBAR_CONFIG,
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+    }
   ],
   bootstrap: [AppComponent]
 })

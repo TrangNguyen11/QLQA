@@ -27,7 +27,7 @@
     </div>
     <div class = "col-md-4 thanhtoan">
         <div class="row">
-            <div class="col-md-12">Mã hóa đơn: <b style="color:red">{{ !!dataSession ? dataSession.id.slice(0,6):"" }}</b></div>
+            <div class="col-md-12">Mã hóa đơn: <b style="color:red">{{ nameBan }}</b></div>
         </div>
         <div style="overflow-y: auto">
             <table class="table table-striped">
@@ -42,7 +42,8 @@
                     <td ><input [disabled]="datmon.status !== undefined" type="number" [(ngModel)]="datmon.soluong" class="form-control"> </td>
                     <td>{{ datmon.dongia * datmon.soluong }}</td>
                     <td>
-                        <button (click)="deleteItem(datmon)" [disabled]="datmon.status !== undefined" class="btn btn-link"><i  style="color: red" class="fa fa-trash"></i></button>
+                        <button (click)="deleteItem(datmon)" [disabled]="datmon.status !== undefined" 
+                        class="btn btn-link"><i  style="color: red" class="fa fa-trash"></i></button>
                     </td>
                 </tr>
             </table>
