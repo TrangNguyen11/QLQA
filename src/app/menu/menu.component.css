@@ -20,23 +20,25 @@
 }
 .menu ul{
   position: fixed;
-  z-index: 9999999;
+  z-index: 1050;
   background: #5ed90e;
   list-style-type: none;
   overflow: hidden;
   width: 100%;
   top: 0px;
   text-align: center;
+  display: inline-flex;
 }
 .menu li{
   color: #f1f1f1;
   float: left;
-  width: 120px;
   height: 50px;
   line-height: 50px;
   font-weight: bold;
 }
 .menu a {
+  padding: 0px 15px;
+
   text-decoration: none;
   color: #fff;
   display: block;
