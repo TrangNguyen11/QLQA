@@ -3,8 +3,9 @@
   margin-top: 50px;
 }
 .btnhoadon{
-  color: #5ed90e;
   font-weight: bold;
+  margin-left: 62px;
+  margin-bottom: 5px
 }
 .tenhoadon{
   background-color: #5ed90e;
@@ -21,4 +22,7 @@
 .btnchitiethd{
   padding-left: 45px;
   border: 2px #5ed90e;
+}
+.dialogtinhtien{
+  margin-top: 80px;
 }

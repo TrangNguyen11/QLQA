@@ -30,19 +30,19 @@
             <div class="col-md-12">Mã hóa đơn: <b style="color:red">{{ nameBan }}</b></div>
         </div>
         <div style="overflow-y: auto">
-            <table class="table table-striped">
+            <table class="table">
                 <tr>
                     <td>Tên món</td>
                     <td style="width: 80px">Số lượng</td>
                     <td style="width: 90px">Thành tiền</td>
                     <td></td>
                 </tr>
-                <tr *ngFor="let datmon of dlDatMon; index as i" >
+                <tr *ngFor="let datmon of dlDatMon; index as i" class="background{{datmon.status}}">                    
                     <td>{{ datmon.tenmon }}</td>
                     <td ><input [disabled]="datmon.status !== undefined" type="number" [(ngModel)]="datmon.soluong" class="form-control"> </td>
                     <td>{{ datmon.dongia * datmon.soluong }}</td>
                     <td>
-                        <button (click)="deleteItem(datmon)" [disabled]="datmon.status !== undefined" 
+                        <button (click)="deleteItem(datmon)" *ngIf = "datmon.status === undefined" 
                         class="btn btn-link"><i  style="color: red" class="fa fa-trash"></i></button>
                     </td>
                 </tr>

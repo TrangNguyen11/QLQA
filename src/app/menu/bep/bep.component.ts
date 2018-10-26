@@ -11,13 +11,18 @@ import * as moment from 'moment';
 })
 
 export class BepComponent implements OnInit {
+  dataBep = [];
+  dataXong = [];
+  keysession;
   constructor( private service: BepService, private route: ActivatedRoute
     , @Inject(LOCAL_STORAGE) private storage: WebStorageService, private modalService: NgbModal) { 
   }
   ngOnInit() {
     this.loadDataBep();
-  }
-  dataBep = [];
+    this.service.socket.on('nauxong', (e)=>{
+      this.dataBep = e;
+    });
+  }  
   loadDataBep(){
     this.service.getDataBep().subscribe((lst:any)=>{
       this.dataBep = lst;
@@ -27,8 +32,22 @@ export class BepComponent implements OnInit {
           //console.log(this.dataBep);
     });
   }
+  loadNau(){
+    return this.dataBep.filter((e)=> e.status === 0|| e.status === 1);
+  }
+  loadDaXong(){
+    return this.dataBep.filter((e)=> e.status === 2);
+  }
   btnXong(data){
     this.service.socket.emit('dataXong', { ...data });
   }
-
+  btnNau(data){
+    this.service.socket.emit('dataNau', { ...data });
+  }
+  checkedBung(data){
+    this.service.socket.emit('dataBung', data);
+  }
+  btnHuy(data){
+    this.service.socket.emit('dataHuy', data);
+  }
 }

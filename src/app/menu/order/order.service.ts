@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient }    from '@angular/common/http';
 import { environment } from '../../../environments/environment';
+import io from 'socket.io-client';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class OrderService {
   constructor(
     private http: HttpClient
   ) { 
+    this.socket = io(this.baseReal);
   }
   getData = ()=>{
     return this.http.get(`${ this.baseAPI }order/monan`);

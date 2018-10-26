@@ -1,13 +1,13 @@
   <div class="row  manhinhbep">
-      <div class="col-md-6">
-        <div class="menubepcho col-md-6">
-            <p>Chờ/Chờ chế biến</p>     
-        </div>
-          <perfect-scrollbar style="max-width: 600px; max-height: 576px;margin: 0px; margin-top: 50px;" [config]="config">
-              <div class="dulieucho">    
+        <div class="col-md-6">
+            <div class="menubepcho col-md-6">
+                <p>Chờ/Chờ chế biến</p>     
+            </div>
+            <perfect-scrollbar style="max-width: 600px; max-height: 576px;margin: 0px; margin-top: 50px;" [config]="config">
+                <div class="dulieucho">    
                   <table class="table table-hover">
                       <tbody>
-                        <tr *ngFor = "let data of dataBep; index as i">
+                        <tr *ngFor = "let data of loadNau(); index as i">
                           <td>
                               {{ data.tenmon }}
                           </td>
@@ -15,27 +15,53 @@
                               <input type="number" [(ngModel)]="data.soluong" class="form-control">
                           </td>
                           <td style="width: 100px">
-                              {{ data.idsession }}
+                              {{ data.nameban }}
                               <p style="color: plum">Thoigian</p>
                           </td>
                           <td style="width: 180px">
                             <div class="row">
-                                <button class="btn btn-warning">Nấu</button>
-                                <button class="btn btn-success" (click) = "btnXong(data)">Xong</button>
-                                <button class="btn btn-danger">Hủy</button>
-                            </div>
-                              
+                                <button class="btn btn-warning" *ngIf = "data.status !== 1" (click) = "btnNau(data)" >Nấu</button>
+                                <button class="btn btn-success" (click) = "btnXong(data)" *ngIf = "data.status === 1">Xong</button>
+                                <button class="btn btn-danger" *ngIf = "data.status !== 1" (click) = "btnHuy(data)">Hủy</button>
+                            </div>                              
                           </td>
                         </tr>
                       </tbody>
                     </table>
-              </div> 
-          </perfect-scrollbar>      
-      </div>
-      
-      <perfect-scrollbar style="max-width: 600px; max-height: 576px;" [config]="config">
-        <div class="col-md-6 menubepxong">            
-              <p>Đã xong/Chờ đem lên</p>            
+                </div> 
+            </perfect-scrollbar>      
         </div>
-      </perfect-scrollbar>
+        <div class="col-md-6">
+            <div class="col-md-6 menubepxong">            
+                <div class="pull-left">
+                        Đã xong/Chờ đem lên
+                </div>
+            </div>  
+            <perfect-scrollbar style="max-width: 600px; max-height: 576px;margin-top: 50px;" [config]="config" >              
+                <div class="dulieuxong">    
+                    <table class="table table-hover">
+                        <tbody>
+                        <tr *ngFor = "let data of loadDaXong(); index as i">
+                            <td>
+                                {{ data.tenmon }}
+                            </td>
+                            <td style="width: 90px">
+                                <input type="number" [(ngModel)]="data.soluong" class="form-control">
+                            </td>
+                            <td style="width: 100px">
+                                {{ data.idsession }}
+                                <p style="color: plum">Thoigian</p>
+                            </td>
+                            <td style="width: 180px">
+                            <div class="row" style="margin-top: 15px;">
+                                <button class="btn btn-warning pull-right" style="margin-top: 2px" (click)="checkedBung(data)">Bưng</button>
+                            </div>                               
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div> 
+            </perfect-scrollbar>
+        </div>
+      
   </div>

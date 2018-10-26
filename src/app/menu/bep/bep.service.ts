@@ -16,5 +16,8 @@ export class BepService {
   getDataBep = ()=>{
     return this.http.get(`${this.baseReal}getMonAnBep`);
   }
+  getDataDaXong = ()=>{
+    return this.http.get(`${this.baseReal}getListTable`);
+  }
 }
  

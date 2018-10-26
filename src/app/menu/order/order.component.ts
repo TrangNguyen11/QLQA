@@ -4,8 +4,6 @@ import { ActivatedRoute, Params } from '@angular/router';
 import {LOCAL_STORAGE, WebStorageService} from 'angular-webstorage-service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { SodoService } from '../sodo/sodo.service';
-import * as moment from 'moment';
-
 
 @Component({
   selector: 'menu-order',
@@ -20,7 +18,7 @@ export class OrderComponent implements OnInit {
   idban :string ;
   nameBan = "" ;
   dataSession;
-  private sub: any;
+  public sub: any;
   closeResult: string;
   dateTimeDefaul;
   data :any = [];
@@ -42,6 +40,9 @@ export class OrderComponent implements OnInit {
         });
       });   
     });
+    this.service.socket.on('order', ({sessionID, monan})=>{
+      if(sessionID === this.dataSession.id )this.dlDatMon = monan;
+    });
   }
 
   //món ăn hay dùng
@@ -61,10 +62,11 @@ export class OrderComponent implements OnInit {
   // totaltien = 0;
   //Tính tổng tiền
   tongtien(){
-    let tongtien = 0;
-    this.dlDatMon.forEach((e, key)=>{
-      tongtien += e.dongia * e.soluong;
-    });
+    if(this.dlDatMon.length === 0) return 0
+    let tongtien = this.dlDatMon.reduce( (total, current) => {
+      total = isNaN(total) ? total.dongia * total.soluong : total
+     return  (current.status !== 4) ? total + current.dongia * current.soluong : total  
+    } )
     return tongtien;
   }
   //Click button đặt món
@@ -106,8 +108,9 @@ export class OrderComponent implements OnInit {
   }
   //btn gui bep 
   btnGuiBep(){
-    let monan = this.dlDatMon.map( e=> (e.status === undefined ? {...e, idsession: this.nameBan } : e ));
-    this.sodoservice.socket.emit('dataDatMon', {sessionID: this.dataSession.id, monan})
+    let monan = this.dlDatMon.map( e=> (e.status === undefined ? {...e, nameban: this.nameBan,
+       manhanvien:this.storage.get("id") } : e ));
+    this.sodoservice.socket.emit('dataDatMon', {sessionID: this.dataSession.id, monan, tongtien: this.tongtien()})
     // totalDatmon = totalDatmon.map(e => {
     //   let { id, dongia, soluong} = e;      
     //   return ({ id:null, idmonan: id, idban: 1, gia: dongia, soluong: soluong, tenkh: "a", 
