@@ -26,3 +26,7 @@
 .dialogtinhtien{
   margin-top: 80px;
 }
+.modal-dialog{
+  margin-top: 80px !important;
+  z-index: 999999;
+}

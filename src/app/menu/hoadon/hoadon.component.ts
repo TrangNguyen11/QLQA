@@ -17,62 +17,81 @@ export class HoadonComponent implements OnInit {
   dlHoaDon = [];
   dlThanhToan = [];
   closeResult: string;
+  dlhd;
+  tongtien ;
+  chitietmonan = [];
+  tientungban;
+  sessionIDThanhToan;
+  dataInsertThanhToan;
   ngOnInit() {
-    // this.getChoThanhToan();
-    // this.getDaThanhToan();
-    // this.getGiaoHang();
     //load data
-    this.loadDataHD();
     this.sub = this.route.params.subscribe(params => {
       this.service.getSession().subscribe( (lst:any) =>{
         this.dataSession = {...lst[params.idsession] , id: params.idsession}
         this.dlThanhToan = !!this.dataSession.monan ? this.dataSession.monan: [] ;
       });
     });
-
-  }
-  loadDataHD =()=>{
     this.service.getSession().subscribe( (lst:any) =>{
+      this.dlHoaDon = [];
       Object.keys(lst).forEach((e)=>{
-        console.log(lst[e]);
-        let dlhd = { tenban:lst[e].monan[0].nameban, sessionID: e, thoigian: lst[e].thoigian, tongtien: lst[e].monan[0].tongtien }
-        this.dlHoaDon.push(dlhd);
+        if(!!lst[e].monan){
+          this.tongtien = lst[e].monan[0].tongtien;
+          this.dlhd = { tenban:lst[e].monan[0].nameban, sessionID: e, thoigian: lst[e].thoigian, tongtien: lst[e].monan[0].tongtien }
+          this.dlhd = {...this.dlhd, chitietmonan: lst[e].monan, tongtienchitiet: this.tongtien  }
+          this.dlHoaDon.push(this.dlhd);
+        }
       });
     });
+    this.service.socket.on('thanhtoanxong', (data)=>{
+      this.dlHoaDon = [];
+      Object.keys(data).forEach((e)=>{
+        if(!!data[e].monan){
+          this.tongtien = data[e].monan[0].tongtien;
+          this.dlhd = { tenban:data[e].monan[0].nameban, sessionID: e, thoigian: data[e].thoigian, tongtien: data[e].monan[0].tongtien }
+          this.dlhd = {...this.dlhd, chitietmonan: data[e].monan, tongtienchitiet: this.tongtien  }
+          this.dlHoaDon.push(this.dlhd);
+        }        
+      });
+    });
+    
   }
-  openthanhtoan = (thanhtoan, data) => {
-    this.modalService.open(thanhtoan).result.then(
+  openthanhtoan = (thanhtoanhd, data) => {
+    this.dataInsertThanhToan = data;
+    this.sessionIDThanhToan = data.sessionID;
+    this.chitietmonan = data.chitietmonan;
+    this.tientungban = data.tongtien;
+    this.modalService.open(thanhtoanhd).result.then(
       (result) => {
       this.closeResult = `Closed with: ${result}`;
     },(reason) => {
       console.log(reason);
     });
   }
-  btnThanhToan = (data)=>{
-    console.log(data);
+  btnThanhToanDialog = (idsession)=>{
+    console.log(this.dataInsertThanhToan);
+    let dlInsertChitiet = this.dataInsertThanhToan.chitietmonan.map(e => {
+      let { id, dongia ,soluong , manhanvien } = e;      
+      return ({ id:null, idmonan: id, gia: dongia, soluong: soluong, tenkh: "a", 
+         idnhanvien: manhanvien,datetimedatmon: this.dataInsertThanhToan.thoigian, idsession: this.dataInsertThanhToan.sessionID
+         });
+    });
+    let dlInsertHoaDon = {
+      id: this.dataInsertThanhToan.sessionID, datedt: this.dataInsertThanhToan.thoigian, sotien: this.dataInsertThanhToan.tongtien};
+    this.service.insertChiTietDM(dlInsertChitiet).subscribe((lst: any) => {
+      if(lst.count == true){
+        alert("Gửi thành công");
+      }else{
+        alert("Gửi thất bại");
+      }
+    });
+    this.service.insertHoaDon(dlInsertHoaDon).subscribe((lst: any) => {
+      if(lst.count == true){
+        alert("Gửi thành công");
+      }else{
+        alert("Gửi thất bại");
+      }
+    });
+    this.service.socket.emit('thanhtoan', idsession);
+    this.modalService.dismissAll();
   }
-  
-  chothanhtoan: any = [];
-  getChoThanhToan = ()=>{
-    let seft = this;
-    this.service.getDataChoThanhToan().subscribe((lst: any)=>{
-      seft.chothanhtoan = lst.chothanhtoan;
-    })
-  }
-  dathanhtoan: any = [];
-  getDaThanhToan = ()=>{
-    let seft = this;
-    this.service.getDataDaThanhToan().subscribe((lst: any)=>{
-      seft.dathanhtoan = lst.dathanhtoan;
-    })
-  }
-  giaohang: any = [];
-  getGiaoHang = ()=>{
-    let seft = this;
-    this.service.getDataGiaoHang().subscribe((lst: any)=>{
-      seft.giaohang = lst.giaohang;
-    })
-  }
-  
-  
 }

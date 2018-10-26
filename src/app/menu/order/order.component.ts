@@ -62,11 +62,17 @@ export class OrderComponent implements OnInit {
   // totaltien = 0;
   //Tính tổng tiền
   tongtien(){
+    let tongtien = 0;
     if(this.dlDatMon.length === 0) return 0
-    let tongtien = this.dlDatMon.reduce( (total, current) => {
-      total = isNaN(total) ? total.dongia * total.soluong : total
-     return  (current.status !== 4) ? total + current.dongia * current.soluong : total  
-    } )
+    this.dlDatMon.map((e)=>{
+      if(e.status != 4){
+        tongtien = tongtien + e.dongia * e.soluong
+      }
+    });
+    // let tongtien = this.dlDatMon.reduce( (total, current) => {
+    //   total = isNaN(total) ? total.dongia * total.soluong : total
+    //  return  (current.status !== 4) ? total + current.dongia * current.soluong : total  
+    // } )
     return tongtien;
   }
   //Click button đặt món

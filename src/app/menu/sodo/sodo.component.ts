@@ -45,7 +45,8 @@ export class SodoComponent implements OnInit {
     this.modalService.dismissAll();
     let arrCheck = Object.keys(this.listCheckbox);
     let data = this.dlSoDo.filter(e => arrCheck.indexOf(e.id + "") > -1 )[0];
-    this.service.socket.emit('ghepban', { idArr: arrCheck , color: data.color, session: data.session });
+    let thoigian = moment().format("YYYY-MM-DD hh:mm:ss");
+    this.service.socket.emit('ghepban', { idArr: arrCheck , color: data.color, session: data.session, thoigian });
   }
   //get dữ liệu số lượng bàn
   getDataSodo = ()=>{

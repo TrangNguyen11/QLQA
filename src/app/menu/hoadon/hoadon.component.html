@@ -13,8 +13,7 @@
                                         <p>Thành tiền: <b>{{ datht.tongtien}}</b></p>
                                         <!-- <p>Nhân viên: <b>{{ datht.manhanvien}}</b></p> -->
                                         <div class="row btnhoadon" >
-                                            <button class=" btn btn-success" style="margin-right: 10px;" (click)="openthanhtoan(thanhtoan, datht)">Thanh toán</button>
-                                            <button class=" btn btn-danger">Xem</button>
+                                            <button class=" btn btn-success" style="margin-right: 10px;" (click)="openthanhtoan(thanhtoanhd, datht)">Thanh toán</button>
                                         </div>
                                 </div>                                
                             </div>
@@ -61,7 +60,7 @@
     </div>
 </div>
 <div class="dialogtinhtien">
-    <ng-template #thanhtoan let-modal>
+    <ng-template #thanhtoanhd let-modal style="margin-top: 80px">
         <div class="modal-header">
           <h4 class="modal-title" id="modal-basic-title">Thanh toán</h4>
           <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
@@ -76,11 +75,11 @@
                         <td style="width: 80px">Số lượng</td>
                         <td style="width: 90px">Thành tiền</td>
                     </tr>
-                    <tr *ngFor="let datmon of dlDatMon; index as i">
-                        <!-- <td>{{ datmon.tenmon }}</td>
+                    <tr *ngFor="let datmon of chitietmonan; index as i">
+                        <td>{{ datmon.tenmon }}</td>
                         <td >{{ datmon.soluong }}</td>
-                        <td>{{ datmon.dongia * datmon.soluong }}</td> -->
-                    </tr>                
+                        <td>{{ datmon.dongia * datmon.soluong }}</td>
+                    </tr>
                 </table>
             </div>
         </div>
@@ -88,7 +87,7 @@
             <div class="container">
             <div class="row col-md-12">            
                 <div class="col-md-4">Thành tiền</div>
-                <div class="col-md-8"><b style="float: right;">tongtien</b></div>
+                <div class="col-md-8"><b style="float: right;">{{tientungban}}</b></div>
             </div>
             <div class="row col-md-12">            
                 <div class="col-md-4">Số tiền nhận</div>
@@ -103,19 +102,19 @@
             </div>
             <div class="row col-md-12">
                 <div class="col-md-4"></div>
-                <div class="col-md-8"><b style="color:red; float: right;">-tongtien</b></div>            
+                <div class="col-md-8"><b style="color:red; float: right;">-{{ tientungban }}</b></div>            
             </div>
             <div class="row col-md-12">
                 <div class="col-md-4">Tiền thừa</div>
-                <div class="col-md-8"><b style="color:red ; float: right;">tiennhan-tongtien</b></div>            
+                <div class="col-md-8"><b style="color:red ; float: right;">{{ tiennhan-tientungban }}</b></div>            
             </div>
             <br>
             <div class="row col-md-12" style="margin-left: 70px;">
-                    <button type="button" class="btn btn-primary" (click)="saveGhepBan()">Thanh toán</button>
+                    <button type="button" class="btn btn-primary" (click)="btnThanhToanDialog(sessionIDThanhToan)">Thanh toán</button>
                     <div class="col-md-1"></div>
                     <button type="button" class="btn btn-success" (click)="saveGhepBan()">In</button>
                     <div class="col-md-1"></div>
-                    <button type="button" class="btn btn-danger" (click)="saveGhepBan()">Hủy bỏ</button>    
+                    <button type="button" class="btn btn-danger" (click)="detailMonAn()">Hủy bỏ</button>    
             </div>     
             </div> 
         </div>

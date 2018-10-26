@@ -15,17 +15,17 @@ export class HoadonService {
   ) { 
     this.socket = io(this.baseReal);
   }
-  getDataChoThanhToan = ()=>{
-    return this.http.get(`${ this.baseAPI }hoadon/chothanhtoan`);
-  }
-  getDataDaThanhToan = ()=>{
-    return this.http.get(`${ this.baseAPI }hoadon/dathanhtoan`);
-  }
-  getDataGiaoHang = ()=>{
-    return this.http.get(`${ this.baseAPI }hoadon/giaohang`);
-  }
   getSession = ()=>{
     return this.http.get(`${ this.baseReal }getListTable`);
   } 
-  
+  //insert thanh toán chi tiết
+  insertChiTietDM = (item)=>{
+    let data = { item };
+    return this.http.post(`${this.baseAPI}hoadon/insertchitiet`, data );
+  }
+  //insert hoa don
+  insertHoaDon = (item)=>{
+    let data = { item };
+    return this.http.post(`${this.baseAPI}hoadon/inserthoadon`, data );
+  }
 }
