@@ -23,23 +23,27 @@ export class LoginComponent implements OnInit {
     //   email: ['', [Validators.required, Validators.email]],
     //   password: ['', [Validators.required, Validators.minLength(6)]]
     // });
-  }
-  
+  }  
   email;
   password;
   
-  btnlogin(){ 
-    
-    this.service.login(this.email, this.password)
-    .subscribe(
+  btnlogin(){    
+    this.service.login(this.email, this.password).subscribe(
       (reponse)=>{
-        this.storage.set("id", 1);
-        this.storage.set("username", this.email);
-        this.storage.set("password", this.password);
-        this.router.navigateByUrl('');
-        console.log(reponse);
+        if(reponse.login.length > 0){
+          this.storage.set("id", reponse.login[0].id);
+          this.storage.set("username", reponse.login[0].sdt);
+          this.storage.set("password", reponse.login[0].matkhau);
+          var quyen = reponse.login[0].quyen;
+          if(quyen == 0){
+            this.router.navigateByUrl('');
+          }else{
+            this.router.navigateByUrl('admin');
+          }          
+        }else{
+          this.router.navigateByUrl('login');
+        }
       }
     );
-    this.router.navigateByUrl('');
   }
 }
