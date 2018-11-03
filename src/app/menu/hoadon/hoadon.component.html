@@ -25,36 +25,21 @@
                   <ng-template ngbTabContent>
                         <div class="col-md-12">
                             <div class="row">                        
-                                
+                                <div class="hoadon col-md-3" *ngFor="let datht of dlMangVe; index as i">
+                                    <div class="tenhoadon"><b>Tên Khách: {{ datht.tenban }}</b></div>
+                                    <div class="noidunghd">
+                                            <p>Thời gian vào: <b>{{ datht.thoigian}}</b></p>
+                                            <p>Thành tiền: <b>{{ datht.tongtien}}</b></p>
+                                            <!-- <p>Nhân viên: <b>{{ datht.manhanvien}}</b></p> -->
+                                            <div class="row btnhoadon" >
+                                                <button class=" btn btn-success" style="margin-right: 10px;" (click)="openthanhtoan(thanhtoanhd, datht)">Thanh toán</button>
+                                            </div>
+                                    </div>                                
+                                </div>                                
                             </div>
                         </div>
                   </ng-template>
               </ngb-tab>
-              <ngb-tab title="Giao hàng">
-                  <ng-template ngbTabContent>
-                        <div class="col-md-12">
-                            <div class="row">                        
-                                
-                            </div>
-                        </div>
-                  </ng-template>
-              </ngb-tab>
-              <ngb-tab title="Đặt trước">
-                  <ng-template ngbTabContent>
-                      <div class="row">                        
-                          
-                      </div>
-                  </ng-template>
-              </ngb-tab>
-              <ngb-tab title="Đã thanh toán">
-                    <ng-template ngbTabContent>
-                        <div class="col-md-12">
-                            <div class="row">       
-                                
-                            </div>
-                        </div>
-                    </ng-template>
-                </ngb-tab>
           </ngb-tabset>
         <!-- </div> -->
     </div>

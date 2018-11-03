@@ -4,6 +4,8 @@ import { ActivatedRoute, Params } from '@angular/router';
 import {LOCAL_STORAGE, WebStorageService} from 'angular-webstorage-service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { SodoService } from '../sodo/sodo.service';
+import * as moment from 'moment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'menu-order',
@@ -13,7 +15,7 @@ import { SodoService } from '../sodo/sodo.service';
 
 export class OrderComponent implements OnInit {
   constructor( private service: OrderService, private route: ActivatedRoute, private sodoservice: SodoService,
-     @Inject(LOCAL_STORAGE) private storage: WebStorageService, private modalService: NgbModal) { 
+     @Inject(LOCAL_STORAGE) private storage: WebStorageService, private modalService: NgbModal, private _router: Router) { 
   }
   idban :string ;
   nameBan = "" ;
@@ -27,18 +29,28 @@ export class OrderComponent implements OnInit {
   dlDatMon :any = [];
   dlDat :any = [];
   lstBan ;
+  btnGuiBepVe = "" ;
   ngOnInit() {
     this.getDataOrder();
     this.sub = this.route.params.subscribe(params => {
-      this.service.getSession().subscribe( (lst:any) =>{
-        this.dataSession = {...lst[params.idsession] , id: params.idsession}
-        this.dlDatMon = !!this.dataSession.monan ? this.dataSession.monan: [] ;
-        this.dataSession.ban.forEach((e)=>{
-          this.service.getName(e).subscribe( (lst:any) =>{
-            this.nameBan += lst.name.name + "  ";
-          });
+        this.service.getSession().subscribe( (lst:any) =>{
+          console.log(lst);
+          this.dataSession = {...lst[params.idsession] , id: params.idsession}
+          this.dlDatMon = !!this.dataSession.monan ? this.dataSession.monan: [] ;
+          if(!! this.dataSession.color){
+            if(!! this.dataSession.ban){
+              this.dataSession.ban.forEach((e)=>{
+                this.service.getName(e).subscribe( (lst:any) =>{
+                  this.nameBan += lst.name.name + "  ";
+                });
+              });
+            }
+          }else{
+            this.dataSession.ban.forEach((e)=>{
+                this.nameBan = e;
+            });
+          }          
         });
-      });   
     });
     this.service.socket.on('order', ({sessionID, monan})=>{
       if(sessionID === this.dataSession.id )this.dlDatMon = monan;
@@ -144,5 +156,6 @@ export class OrderComponent implements OnInit {
   btnTinhTien(idban){
     console.log(idban);
   }
-  
+  //mang ve dialog 
+   
 }

@@ -15,6 +15,7 @@ export class HoadonComponent implements OnInit {
   public sub: any;
   dataSession;
   dlHoaDon = [];
+  dlMangVe = [];
   dlThanhToan = [];
   closeResult: string;
   dlhd;
@@ -33,24 +34,45 @@ export class HoadonComponent implements OnInit {
     });
     this.service.getSession().subscribe( (lst:any) =>{
       this.dlHoaDon = [];
+      this.dlMangVe = [];
+      console.log(lst);
       Object.keys(lst).forEach((e)=>{
-        if(!!lst[e].monan){
-          this.tongtien = lst[e].monan[0].tongtien;
-          this.dlhd = { tenban:lst[e].monan[0].nameban, sessionID: e, thoigian: lst[e].thoigian, tongtien: lst[e].monan[0].tongtien }
-          this.dlhd = {...this.dlhd, chitietmonan: lst[e].monan, tongtienchitiet: this.tongtien  }
-          this.dlHoaDon.push(this.dlhd);
-        }
+        if(!lst[e].mangve){
+          if(!!lst[e].monan){
+            this.tongtien = lst[e].monan[0].tongtien;
+            this.dlhd = { tenban:lst[e].monan[0].nameban, sessionID: e, thoigian: lst[e].thoigian, tongtien: lst[e].monan[0].tongtien }
+            this.dlhd = {...this.dlhd, chitietmonan: lst[e].monan, tongtienchitiet: this.tongtien  }
+            this.dlHoaDon.push(this.dlhd);
+          }
+        }else{
+          if(!!lst[e].monan){
+            this.tongtien = lst[e].monan[0].tongtien;
+            this.dlhd = { tenban:lst[e].monan[0].nameban, sessionID: e, thoigian: lst[e].thoigian, tongtien: lst[e].monan[0].tongtien }
+            this.dlhd = {...this.dlhd, chitietmonan: lst[e].monan, tongtienchitiet: this.tongtien, mangve: 11  }
+            this.dlMangVe.push(this.dlhd);
+          }
+        }        
       });
     });
     this.service.socket.on('thanhtoanxong', (data)=>{
       this.dlHoaDon = [];
+      this.dlMangVe = [];
       Object.keys(data).forEach((e)=>{
-        if(!!data[e].monan){
-          this.tongtien = data[e].monan[0].tongtien;
-          this.dlhd = { tenban:data[e].monan[0].nameban, sessionID: e, thoigian: data[e].thoigian, tongtien: data[e].monan[0].tongtien }
-          this.dlhd = {...this.dlhd, chitietmonan: data[e].monan, tongtienchitiet: this.tongtien  }
-          this.dlHoaDon.push(this.dlhd);
-        }        
+        if(!data[e].mangve){
+          if(!!data[e].monan){
+            this.tongtien = data[e].monan[0].tongtien;
+            this.dlhd = { tenban:data[e].monan[0].nameban, sessionID: e, thoigian: data[e].thoigian, tongtien: data[e].monan[0].tongtien }
+            this.dlhd = {...this.dlhd, chitietmonan: data[e].monan, tongtienchitiet: this.tongtien  }
+            this.dlHoaDon.push(this.dlhd);
+          }
+        }else{
+          if(!!data[e].monan){
+            this.tongtien = data[e].monan[0].tongtien;
+            this.dlhd = { tenban:data[e].monan[0].nameban, sessionID: e, thoigian: data[e].thoigian, tongtien: data[e].monan[0].tongtien }
+            this.dlhd = {...this.dlhd, chitietmonan: data[e].monan, tongtienchitiet: this.tongtien  }
+            this.dlMangVe.push(this.dlhd);
+          }
+        }
       });
     });
     

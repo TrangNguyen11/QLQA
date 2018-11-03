@@ -72,7 +72,7 @@ export class SodoComponent implements OnInit {
       let thoigian = moment().format("YYYY-MM-DD hh:mm:ss");
       this.service.socket.emit('sudungban', { idArr: [ id+"" ], color, thoigian: thoigian}, (id)=> {
         this._router.navigate(['order', id]);
-      } );
+      });
     }
   }
   dlMod = [];

@@ -18,19 +18,18 @@
               <a  routerLink="/bep">
                 <i class="fa fa-calculator" style="font-size:20px;"></i>Bếp</a>
             </li>
-              <!-- <button> -->
-              <li class="dropdown dropdown-fw dropdown-fw-disabled" style="margin-left: auto">   
-                  <a routerLink="/order">
-                    <i class="fa fa-user-circle-o" style="font-size:20px;">Mang về</i>
-                  </a>
+            <li class="dropdown dropdown-fw dropdown-fw-disabled" style="margin-left: auto">
+              <div class="input-group mb-3" style="margin-top: 5px;">
+                  <input type="text" class="form-control" [(ngModel)]="tenkh" placeholder="Tên khách hàng" aria-label="tenkh" aria-describedby="basic-addon2">
+                  <div class="input-group-append">
+                    <button class="btn btn-danger" type="button" (click)="btnMangVe(tenkh)" >Mang Về</button>
+                  </div>
+              </div>
             </li>
-
-              <!-- </button> -->
           </ul>
     </div> 
     <div class="bodyContent">
         <router-outlet></router-outlet>
-
     </div>
 </div>
 
