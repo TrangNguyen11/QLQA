@@ -12,7 +12,10 @@ export class BanComponent implements OnInit {
   public data:any=[];
   dlBan = [];
   closeResult: string;
-  dlUpdate ;
+  insert = {
+    name: '',
+    color: ''
+  }
   constructor(private service: BanService, private router: Router, private modalService: NgbModal) {
   }
   ngOnInit() {
@@ -23,31 +26,19 @@ export class BanComponent implements OnInit {
       this.dlBan = lst.sodo;
     })
   }
-  btnDeleteBan(data){
-    let id = data.id;
-    this.service.postDeleteBan(id).subscribe((lst: any)=>{
-      console.log(lst);
+  btnDeleteBan(i){
+    this.service.postDeleteBan( this.dlBan[i].id).subscribe((lst: any)=>{
       if(lst.name == 1){
-        this.loadData();
+        this.dlBan.splice(i,1);
         alert("Xóa thành công");
       }else{
         alert("Xóa thất bại");
       }
     })
   }
-  btnUpdateBan(upban, data){ 
-    this.dlUpdate = data;
-    this.modalService.open(upban).result.then(
-      (result) => {
-      this.closeResult = `Closed with: ${result}`;
-    },(reason) => {
-      console.log(reason);
-    });
-  }
-  saveUpdateBan(data){
-    this.service.postUpdateBan(data).subscribe((lst: any)=>{
+  saveUpdateBan(i){
+    this.service.postUpdateBan(this.dlBan[i]).subscribe((lst: any)=>{
       if(lst.name == 1){
-        this.loadData();
         alert("Cập nhật thành công");
       }else{
         alert("Cập nhật thất bại");
@@ -61,6 +52,18 @@ export class BanComponent implements OnInit {
     },(reason) => {
       console.log(reason);
     });
+  }
+  saveInsertBan(){
+    this.service.postInserteBan(this.insert)
+    .subscribe(
+      (res: any) =>{
+        if(res.result === true){
+          this.loadData();
+          this.modalService.dismissAll();
+
+        }
+      }
+    )
   }
   cancelBan(){
     this.modalService.dismissAll();

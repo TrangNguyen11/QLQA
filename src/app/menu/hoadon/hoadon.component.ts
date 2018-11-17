@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HoadonService } from './hoadon.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { forkJoin } from 'rxjs'  
 
 @Component({
   selector: 'menu-hoadon',
@@ -17,11 +18,12 @@ export class HoadonComponent implements OnInit {
   dlHoaDon = [];
   dlMangVe = [];
   dlThanhToan = [];
+  chietkhau= 0;
   closeResult: string;
   dlhd;
   tongtien ;
   chitietmonan = [];
-  tientungban;
+  // tientungban;
   sessionIDThanhToan;
   dataInsertThanhToan;
   makm;
@@ -84,7 +86,7 @@ export class HoadonComponent implements OnInit {
     this.dataInsertThanhToan = data;
     this.sessionIDThanhToan = data.sessionID;
     this.chitietmonan = data.chitietmonan;
-    this.tientungban = data.tongtien;
+    // this.tientungban = data.tongtien;
     this.modalService.open(thanhtoanhd).result.then(
       (result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -93,7 +95,6 @@ export class HoadonComponent implements OnInit {
     });
   }
   btnThanhToanDialog = (idsession)=>{
-    console.log(this.dataInsertThanhToan);
     let dlInsertChitiet = this.dataInsertThanhToan.chitietmonan.map(e => {
       let { id, dongia ,soluong , manhanvien } = e;      
       return ({ id:null, idmonan: id, gia: dongia, soluong: soluong, tenkh: "a", 
@@ -101,40 +102,50 @@ export class HoadonComponent implements OnInit {
          });
     });
     let dlInsertHoaDon = {
-      id: this.dataInsertThanhToan.sessionID, datedt: this.dataInsertThanhToan.thoigian, sotien: this.dataInsertThanhToan.tongtien};
-    this.service.insertChiTietDM(dlInsertChitiet).subscribe((lst: any) => {
-      if(lst.count == true){
-        alert("Gửi thành công");
-      }else{
-        alert("Gửi thất bại");
-      }
-    });
-    this.service.insertHoaDon(dlInsertHoaDon).subscribe((lst: any) => {
-      if(lst.count == true){
-        alert("Gửi thành công");
-      }else{
-        alert("Gửi thất bại");
-      }
-    });
+      id: this.dataInsertThanhToan.sessionID, datedt: this.dataInsertThanhToan.thoigian, sotien: this.showTien , makm : this.chietkhau !== 0  ? this.makm: '' };
+    forkJoin([
+      this.service.insertChiTietDM(dlInsertChitiet),
+      this.service.insertHoaDon(dlInsertHoaDon) ])
+    .subscribe( (res: any) => {
+      if( res[0].count > 0 && res[1].count> 0)  alert("Thanh toán thành công");
+      else alert("Thanh toán thất bại");
+    })
     this.service.socket.emit('thanhtoan', idsession);
     this.modalService.dismissAll();
   }
   onkhuyenmai= ()=>{
     this.service.checkKhuyenMai(this.makm)
     .subscribe( (lstDM:any) => {
+      this.chietkhau = 0;
       if(lstDM.khuyenmai.length > 0){
-        var chietkhau = lstDM.khuyenmai[0].chietkhau      
-        if(chietkhau <100){
-          this.tientungban = this.tongtien * (1- chietkhau/100)
-        }else{
-          this.tientungban = this.tongtien - chietkhau
-        }
+        this.chietkhau = lstDM.khuyenmai[0].chietkhau      
+       
       }
       
     });
   }
-  btnIn = (data)=>{
-    
+
+
+  get showTien(){
+    if(this.chietkhau === 0) return this.tongtien;
+   if(this.chietkhau <=100){
+     return (this.tongtien * (1- this.chietkhau/100))
+  }else{
+    return (this.tongtien - this.chietkhau)
+  }
+}
+  get getTienNhanLai(){
+    let tienthoi = this.tongtien;
+    if(this.chietkhau !== 0){
+        tienthoi = this.chietkhau <= 100 ?  (tienthoi * (1- this.chietkhau/100)) : (this.tongtien - this.chietkhau)
+    }
+    return this.tiennhan - tienthoi;
+  }
+  btnIn = ()=>{
+    let newWindow =window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+    newWindow.document.write('<h3 style="text-alight: center;width: 100%">Quán mì cay sasin</h3>')
+    newWindow.document.write(document.getElementById('print').innerHTML)
+    newWindow.print();
   }
   btnCancel = ()=>{
     this.modalService.dismissAll();

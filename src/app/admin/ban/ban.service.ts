@@ -22,6 +22,10 @@ export class BanService {
   postUpdateBan = (item)=>{
     let data = { item };
     return this.http.post(`${this.baseAPIAdmin}ban/updateBan`, data);
-  }   
+  }  
+  postInserteBan = (item)=>{
+    let data = { item };
+    return this.http.post(`${this.baseAPIAdmin}ban/insertBan`, data);
+  }    
 }
  

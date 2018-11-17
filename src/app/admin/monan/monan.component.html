@@ -1,42 +1,53 @@
+<input type="file" style="display:none" #file (change)="onFileChanged($event)">
+<input type="file" #insertFile style="display: none" (change)="onFileInsertChanged($event, 'insert')">
 <div class = "row">
   <table class="table table-hover">
     <thead>
       <tr>
         <td>Tên món</td>
         <td>Đơn giá</td>
+        <td>Danh mục</td>
         <td>Hình</td>
-        <td><button class="btn btn-link" (click) = "btnInsertBan(insertban)"><i class="fa fa-plus" style="color: screen"></i></button></td>
+        <td><button class="btn btn-link" (click) = "btnInsertMonan(insertmonan)"><i class="fa fa-plus" style="color: screen"></i></button></td>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor = "let data of dlMonan; index as i">
         <td>
-            <div>{{ data.tenmon }}</div>
-        </td>
-        <td>
-            <div>
-                  {{ data.dongia }}
+            <div >
+              <input class="form-control" type="text" [(ngModel)]="data.tenmon" >
             </div>
         </td>
         <td>
+            <div>
+                <input class="form-control" type="text" [(ngModel)]="data.dongia" >
+            </div>
+        </td>
+        <td>
+            <select class="form-control" [(ngModel)]="data.iddanhmuc">
+                <option *ngFor="let danhmuc of dlDanhmuc" [ngValue]="danhmuc.id">{{danhmuc.name}}</option>
+            </select>
+        </td>
+        <td>
           <div>
-            <img src="data:image/jpeg;base64,{{data.hinh}}" width="100px" height="80px"/>
+            <img src="{{ !!data.hinh ? 'data:image/jpeg;base64,' + data.hinh :  hinh}}" width="100px" height="80px" (click)="changePic(i)"/>
           </div>
         </td>
         <td style="width: 180px">
           <div class="row">
-              <button class="btn btn-link" (click) = "btnUpdateBan(upban,data)" ><i class="fa fa-eye" style="color: rgb(47, 0, 255)"></i></button>
-              <button class="btn btn-link" (click) = "btnDeleteBan(data)"><i class="fa fa-trash" style="color: red"></i></button>
+              <button class="btn btn-link" (click) = "btnUpdateMonan(i)" ><i class="fa fa-save" style="color: rgb(47, 0, 255)"></i></button>
+              <button class="btn btn-link" (click) = "btnDeleteMonan(data.id, i)"><i class="fa fa-trash" style="color: red"></i></button>
           </div>                              
         </td>
       </tr>
     </tbody>
   </table>
 </div>
-<div class="dialogupdateban">
-  <ng-template #upban let-modal style="margin-top: 80px">
+
+<div>
+  <ng-template #insertmonan let-modal style="margin-top: 80px">
       <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Cập nhật bàn</h4>
+        <h4 class="modal-title" id="modal-basic-title">Thêm Món ăn</h4>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -45,68 +56,41 @@
         <div class="form-group">
           <table class="table table-hover">
             <tr>
-                <td>Tên bàn</td>
-                <td><input class="form-control"  value="{{dlUpdate.name}}"></td>
+                <td>Tên Món</td>
+                <td><input class="form-control"  [(ngModel)]="insertMonan.tenmon"></td>
             </tr>
             <tr>
-                <td>Chọn màu</td>
+                <td>Danh mục</td>
                 <td>
-                  <select class="form-control">
-                    <option value="red">red</option>
-                    <option value="blue">blue</option>
-                    <option value="blue">yellow</option>
-                    <option value="blue">black</option>
-                    <option value="blue">aqua</option>
-                    <option value="blue">pink</option>
-                  </select>
+                    <select class="form-control" [(ngModel)]="insertMonan.iddanhmuc">
+                        <option *ngFor="let danhmuc of dlDanhmuc" [ngValue]="danhmuc.id">{{danhmuc.name}}</option>
+                    </select>
                 </td>
+            </tr>
+            <tr>
+              <td>
+                Đơn giá
+              </td>
+              <td>
+                  <input  type="number" class="form-control"  [(ngModel)]="insertMonan.dongia">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Hình ảnh
+              </td>
+              <td>
+                  <img src="{{ insertMonan.hinh || hinh}}" width="100px" height="80px" (click)="changeInsertPic()"/>
+              </td>
+            
             </tr>
           </table>
         </div>
       </div>
       <div class="modal-footer">           
         <div class="row col-md-12" style="margin-left: 70px;">
-          <button type="button" class="btn btn-primary" (click)="saveUpdateBan(dlUpdate)">Lưu</button>
-          <button type="button" class="btn btn-danger" (click)="cancelBan()">Hủy bỏ</button>    
-        </div>     
-      </div>
-  </ng-template>
-</div>
-<div class="dialoginsertban">
-  <ng-template #insertban let-modal style="margin-top: 80px">
-      <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Thêm bàn</h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <table class="table table-hover">
-            <tr>
-                <td>Tên bàn</td>
-                <td><input class="form-control"  value=""></td>
-            </tr>
-            <tr>
-                <td>Chọn màu</td>
-                <td>
-                  <select class="form-control">
-                    <option value="red">red</option>
-                    <option value="blue">blue</option>
-                    <option value="blue">yellow</option>
-                    <option value="blue">black</option>
-                    <option value="blue">aqua</option>
-                    <option value="blue">pink</option>
-                  </select>
-                </td>
-            </tr>
-          </table>
-        </div>
-      </div>
-      <div class="modal-footer">           
-        <div class="row col-md-12" style="margin-left: 70px;">
-          <button type="button" class="btn btn-primary" (click)="saveInsertBan(data)">Thêm</button>
-          <button type="button" class="btn btn-danger" (click)="cancelBan()">Hủy bỏ</button>    
+          <button type="button" class="btn btn-primary" (click)="saveInsertMoan()">Thêm</button>
+          <button type="button" class="btn btn-danger" (click)="cancelMonan()">Hủy bỏ</button>    
         </div>     
       </div>
   </ng-template>

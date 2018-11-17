@@ -1,110 +1,132 @@
 <div class="row" style=" width: 100%" style="margin-left: 0.5px; margin-right: 6px;">
-    <div class="col-md-12">
-        <!-- <div class="container"> -->
-          <ngb-tabset>
-              <ngb-tab title="Chờ thanh toán">
-                <ng-template ngbTabContent>
-                    <div class="col-md-12">
-                        <div class="row">                        
-                            <div class="hoadon col-md-3" *ngFor="let datht of dlHoaDon; index as i">
-                                <div class="tenhoadon"><b>{{ datht.tenban }}</b></div>
-                                <div class="noidunghd">
-                                        <p>Thời gian vào: <b>{{ datht.thoigian}}</b></p>
-                                        <p>Thành tiền: <b>{{ datht.tongtien}}</b></p>
-                                        <!-- <p>Nhân viên: <b>{{ datht.manhanvien}}</b></p> -->
-                                        <div class="row btnhoadon" >
-                                            <button class=" btn btn-success" style="margin-right: 10px;" (click)="openthanhtoan(thanhtoanhd, datht)">Thanh toán</button>
-                                        </div>
-                                </div>                                
-                            </div>
-                        </div>
-                    </div>
-                </ng-template>
-              </ngb-tab>
-              <ngb-tab title="Mang về">
-                  <ng-template ngbTabContent>
-                        <div class="col-md-12">
-                            <div class="row">                        
-                                <div class="hoadon col-md-3" *ngFor="let datht of dlMangVe; index as i">
-                                    <div class="tenhoadon"><b>Tên Khách: {{ datht.tenban }}</b></div>
-                                    <div class="noidunghd">
-                                            <p>Thời gian vào: <b>{{ datht.thoigian}}</b></p>
-                                            <p>Thành tiền: <b>{{ datht.tongtien}}</b></p>
-                                            <!-- <p>Nhân viên: <b>{{ datht.manhanvien}}</b></p> -->
-                                            <div class="row btnhoadon" >
-                                                <button class=" btn btn-success" style="margin-right: 10px;" (click)="openthanhtoan(thanhtoanhd, datht)">Thanh toán</button>
-                                            </div>
-                                    </div>                                
-                                </div>                                
-                            </div>
-                        </div>
-                  </ng-template>
-              </ngb-tab>
-          </ngb-tabset>
-        <!-- </div> -->
-    </div>
+	<div class="col-md-12">
+		<!-- <div class="container"> -->
+		<ngb-tabset>
+			<ngb-tab title="Chờ thanh toán">
+				<ng-template ngbTabContent>
+					<div class="col-md-12">
+						<div class="row">
+							<div class="hoadon col-md-3" *ngFor="let datht of dlHoaDon; index as i">
+								<div class="tenhoadon">
+									<b>{{ datht.tenban }}</b>
+								</div>
+								<div class="noidunghd">
+									<p>Thời gian vào:
+										<b>{{ datht.thoigian}}</b>
+									</p>
+									<p>Thành tiền:
+										<b>{{ datht.tongtien}}</b>
+									</p>
+									<!-- <p>Nhân viên: <b>{{ datht.manhanvien}}</b></p> -->
+									<div class="row btnhoadon">
+										<button class=" btn btn-success" style="margin-right: 10px;" (click)="openthanhtoan(thanhtoanhd, datht)">Thanh toán</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</ng-template>
+			</ngb-tab>
+			<ngb-tab title="Mang về">
+				<ng-template ngbTabContent>
+					<div class="col-md-12">
+						<div class="row">
+							<div class="hoadon col-md-3" *ngFor="let datht of dlMangVe; index as i">
+								<div class="tenhoadon">
+									<b>Tên Khách: {{ datht.tenban }}</b>
+								</div>
+								<div class="noidunghd">
+									<p>Thời gian vào:
+										<b>{{ datht.thoigian}}</b>
+									</p>
+									<p>Thành tiền:
+										<b>{{ datht.tongtien}}</b>
+									</p>
+									<!-- <p>Nhân viên: <b>{{ datht.manhanvien}}</b></p> -->
+									<div class="row btnhoadon">
+										<button class=" btn btn-success" style="margin-right: 10px;" (click)="openthanhtoan(thanhtoanhd, datht)">Thanh toán</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</ng-template>
+			</ngb-tab>
+		</ngb-tabset>
+		<!-- </div> -->
+	</div>
 </div>
-<div class="dialogtinhtien">
-    <ng-template #thanhtoanhd let-modal style="margin-top: 80px">
-        <div class="modal-header">
-          <h4 class="modal-title" id="modal-basic-title">Thanh toán</h4>
-          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-            <div class="form-group">
-                <table class="table table-hover">
-                    <tr>
-                        <td>Tên món</td>
-                        <td style="width: 80px">Số lượng</td>
-                        <td style="width: 90px">Thành tiền</td>
-                    </tr>
-                    <tr *ngFor="let datmon of chitietmonan; index as i">
-                        <td>{{ datmon.tenmon }}</td>
-                        <td >{{ datmon.soluong }}</td>
-                        <td>{{ datmon.dongia * datmon.soluong }}</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <div class="container">
-            <div class="row col-md-12">            
-                    <div class="col-md-4">Mã giảm giá</div>
-                    <div class="col-md-8"><b style="float: right;"></b>
-                        <div class="input-group mb-12">
-                            <input type="text" [(ngModel)]="makm" (change)="onkhuyenmai()" class="form-control input-no-border">
-                        </div>
-                    </div>
-                </div>
-            <div class="row col-md-12">            
-                <div class="col-md-4">Thành tiền</div>
-                <div class="col-md-8"><b style="float: right;">{{tientungban}}</b></div>
-            </div>
-            <div class="row col-md-12">            
-                <div class="col-md-4">Số tiền nhận</div>
-                <div class="col-md-8">
-                    <div class="input-group mb-12">
-                        <div class="input-group-prepend" style="width: 40px; float: right;">
-                            <span class="input-group-text  input-no-border" style="padding-left: 2px;" id="basic-addon1">VND</span>
-                        </div>
-                        <input type="number" [(ngModel)]="tiennhan" class="form-control input-no-border">
-                    </div>
-                </div>
-            </div>
-            <div class="row col-md-12">
-                <div class="col-md-4">Tiền thừa</div>
-                <div class="col-md-8"><b style="color:red ; float: right;">{{ !!tiennhan ? tiennhan-tientungban: '' }}</b></div>            
-            </div>
-            <div class="row col-md-12" style="margin-left: 70px;">
-                    <button type="button" class="btn btn-primary" (click)="btnThanhToanDialog(sessionIDThanhToan)">Thanh toán</button>
-                    <div class="col-md-1"></div>
-                    <button type="button" class="btn btn-success" (click)="btnIn()">In</button>
-                    <div class="col-md-1"></div>
-                    <button type="button" class="btn btn-danger" (click)="btnCancel()">Hủy bỏ</button>    
-            </div>     
-            </div> 
-        </div>
-    </ng-template>
+<div class="dialogtinhtien" id="previewpdf">
+	<ng-template #thanhtoanhd let-modal style="margin-top: 80px">
+		<div class="modal-header">
+			<h4 class="modal-title" id="modal-basic-title">Thanh toán</h4>
+			<button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		<div class="modal-body">
+			<div class="form-group" id="print">
+				<table class="table table-hover" >
+					<tr>
+						<td>Tên món</td>
+						<td style="width: 80px">Số lượng</td>
+						<td style="width: 90px">Thành tiền</td>
+					</tr>
+					<tr *ngFor="let datmon of chitietmonan; index as i">
+						<td>{{ datmon.tenmon }}</td>
+						<td>{{ datmon.soluong }}</td>
+						<td>{{ datmon.dongia * datmon.soluong }}</td>
+					</tr>
+				</table>
+			</div>
+
+		</div>
+		<div class="modal-footer">
+
+			<table class="table-stripet" style="margin: 15px; width: 100%">
+				<tr>
+					<td>
+						Mã giảm giá
+					</td>
+					<td>
+						<input type="text" [(ngModel)]="makm" (change)="onkhuyenmai()" class="form-control input-no-border" style="text-align: right;">
+
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Thành tiền
+					</td>
+					<td>
+						<b style="float: right;">{{ showTien + ( chietkhau !== 0 ? 'đ ( đã giảm ' + chietkhau + (chietkhau <=100 ? '%': 'đ') + ')'  : 'đ'  )   }}</b>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Số tiền nhận
+					</td>
+					<td>
+						<input type="number" [(ngModel)]="tiennhan" class="form-control input-no-border" style="text-align: right;">
+
+					</td>
+				</tr>
+				<tr>
+					<td>Tiền thối</td>
+					<td>
+						<div class="col-md-8">
+							<b style="color:red ; float: right;">{{ !!tiennhan ? getTienNhanLai : '' }}</b>
+						</div>
+
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" style="text-align: right;">
+						<button type="button" class="btn btn-primary" (click)="btnThanhToanDialog(sessionIDThanhToan)">Thanh toán</button>
+						<button type="button" class="btn btn-success" (click)="btnIn()" style="margin: 0px 10px;">In</button>
+						<button type="button" class="btn btn-danger" (click)="btnCancel()">Hủy bỏ</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</ng-template>
 </div>

@@ -14,13 +14,24 @@ export class MonanService {
   getDataMonan = ()=>{
     return this.http.get(`${this.baseAPIAdmin}monan/getMonan`);
   }
-  postDeleteBan = (item)=>{
-    let data = { item };
-    return this.http.post(`${this.baseAPIAdmin}monan/delBan`, data);
+
+  getDataDanhMuc = () => {
+    return this.http.get(`${this.baseAPI}danhmuc`);
   }
-  postUpdateBan = (item)=>{
-    let data = { item };
-    return this.http.post(`${this.baseAPIAdmin}monan/updateBan`, data);
+
+  getHinh = () => {
+    return this.http.get(`${this.baseAPI}hinh`);
+  }
+  postDeleteMonan = (id)=>{
+    return this.http.post(`${this.baseAPIAdmin}monan/delMonan`, {id});
+  }
+  postUpdateMonan = (item)=>{
+    return this.http.post(`${this.baseAPIAdmin}monan/updateMonan`, { item });
   }   
+  postInserMonan = (item)=>{
+    item.hinh  = item.hinh.slice(item.hinh.indexOf(',') + 1);
+      
+    return this.http.post(`${this.baseAPIAdmin}monan/insertMonan`, { item });
+  }  
 }
  

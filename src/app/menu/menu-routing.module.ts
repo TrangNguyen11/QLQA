@@ -11,7 +11,7 @@ import { BepComponent } from './bep/bep.component';
 
 const routes: Routes = [
   { path: '', 
-    redirectTo: '/sodo', 
+    redirectTo: '/hoadon', 
     pathMatch: 'full' 
   },
   {
