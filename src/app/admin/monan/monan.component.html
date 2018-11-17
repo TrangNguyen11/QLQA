@@ -1,0 +1,113 @@
+<div class = "row">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <td>Tên món</td>
+        <td>Đơn giá</td>
+        <td>Hình</td>
+        <td><button class="btn btn-link" (click) = "btnInsertBan(insertban)"><i class="fa fa-plus" style="color: screen"></i></button></td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor = "let data of dlMonan; index as i">
+        <td>
+            <div>{{ data.tenmon }}</div>
+        </td>
+        <td>
+            <div>
+                  {{ data.dongia }}
+            </div>
+        </td>
+        <td>
+          <div>
+            <img src="data:image/jpeg;base64,{{data.hinh}}" width="100px" height="80px"/>
+          </div>
+        </td>
+        <td style="width: 180px">
+          <div class="row">
+              <button class="btn btn-link" (click) = "btnUpdateBan(upban,data)" ><i class="fa fa-eye" style="color: rgb(47, 0, 255)"></i></button>
+              <button class="btn btn-link" (click) = "btnDeleteBan(data)"><i class="fa fa-trash" style="color: red"></i></button>
+          </div>                              
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="dialogupdateban">
+  <ng-template #upban let-modal style="margin-top: 80px">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Cập nhật bàn</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <table class="table table-hover">
+            <tr>
+                <td>Tên bàn</td>
+                <td><input class="form-control"  value="{{dlUpdate.name}}"></td>
+            </tr>
+            <tr>
+                <td>Chọn màu</td>
+                <td>
+                  <select class="form-control">
+                    <option value="red">red</option>
+                    <option value="blue">blue</option>
+                    <option value="blue">yellow</option>
+                    <option value="blue">black</option>
+                    <option value="blue">aqua</option>
+                    <option value="blue">pink</option>
+                  </select>
+                </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">           
+        <div class="row col-md-12" style="margin-left: 70px;">
+          <button type="button" class="btn btn-primary" (click)="saveUpdateBan(dlUpdate)">Lưu</button>
+          <button type="button" class="btn btn-danger" (click)="cancelBan()">Hủy bỏ</button>    
+        </div>     
+      </div>
+  </ng-template>
+</div>
+<div class="dialoginsertban">
+  <ng-template #insertban let-modal style="margin-top: 80px">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Thêm bàn</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <table class="table table-hover">
+            <tr>
+                <td>Tên bàn</td>
+                <td><input class="form-control"  value=""></td>
+            </tr>
+            <tr>
+                <td>Chọn màu</td>
+                <td>
+                  <select class="form-control">
+                    <option value="red">red</option>
+                    <option value="blue">blue</option>
+                    <option value="blue">yellow</option>
+                    <option value="blue">black</option>
+                    <option value="blue">aqua</option>
+                    <option value="blue">pink</option>
+                  </select>
+                </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">           
+        <div class="row col-md-12" style="margin-left: 70px;">
+          <button type="button" class="btn btn-primary" (click)="saveInsertBan(data)">Thêm</button>
+          <button type="button" class="btn btn-danger" (click)="cancelBan()">Hủy bỏ</button>    
+        </div>     
+      </div>
+  </ng-template>
+</div>

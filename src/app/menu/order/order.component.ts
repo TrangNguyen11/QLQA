@@ -157,5 +157,4 @@ export class OrderComponent implements OnInit {
     console.log(idban);
   }
   //mang ve dialog 
-   
 }

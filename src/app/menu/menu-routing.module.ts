@@ -9,83 +9,42 @@ import { HoadonComponent } from './hoadon/hoadon.component';
 import { CheckorderComponent } from './checkorder/checkorder.component';
 import { BepComponent } from './bep/bep.component';
 
-
 const routes: Routes = [
   { path: '', 
     redirectTo: '/sodo', 
     pathMatch: 'full' 
   },
   {
-    path: 'monan',
+    path: '',
     canActivate: [AuthGuard],
     component: MenuComponent,
     children: [
       {
-        path: "",
+        path: "monan",
         component: MonanComponent
-
-      }
-    ]
-
-  },
-  {
-    path: "order/:idsession",    
-    canActivate: [AuthGuard],
-    component: MenuComponent,
-    children: [
+      },
       {
-        path: "",
+        path: "order/:idsession",
         component: OrderComponent
-      }
-    ]
-  },
-  {
-    path: "sodo",    
-    canActivate: [AuthGuard],
-    component: MenuComponent,
-    children: [
+      },
       {
-        path: "",
+        path: "sodo",
         component: SodoComponent
-
-      }
-    ]
-  },
-  {
-    path: 'hoadon',    
-    canActivate: [AuthGuard],
-    component: MenuComponent,
-    children: [
+      },
       {
-        path: "",
+        path: "hoadon",
         component: HoadonComponent
-
-      }
-    ]
-  },
-  {
-    path: 'checkorder',    
-    canActivate: [AuthGuard],
-    component: MenuComponent,
-    children: [
+      },
       {
-        path: "",
-        component: CheckorderComponent
-
-      }
-    ]
-  },
-  {
-    path: 'bep',    
-    canActivate: [AuthGuard],
-    component: MenuComponent,
-    children: [
-      {
-        path: "",
+        path: "bep",
         component: BepComponent
-
-      }
+      },
+      {
+        path: "checkorder",
+        component: CheckorderComponent
+      },
     ]
+
   },
 ];
 

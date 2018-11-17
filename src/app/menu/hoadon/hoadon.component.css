@@ -30,3 +30,9 @@
   margin-top: 80px !important;
   z-index: 999999;
 }
+.input-no-border{
+  border: unset;
+  border-radius: unset;
+  border-bottom: 1px solid black;
+  background: white;
+}

@@ -24,6 +24,9 @@ export class HoadonComponent implements OnInit {
   tientungban;
   sessionIDThanhToan;
   dataInsertThanhToan;
+  makm;
+  tongkm;
+  tiennhan;
   ngOnInit() {
     //load data
     this.sub = this.route.params.subscribe(params => {
@@ -114,6 +117,26 @@ export class HoadonComponent implements OnInit {
       }
     });
     this.service.socket.emit('thanhtoan', idsession);
+    this.modalService.dismissAll();
+  }
+  onkhuyenmai= ()=>{
+    this.service.checkKhuyenMai(this.makm)
+    .subscribe( (lstDM:any) => {
+      if(lstDM.khuyenmai.length > 0){
+        var chietkhau = lstDM.khuyenmai[0].chietkhau      
+        if(chietkhau <100){
+          this.tientungban = this.tongtien * (1- chietkhau/100)
+        }else{
+          this.tientungban = this.tongtien - chietkhau
+        }
+      }
+      
+    });
+  }
+  btnIn = (data)=>{
+    
+  }
+  btnCancel = ()=>{
     this.modalService.dismissAll();
   }
 }

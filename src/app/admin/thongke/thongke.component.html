@@ -1,0 +1,45 @@
+<div class="row" style="height: 300px;">
+  <ngx-charts-area-chart
+      [view]="option.view"
+      [scheme]="option.colorScheme"
+      [schemeType] = "option.schemeType"
+      [results]="option.multi"
+      [gradient]="option.gradient"
+      [xAxis]="option.showXAxis"
+      [yAxis]="option.showYAxis"
+      [legend]="option.showLegend"
+      [showXAxisLabel]="option.showXAxisLabel"
+      [showYAxisLabel]="option.showYAxisLabel"
+      [xAxisLabel]="option.xAxisLabel"
+      [yAxisLabel]="option.yAxisLabel"
+      [autoScale]="option.autoScale"
+      [timeline]="option.timeline"
+      (select)="onSelect($event)">
+  </ngx-charts-area-chart>
+</div>
+<div class = "row">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <td>Mã hóa đơn</td>
+        <td>Ngày tạo hóa đơn</td>
+        <td>Số tiên</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor = "let data of dlThongke; index as i">
+        <td>
+            <div>{{ data.id }}</div>
+        </td>
+        <td>
+            <div>
+                  {{ data.datedt }}
+            </div>
+        </td>
+        <td>
+            <div>{{ data.sotien }}</div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

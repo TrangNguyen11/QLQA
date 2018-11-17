@@ -5,7 +5,9 @@
 export const environment = {
   production: false,
   base_api: 'http://localhost:8000/api/',
-  base_realtime: 'http://localhost:3000/'
+  base_realtime: 'http://localhost:3000/',
+  base_apiadmin: 'http://localhost:8000/api/admin/',
+
 };
 
 /*

@@ -71,6 +71,14 @@
         <div class="modal-footer">
             <div class="container">
             <div class="row col-md-12">            
+                    <div class="col-md-4">Mã giảm giá</div>
+                    <div class="col-md-8"><b style="float: right;"></b>
+                        <div class="input-group mb-12">
+                            <input type="text" [(ngModel)]="makm" (change)="onkhuyenmai()" class="form-control input-no-border">
+                        </div>
+                    </div>
+                </div>
+            <div class="row col-md-12">            
                 <div class="col-md-4">Thành tiền</div>
                 <div class="col-md-8"><b style="float: right;">{{tientungban}}</b></div>
             </div>
@@ -79,27 +87,22 @@
                 <div class="col-md-8">
                     <div class="input-group mb-12">
                         <div class="input-group-prepend" style="width: 40px; float: right;">
-                            <span class="input-group-text" style="padding-left: 2px" id="basic-addon1">VND</span>
+                            <span class="input-group-text  input-no-border" style="padding-left: 2px;" id="basic-addon1">VND</span>
                         </div>
-                        <input type="number" [(ngModel)]="tiennhan" value="0" class="form-control">
+                        <input type="number" [(ngModel)]="tiennhan" class="form-control input-no-border">
                     </div>
                 </div>
             </div>
             <div class="row col-md-12">
-                <div class="col-md-4"></div>
-                <div class="col-md-8"><b style="color:red; float: right;">-{{ tientungban }}</b></div>            
-            </div>
-            <div class="row col-md-12">
                 <div class="col-md-4">Tiền thừa</div>
-                <div class="col-md-8"><b style="color:red ; float: right;">{{ tiennhan-tientungban }}</b></div>            
+                <div class="col-md-8"><b style="color:red ; float: right;">{{ !!tiennhan ? tiennhan-tientungban: '' }}</b></div>            
             </div>
-            <br>
             <div class="row col-md-12" style="margin-left: 70px;">
                     <button type="button" class="btn btn-primary" (click)="btnThanhToanDialog(sessionIDThanhToan)">Thanh toán</button>
                     <div class="col-md-1"></div>
-                    <button type="button" class="btn btn-success" (click)="saveGhepBan()">In</button>
+                    <button type="button" class="btn btn-success" (click)="btnIn()">In</button>
                     <div class="col-md-1"></div>
-                    <button type="button" class="btn btn-danger" (click)="detailMonAn()">Hủy bỏ</button>    
+                    <button type="button" class="btn btn-danger" (click)="btnCancel()">Hủy bỏ</button>    
             </div>     
             </div> 
         </div>

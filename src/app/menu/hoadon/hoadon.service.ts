@@ -28,4 +28,7 @@ export class HoadonService {
     let data = { item };
     return this.http.post(`${this.baseAPI}hoadon/inserthoadon`, data );
   }
+  checkKhuyenMai = (ma)=>{
+    return this.http.post(`${this.baseAPI}hoadon/khuyenmai`, {ma});
+  }
 }
