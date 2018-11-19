@@ -6,16 +6,27 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { SodoService } from '../sodo/sodo.service';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
-
+import {NgbTooltipConfig} from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'menu-order',
   templateUrl: './order.component.html',
-  styleUrls: ['./order.component.css']
+  styleUrls: ['./order.component.css'],
+  providers: [NgbTooltipConfig, NgbTooltipModule],
 })
 
 export class OrderComponent implements OnInit {
-  constructor( private service: OrderService, private route: ActivatedRoute, private sodoservice: SodoService,
-     @Inject(LOCAL_STORAGE) private storage: WebStorageService, private modalService: NgbModal, private _router: Router) { 
+  constructor( 
+    private service: OrderService, 
+    private route: ActivatedRoute, 
+    private sodoservice: SodoService,
+    @Inject(LOCAL_STORAGE) private storage: WebStorageService,
+    private modalService: NgbModal, 
+    private _router: Router,
+    private config: NgbTooltipConfig
+  ) {
+    config.placement = 'left';
+    config.triggers = 'click';
   }
   idban :string ;
   nameBan = "" ;
@@ -126,9 +137,8 @@ export class OrderComponent implements OnInit {
   }
   //btn gui bep 
   btnGuiBep(){
-    let monan = this.dlDatMon.map( e=> (e.status === undefined ? {...e, nameban: this.nameBan,
-       manhanvien:this.storage.get("id") } : e ));
-    this.sodoservice.socket.emit('dataDatMon', {sessionID: this.dataSession.id, monan, tongtien: this.tongtien()})
+    let monan = this.dlDatMon.map( e=> (e.status === undefined ? {...e, manhanvien:this.storage.get("id") } : e ));
+    this.sodoservice.socket.emit('dataDatMon', {sessionID: this.dataSession.id, monan, tongtien: this.tongtien(), nameban: this.nameBan})
     // totalDatmon = totalDatmon.map(e => {
     //   let { id, dongia, soluong} = e;      
     //   return ({ id:null, idmonan: id, idban: 1, gia: dongia, soluong: soluong, tenkh: "a", 

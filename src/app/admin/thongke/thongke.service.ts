@@ -13,14 +13,6 @@ export class ThongkeService {
 
   getDataThongKe = ()=>{
     return this.http.get(`${this.baseAPIAdmin}thongke/getThongke`);
-  }
-  postDeleteBan = (item)=>{
-    let data = { item };
-    return this.http.post(`${this.baseAPIAdmin}monan/delBan`, data);
-  }
-  postUpdateBan = (item)=>{
-    let data = { item };
-    return this.http.post(`${this.baseAPIAdmin}monan/updateBan`, data);
-  }   
+  } 
 }
  

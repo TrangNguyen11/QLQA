@@ -1,0 +1,90 @@
+<input type="file" style="display:none" #file (change)="onFileChanged($event)">
+<input type="file" #insertFile style="display: none" (change)="onFileInsertChanged($event, 'insert')">
+<div class = "row">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <td>Mã khuyến mãi</td>
+        <td>Chiết khấu</td>
+        <td>Ngày bắt đầu</td>
+        <td>Ngày kết thúc</td>
+        <td><button class="btn btn-link" (click) = "btnInsertKhuyenmai(insertkhuyenmai)"><i class="fa fa-plus" style="color: screen"></i></button></td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor = "let data of dlKhuyenmai; index as i">
+        <td>
+            <div >
+              <input class="form-control" type="text" [(ngModel)]="data.id" disabled >
+            </div>
+        </td>
+        <td>
+            <div>
+                <input class="form-control" type="text" [(ngModel)]="data.chietkhau" >
+            </div>
+        </td>
+        <td>
+            <div >
+              <input class="form-control" type="date" [(ngModel)]="data.ngaybatdau" >
+            </div>
+        </td>
+        <td>
+            <div>
+                <input class="form-control" type="date" [(ngModel)]="data.ngayketthuc" >
+            </div>
+        </td>
+        <td style="width: 180px">
+          <div class="row">
+              <button class="btn btn-link" (click) = "btnUpdateKhuyenmai(i)" ><i class="fa fa-save" style="color: rgb(47, 0, 255)"></i></button>
+              <button class="btn btn-link" (click) = "btnDeleteKhuyenmai(i)"><i class="fa fa-trash" style="color: red"></i></button>
+          </div>                              
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div>
+  <ng-template #insertkhuyenmai let-modal style="margin-top: 80px">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Tạo mã khuyến mãi</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <table class="table table-hover">
+            <tr>
+                <td>Mã khuyến mãi</td>
+                <td><input class="form-control"  [(ngModel)]="insertKhuyenmai.id"></td>
+            </tr>
+            <tr>
+              <td>Chiết khấu</td>
+              <td>
+                  <input  type="text" class="form-control"  [(ngModel)]="insertKhuyenmai.chietkhau">
+              </td>
+            </tr>
+            <tr>
+              <td>Ngày bắt đầu</td>
+              <td>
+                  <input  type="date" class="form-control"  [(ngModel)]="insertKhuyenmai.ngaybatdau">
+              </td>
+            </tr>
+            <tr>
+                <td>Ngày kết thúc</td>
+                <td>
+                    <input  type="date" class="form-control"  [(ngModel)]="insertKhuyenmai.ngayketthuc">
+                </td>
+              </tr>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">           
+        <div class="row col-md-12" style="margin-left: 70px;">
+          <button type="button" class="btn btn-primary" (click)="saveInsertKhuyenmai()">Thêm</button>
+          <button type="button" class="btn btn-danger" (click)="cancelKhuyenmai()">Hủy bỏ</button>    
+        </div>     
+      </div>
+  </ng-template>
+</div>

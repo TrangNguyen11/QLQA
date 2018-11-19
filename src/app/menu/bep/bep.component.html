@@ -13,7 +13,7 @@
                       <tbody>
                         <tr *ngFor = "let data of loadNau(); index as i">
                           <td>
-                              <div>{{ data.tenmon }}</div>
+                              <div>{{ data.tenmon }} <small  style="color: red"> {{ !!data.ghichu ? '(' +data.ghichu + ')': ''  }}</small></div>
                               <small style="color: blue">{{ data.nameban }} </small> 
                           </td>
                           <td style="width: 90px">

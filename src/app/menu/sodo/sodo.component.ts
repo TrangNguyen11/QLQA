@@ -19,8 +19,8 @@ export class SodoComponent implements OnInit {
   hinhdasudung;
   dlSoDo :any = [];
   closeResult: string;
-  tenban;
   listCheckbox={};
+  lstmangve = [];
   constructor(private service: SodoService, config: NgbTooltipConfig, private _router: Router, private modalService: NgbModal) { 
     config.placement = 'bottom';
     config.triggers = 'click';
@@ -46,7 +46,8 @@ export class SodoComponent implements OnInit {
     let arrCheck = Object.keys(this.listCheckbox);
     let data = this.dlSoDo.filter(e => arrCheck.indexOf(e.id + "") > -1 )[0];
     let thoigian = moment().format("YYYY-MM-DD hh:mm:ss");
-    this.service.socket.emit('ghepban', { idArr: arrCheck , color: data.color, session: data.session, thoigian });
+    let nameban = this.dlSoDo.filter(e => arrCheck.indexOf(e.id+ "") > -1 ).map( e => e.name ).join(' ');
+    this.service.socket.emit('ghepban', { idArr: arrCheck , color: data.color, session: data.session, thoigian, nameban });
   }
   //get dữ liệu số lượng bàn
   getDataSodo = ()=>{
@@ -55,6 +56,10 @@ export class SodoComponent implements OnInit {
       this.service.getSession().subscribe(data => {
         let dataArr = {}
         for (var key in data) {
+          if(!!data[key].mangve){
+            let dataMV = {...data[key], session: key }
+            this.lstmangve.push(dataMV);
+          }
           data[key].ban.forEach(e => {
             dataArr[e] = { session: key, color: data[key].color };
           })
@@ -70,7 +75,8 @@ export class SodoComponent implements OnInit {
       this._router.navigate(['order', idsession]);
     }else{
       let thoigian = moment().format("YYYY-MM-DD hh:mm:ss");
-      this.service.socket.emit('sudungban', { idArr: [ id+"" ], color, thoigian: thoigian}, (id)=> {
+      let nameban = this.dlSoDo.filter(e => e.id === id)[0].name
+      this.service.socket.emit('sudungban', { idArr: [ id+"" ], color, thoigian: thoigian, nameban}, (id)=> {
         this._router.navigate(['order', id]);
       });
     }
@@ -107,8 +113,20 @@ export class SodoComponent implements OnInit {
   }
 
   chooseChuyen(id){
-    this.dataChuyen = { ...this.dataChuyen, idDen: id }
+    let name = this.dlSoDo.filter(e => e.id === id)[0].name
+    this.dataChuyen = { ...this.dataChuyen, idDen: id, name }
     this.modalService.dismissAll();
     this.service.socket.emit('chuyenban', this.dataChuyen);
   }
+
+  btnMangVe(tenkh){
+    let thoigian = moment().format("YYYY-MM-DD hh:mm:ss");
+    this.service.socket.emit('sudungban', { idArr: [ tenkh ], thoigian: thoigian, mangve: 1, nameban: tenkh }, (tenkh)=> {
+      this._router.navigate(['order', tenkh]);
+    });
+  }
+  btnDetailMangve(idsession){
+    this._router.navigate(['order', idsession]);
+  }
+
 }

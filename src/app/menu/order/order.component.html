@@ -1,118 +1,138 @@
-
 <div class="row fullScreen">
-    <div class="col-md-8">
-        <div class="container">
-            <ngb-tabset>
-                <ngb-tab *ngFor="let ls of danhmuc" title="{{ls.name}}">
-                  <ng-template ngbTabContent>
-                      <div class="row listMonAn">                        
-                          <div class="col-md-3" *ngFor="let order of getListMonAn(ls.id); index as i;">
-                              <div class="relative" >
-                                <img src="data:image/jpeg;base64,{{order.hinh}}" width="180px" height="150px"/>
-                                <div class="note">
-                                    <div class="absolute">{{ order.tenmon }}</div>
-                                </div>
-                                <input type="hidden" value = "{{order.id}}"/>
-                                <div class="button">
-                                  <button class = "btnDat btn btn-danger" (click)="datMon(order)">Đặt</button>
-                                </div> 
-                              </div>
-                          </div>
-                      </div>
-                  </ng-template>
-                </ngb-tab>                
-            </ngb-tabset>
-          </div>
-      
-    </div>
-    <div class = "col-md-4 thanhtoan">
-        <div class="row">
-            <div class="col-md-12">Mã hóa đơn: <b style="color:red">{{ nameBan }}</b></div>
-        </div>
-        <div style="overflow-y: auto">
-            <table class="table">
-                <tr>
-                    <td>Tên món</td>
-                    <td style="width: 80px">Số lượng</td>
-                    <td style="width: 90px">Thành tiền</td>
-                    <td></td>
-                </tr>
-                <tr *ngFor="let datmon of dlDatMon; index as i" class="background{{datmon.status}}">                    
-                    <td>{{ datmon.tenmon }}</td>
-                    <td ><input [disabled]="datmon.status !== undefined" type="number" [(ngModel)]="datmon.soluong" class="form-control"> </td>
-                    <td>{{ datmon.dongia * datmon.soluong }}</td>
-                    <td>
-                        <button (click)="deleteItem(datmon)" *ngIf = "datmon.status === undefined" 
-                        class="btn btn-link"><i  style="color: red" class="fa fa-trash"></i></button>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div class="btnMenuRight">
-            <div class="tongtien">
-                <b style="margin-right: 20px">Tổng tiền: </b><label>{{tongtien()}}</label><label> VND</label>
-            </div>
-            <button class="btn btn-success" (click) ="btnGuiBep()">Gửi bếp</button>
-            <button class="btn btn-danger" (click)="openthanhtoan(thanhtoan, id)">Tính tiền</button>
-        </div>
-    </div>
+	<div class="col-md-8">
+		<div class="container">
+			<ngb-tabset>
+				<ngb-tab *ngFor="let ls of danhmuc" title="{{ls.name}}">
+					<ng-template ngbTabContent>
+						<div class="row listMonAn">
+							<div class="col-md-3" *ngFor="let order of getListMonAn(ls.id); index as i;">
+								<div class="relative">
+									<img src="data:image/jpeg;base64,{{order.hinh}}" width="180px" height="150px" />
+									<div class="note">
+										<div class="absolute">{{ order.tenmon }}</div>
+									</div>
+									<input type="hidden" value="{{order.id}}" />
+									<div class="button">
+										<button class="btnDat btn btn-danger" (click)="datMon(order)">Đặt</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</ng-template>
+				</ngb-tab>
+			</ngb-tabset>
+		</div>
+
+	</div>
+	<div class="col-md-4 thanhtoan">
+		<div class="row">
+			<div class="col-md-12">Mã hóa đơn:
+				<b style="color:red">{{ nameBan }}</b>
+			</div>
+		</div>
+		<div style="overflow-y: auto">
+			<table class="table">
+				<tr>
+					<td>Tên món</td>
+					<td style="width: 80px">Số lượng</td>
+					<td style="width: 90px">Thành tiền</td>
+					<td></td>
+				</tr>
+				<tr *ngFor="let datmon of dlDatMon; index as i" class="background{{datmon.status}}">
+					<td>{{ datmon.tenmon }}</td>
+					<td>
+						<input [disabled]="datmon.status !== undefined" type="number" [(ngModel)]="datmon.soluong" class="form-control"> </td>
+					<td>{{ datmon.dongia * datmon.soluong }}</td>
+					<td>
+						<ng-template #tipContent>
+							<div>
+								<textarea type="text" [(ngModel)]="datmon.ghichu" rows="5"></textarea>
+
+							</div>
+						</ng-template>
+						<button (click)="deleteItem(datmon)" *ngIf="datmon.status === undefined" class="btn btn-link">
+							<i style="color: red" class="fa fa-trash"></i>
+						</button>
+						<button *ngIf="datmon.status === undefined" class="btn btn-link" [autoClose]="'outside'" [ngbTooltip]="tipContent">
+							<i style="color: yellow" class="fa fa-edit"></i>
+						</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="btnMenuRight">
+			<div class="tongtien">
+				<b style="margin-right: 20px">Tổng tiền: </b>
+				<label>{{tongtien()}}</label>
+				<label> VND</label>
+			</div>
+			<button class="btn btn-success" (click)="btnGuiBep()">Gửi bếp</button>
+			<!-- <button class="btn btn-danger" (click)="openthanhtoan(thanhtoan, id)">Tính tiền</button> -->
+		</div>
+	</div>
 </div>
 <ng-template #thanhtoan let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Thanh toán</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-        <div class="form-group">
-            <table class="table table-hover">
-                <tr>
-                    <td>Tên món</td>
-                    <td style="width: 80px">Số lượng</td>
-                    <td style="width: 90px">Thành tiền</td>
-                </tr>
-                <tr *ngFor="let datmon of dlDatMon; index as i">
-                    <td>{{ datmon.tenmon }}</td>
-                    <td >{{ datmon.soluong }}</td>
-                    <td>{{ datmon.dongia * datmon.soluong }}</td>
-                </tr>                
-            </table>
-        </div>
-    </div>
-    <div class="modal-footer">
-        <div class="container">
-        <div class="row col-md-12">            
-            <div class="col-md-4">Thành tiền</div>
-            <div class="col-md-8"><b style="float: right;">{{tongtien()}}</b></div>
-        </div>
-        <div class="row col-md-12">            
-            <div class="col-md-4">Số tiền nhận</div>
-            <div class="col-md-8">
-                <div class="input-group mb-12">
-                    <div class="input-group-prepend" style="width: 40px; float: right;">
-                        <span class="input-group-text" style="padding-left: 2px" id="basic-addon1">VND</span>
-                    </div>
-                    <input type="number" [(ngModel)]="tiennhan" value="0" class="form-control">
-                </div>
-            </div>
-        </div>
-        <div class="row col-md-12">
-            <div class="col-md-4"></div>
-            <div class="col-md-8"><b style="color:red; float: right;"> - {{ tongtien() }}</b></div>            
-        </div>
-        <div class="row col-md-12">
-            <div class="col-md-4">Tiền thừa</div>
-            <div class="col-md-8"><b style="color:red ; float: right;">{{ tiennhan - tongtien() }}</b></div>            
-        </div>
-        <br>
-        <div class="row col-md-12" style="margin-left: 70px;">
-                <button type="button" class="btn btn-primary" (click)="saveGhepBan()">Thanh toán</button>
-                <div class="col-md-1"></div>
-                <button type="button" class="btn btn-success" (click)="saveGhepBan()">In</button>
-                <div class="col-md-1"></div>
-                <button type="button" class="btn btn-danger" (click)="saveGhepBan()">Hủy bỏ</button>    
-        </div>     
-        </div> 
-    </div>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Thanh toán</h4>
+		<button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	<div class="modal-body">
+		<div class="form-group">
+			<table class="table table-hover">
+				<tr>
+					<td>Tên món</td>
+					<td style="width: 80px">Số lượng</td>
+					<td style="width: 90px">Thành tiền</td>
+				</tr>
+				<tr *ngFor="let datmon of dlDatMon; index as i">
+					<td>{{ datmon.tenmon }}</td>
+					<td>{{ datmon.soluong }}</td>
+					<td>{{ datmon.dongia * datmon.soluong }}</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<div class="container">
+			<div class="row col-md-12">
+				<div class="col-md-4">Thành tiền</div>
+				<div class="col-md-8">
+					<b style="float: right;">{{tongtien()}}</b>
+				</div>
+			</div>
+			<div class="row col-md-12">
+				<div class="col-md-4">Số tiền nhận</div>
+				<div class="col-md-8">
+					<div class="input-group mb-12">
+						<div class="input-group-prepend" style="width: 40px; float: right;">
+							<span class="input-group-text" style="padding-left: 2px" id="basic-addon1">VND</span>
+						</div>
+						<input type="number" [(ngModel)]="tiennhan" value="0" class="form-control">
+					</div>
+				</div>
+			</div>
+			<div class="row col-md-12">
+				<div class="col-md-4"></div>
+				<div class="col-md-8">
+					<b style="color:red; float: right;"> - {{ tongtien() }}</b>
+				</div>
+			</div>
+			<div class="row col-md-12">
+				<div class="col-md-4">Tiền thừa</div>
+				<div class="col-md-8">
+					<b style="color:red ; float: right;">{{ tiennhan - tongtien() }}</b>
+				</div>
+			</div>
+			<br>
+			<div class="row col-md-12" style="margin-left: 70px;">
+				<button type="button" class="btn btn-primary" (click)="saveGhepBan()">Thanh toán</button>
+				<div class="col-md-1"></div>
+				<button type="button" class="btn btn-success" (click)="saveGhepBan()">In</button>
+				<div class="col-md-1"></div>
+				<button type="button" class="btn btn-danger" (click)="saveGhepBan()">Hủy bỏ</button>
+			</div>
+		</div>
+	</div>
 </ng-template>

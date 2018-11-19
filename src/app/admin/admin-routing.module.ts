@@ -6,6 +6,8 @@ import { MonanComponent } from './monan/monan.component';
 import { AdminComponent } from './admin.component';
 import { NhanvienComponent } from './nhanvien/nhanvien.component';
 import { ThongkeComponent } from './thongke/thongke.component';
+import { KhuyenMaiComponent } from './khuyenmai/khuyenmai.component';
+import { DanhmucComponent } from './danhmuc/danhmuc.component';
 
 
 const routes: Routes = [
@@ -30,6 +32,14 @@ const routes: Routes = [
       {
         path: "thongke",
         component: ThongkeComponent
+      },
+      {
+        path: "khuyenmai",
+        component: KhuyenMaiComponent
+      },
+      {
+        path: "danhmuc",
+        component: DanhmucComponent
       },
     ]
   }

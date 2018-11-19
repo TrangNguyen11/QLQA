@@ -37,7 +37,6 @@ export class MonanComponent implements OnInit {
       this.service.getHinh()
     ])
     .subscribe((res: any)=>{
-
       this.dlMonan = res[0].monan;
       this.dlDanhmuc = res[1].danhmuc;
       this.hinh = res[2].hinh.filter(e => e.tensudung === 'monanmacdinh' )[0].hinhsudung;
@@ -51,8 +50,7 @@ export class MonanComponent implements OnInit {
     console.log(this.insertFile)
     this.insertFile.nativeElement.click();
   }
-  btnUpdateMonan(i){
- 
+  btnUpdateMonan(i){ 
     this.service.postUpdateMonan(this.dlMonan[i]).subscribe( (res: any) => res.result === 1 ? alert('xong'): alert('lỗi') )
   }
   btnDeleteMonan(id, index){
@@ -65,7 +63,6 @@ export class MonanComponent implements OnInit {
     )
   }
   onFileChanged(event){
-    
     if (event.target.files.length === 0) return;
     let file = event.target.files[0];
     var reader = new FileReader();
@@ -84,7 +81,6 @@ export class MonanComponent implements OnInit {
     reader.readAsDataURL(file);
     reader.onload = () => {
       let data = reader.result;
-
       this.insertMonan.hinh = data;
     };
   }
@@ -97,6 +93,7 @@ export class MonanComponent implements OnInit {
     });
   }
   saveInsertMoan(){
+    console.log(this.insertMonan);
     this.service.postInserMonan(this.insertMonan)
     .subscribe( (res:any) => {
       if(res.result === true){
@@ -105,7 +102,6 @@ export class MonanComponent implements OnInit {
             this.modalService.dismissAll();
             this.dlMonan = lst.monan;
           }
-
         )
       }
     })

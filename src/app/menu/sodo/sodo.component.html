@@ -1,40 +1,59 @@
-<div class="row" style=" width: 100%">
-  <div class = "col-md-12">
+<div class="row" style=" width: 100%;">
+  <div class = "col-md-12 ">
     <h1 style="color:red; text-align: center">Sơ đồ</h1>
     <div class="row">
-        <div class="col-md-2" *ngFor="let sodo of dlSoDo; index as i">    
-            <ng-template #tipContent>
-              <div>                
-                <button type="button" class="btn btn-link mr-2 btnsodo" (click) = "getChonban(sodo.id, sodo.color, sodo.session); ttBtnChuyenBan = 0 ">
-                  <i class="fa fa-street-view iconBtnLink" >
-                    <b style="font-size: 14px">Sử dụng</b>
-                  </i>
-                </button>
-                <button type="button" class="btn btn-link mr-2 btnsodo" (click)="open(content, sodo.id)">
-                  <i class="fa fa-american-sign-language-interpreting iconBtnLink" style=" color: blue">
-                    <b style="font-size: 14px; color: blue">Ghép bàn</b>
-                  </i>
-                </button>
-                <button type="button" class="btn btn-link mr-2 btnsodo"  (click)="openChuyenBan(chuyenban, sodo.id, sodo.session)" >
-                  <i class="fa fa-external-link iconBtnLink" style=" color: red">
-                    <b style="font-size: 14px; color: red">Chuyển bàn</b>
-                  </i>
-                </button>
-              </div>
-            </ng-template>
-            <button class="btn btn-light" [ngStyle]="{'border': '5px solid ' + sodo.colorActive }" tooltipClass="my-custom-class" [ngbTooltip]="tipContent">
-                  <div class="relative">
-                    <img  width="123px" height="115px" 
-                    src="{{ !!sodo.status ? hinhdasudung : hinhchuasudung }}" />
-                    <div class="nameBan">
-                        {{ sodo.name }}
+      <div class="col-md-10 row">
+          <div class="col-md-2" *ngFor="let sodo of dlSoDo; index as i">    
+              <ng-template #tipContent>
+                <div>                
+                  <button type="button" class="btn btn-link mr-2 btnsodo" (click) = "getChonban(sodo.id, sodo.color, sodo.session); ttBtnChuyenBan = 0 ">
+                    <i class="fa fa-street-view iconBtnLink" >
+                      <b style="font-size: 14px">Sử dụng</b>
+                    </i>
+                  </button>
+                  <button type="button" class="btn btn-link mr-2 btnsodo" (click)="open(content, sodo.id)">
+                    <i class="fa fa-american-sign-language-interpreting iconBtnLink" style=" color: blue">
+                      <b style="font-size: 14px; color: blue">Ghép bàn</b>
+                    </i>
+                  </button>
+                  <button type="button" class="btn btn-link mr-2 btnsodo"  (click)="openChuyenBan(chuyenban, sodo.id, sodo.session)" >
+                    <i class="fa fa-external-link iconBtnLink" style=" color: red">
+                      <b style="font-size: 14px; color: red">Chuyển bàn</b>
+                    </i>
+                  </button>
+                </div>
+              </ng-template>
+              <button class="btn btn-light" [ngStyle]="{'border': '5px solid ' + sodo.colorActive }" tooltipClass="my-custom-class" [ngbTooltip]="tipContent">
+                    <div class="relative">
+                      <img  width="123px" height="115px" 
+                      src="{{ !!sodo.status ? hinhdasudung : hinhchuasudung }}" />
+                      <div class="nameBan">
+                          {{ sodo.name }}
+                      </div>
                     </div>
-                  </div>
-            </button>
-        </div>
+              </button>
+          </div>
+      </div> 
+        <div class="col-md-2" style="border-left: solid 2px red">
+          <h5>Danh sách mang về</h5>
+            <div class="input-group mb-3" style="margin-top: 5px;">
+                <input type="text" class="form-control" [(ngModel)]="tenkh" placeholder="Tên khách hàng" aria-label="tenkh" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                  <button class="btn btn-danger" type="button" (click)="btnMangVe(tenkh)" >Mang Về</button>
+                </div>
+            </div>
+            <div>
+              <table class="table">
+                <tr *ngFor = "let datamangve of lstmangve; index as i ">
+                  <td><button class="btn btn-link" style="width: 100%" (click)="btnDetailMangve(datamangve.session)"><strong style="float: left;">{{ datamangve.nameban }}</strong><i class="fa fa-arrow-right" style="float: right;"></i></button></td>
+                </tr>
+              </table>
+            </div>
+        </div>       
     </div>
      
   </div>
+  
 </div>
 
 <ng-template #content let-modal>

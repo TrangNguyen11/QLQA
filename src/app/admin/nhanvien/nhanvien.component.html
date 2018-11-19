@@ -1,4 +1,6 @@
-<div class = "row">
+<input type="file" style="display:none" #file (change)="onFileChanged($event)">
+<input type="file" #insertFile style="display: none" (change)="onFileInsertChanged($event, 'insertNhanvien')">
+<div class="row">
   <table class="table table-hover">
     <thead>
       <tr>
@@ -9,125 +11,144 @@
         <td>Hình</td>
         <td>Mật khẩu</td>
         <td>Quyền</td>
-        <td><button class="btn btn-link" (click) = "btnInsertBan(insertban)"><i class="fa fa-plus" style="color: screen"></i></button></td>
+        <td>
+          <button class="btn btn-link" (click)="btnInsertNhanVien(insertnhanvien)">
+            <i class="fa fa-plus" style="color: screen"></i>
+          </button>
+        </td>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor = "let data of dlNhanvien; index as i">
+      <tr *ngFor="let data of dlNhanvien; index as i">
         <td>
-            <div>{{ data.hoten }}</div>
+          <div><input class="form-control" type="text" [(ngModel)]="data.hoten" ></div>
         </td>
         <td>
-            <div>
-                  {{ data.sdt }}
-            </div>
+          <div>
+              <input class="form-control" type="text" [(ngModel)]="data.sdt" >
+          </div>
         </td>
         <td>
-            <div>{{ data.ngaysinh }}</div>
+          <div><input class="form-control" type="text" [(ngModel)]="data.ngaysinh" ></div>
         </td>
         <td>
-            <div>
-                  {{ data.diachi }}
-            </div>
+          <div>
+              <input class="form-control" type="text" [(ngModel)]="data.diachi" >
+          </div>
         </td>
         <td>
-          <img src="data:image/jpeg;base64,{{data.hinh}}" width="100px" height="80px"/>
+            <img src="{{ !!data.hinh ? data.hinh :  hinh}}" width="100px" height="80px" (click)="changePic(i)"/>
         </td>
         <td>
-            <div>
-                  {{ data.matkhau }}
-            </div>
+          <div>
+              <input class="form-control" type="text" [(ngModel)]="data.matkhau" >
+          </div>
         </td>
         <td>
-            <div>
-                  {{ data.quayen }}
-            </div>
+          <div>
+              <input class="form-control" type="text" [(ngModel)]="data.quyen" >
+          </div>
         </td>
         <td style="width: 180px">
           <div class="row">
-              <button class="btn btn-link" (click) = "btnUpdateBan(upban,data)" ><i class="fa fa-eye" style="color: rgb(47, 0, 255)"></i></button>
-              <button class="btn btn-link" (click) = "btnDeleteBan(data)"><i class="fa fa-trash" style="color: red"></i></button>
-          </div>                              
+            <button class="btn btn-link" (click)="btnUpdateNhanvien(i)">
+              <i class="fa fa-eye" style="color: rgb(47, 0, 255)"></i>
+            </button>
+            <button class="btn btn-link" (click)="btnDeleteNhanVien(i)">
+              <i class="fa fa-trash" style="color: red"></i>
+            </button>
+          </div>
         </td>
       </tr>
     </tbody>
   </table>
 </div>
-<div class="dialogupdateban">
-  <ng-template #upban let-modal style="margin-top: 80px">
-      <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Cập nhật bàn</h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <table class="table table-hover">
-            <tr>
-                <td>Tên bàn</td>
-                <td><input class="form-control"  value="{{dlUpdate.name}}"></td>
-            </tr>
-            <tr>
-                <td>Chọn màu</td>
-                <td>
-                  <select class="form-control">
-                    <option value="red">red</option>
-                    <option value="blue">blue</option>
-                    <option value="blue">yellow</option>
-                    <option value="blue">black</option>
-                    <option value="blue">aqua</option>
-                    <option value="blue">pink</option>
+<div class="dialoginsertnhanvien">
+  <ng-template #insertnhanvien let-modal style="margin-top: 80px">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Thêm nhân viên</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <label for="">Họ tên</label>
+                </div>
+                <div class="col-md-8">
+                  <input class="form-control" [(ngModel)]="insertNhanvien.hoten" type="text">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <label for="">Ngày sinh</label>
+                </div>
+                <div class="col-md-8">
+                  <input class="form-control" [(ngModel)]="insertNhanvien.ngaysinh" type="date">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <label for="">Số điện thoại</label>
+                </div>
+                <div class="col-md-8">
+                  <input class="form-control" [(ngModel)]="insertNhanvien.sdt" type="text">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-3">
+                  <label for="">Địa chỉ</label>
+                </div>
+                <div class="col-md-9">
+                  <input class="form-control" [(ngModel)]="insertNhanvien.diachi" type="text">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <label for="">Quyền</label>
+                </div>
+                <div class="col-md-9">
+                  <select class="form-control" [(ngModel)]="insertNhanvien.quyen"> 
+                    <option value="4">Phục vụ</option>
+                    <option value="3">Thu ngân</option>
+                    <option value="2">Quản lý</option>
+                    <option value="1">Admin</option>
                   </select>
-                </td>
-            </tr>
-          </table>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <label for="">Mật khẩu</label>
+                </div>
+                <div class="col-md-9">
+                  <input class="form-control" [(ngModel)]="insertNhanvien.matkhau" type="text">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  Hình ảnh
+                </div>
+                <div class="col-md-9">
+                    <img src="{{ insertNhanvien.hinh || hinh}}" width="100px" height="80px" (click)="changeInsertPic()"/>
+                   </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="modal-footer">           
-        <div class="row col-md-12" style="margin-left: 70px;">
-          <button type="button" class="btn btn-primary" (click)="saveUpdateBan(dlUpdate)">Lưu</button>
-          <button type="button" class="btn btn-danger" (click)="cancelBan()">Hủy bỏ</button>    
-        </div>     
+    </div>
+    <div class="modal-footer">
+      <div class="row col-md-12" style="margin-left: 70px;">
+        <button type="button" class="btn btn-primary" (click)="saveInsertNhanVien(data)">Thêm</button>
+        <button type="button" class="btn btn-danger" (click)="cancelNhanvien()">Hủy bỏ</button>
       </div>
-  </ng-template>
-</div>
-<div class="dialoginsertban">
-  <ng-template #insertban let-modal style="margin-top: 80px">
-      <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Thêm bàn</h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <table class="table table-hover">
-            <tr>
-                <td>Tên bàn</td>
-                <td><input class="form-control"  value=""></td>
-            </tr>
-            <tr>
-                <td>Chọn màu</td>
-                <td>
-                  <select class="form-control">
-                    <option value="red">red</option>
-                    <option value="blue">blue</option>
-                    <option value="blue">yellow</option>
-                    <option value="blue">black</option>
-                    <option value="blue">aqua</option>
-                    <option value="blue">pink</option>
-                  </select>
-                </td>
-            </tr>
-          </table>
-        </div>
-      </div>
-      <div class="modal-footer">           
-        <div class="row col-md-12" style="margin-left: 70px;">
-          <button type="button" class="btn btn-primary" (click)="saveInsertBan(data)">Thêm</button>
-          <button type="button" class="btn btn-danger" (click)="cancelBan()">Hủy bỏ</button>    
-        </div>     
-      </div>
+    </div>
   </ng-template>
 </div>

@@ -1,10 +1,3 @@
-
-
-
-
-/*//////////////////////////////////////////////////////////////////
-[ FONT ]*/
-
 @font-face {
   font-family: Poppins-Regular;
   src: url('fonts/poppins/Poppins-Regular.ttf'); 
@@ -39,10 +32,6 @@
   font-family: Raleway-Bold;
   src: url('fonts/raleway/Raleway-Bold.ttf'); 
 }
-
-
-/*//////////////////////////////////////////////////////////////////
-[ RESTYLE TAG ]*/
 
 * {
 	margin: 0px; 
@@ -189,7 +178,7 @@ iframe {
   background: -webkit-linear-gradient(bottom, #0250c5, #d43f8d);
   background: -o-linear-gradient(bottom, #0250c5, #d43f8d);
   background: -moz-linear-gradient(bottom, #0250c5, #d43f8d);
-  background: linear-gradient(bottom, #0250c5, #d43f8d);
+  background: linear-gradient(to top, #0250c5, #d43f8d);
   position: relative;
   z-index: 1;
 }

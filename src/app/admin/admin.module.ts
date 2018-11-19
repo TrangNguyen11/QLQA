@@ -15,6 +15,10 @@ import { NhanvienComponent } from './nhanvien/nhanvien.component';
 import { NhanvienService } from './nhanvien/nhanvien.service';
 import { ThongkeComponent } from './thongke/thongke.component';
 import { ThongkeService } from './thongke/thongke.service';
+import { KhuyenMaiComponent } from './khuyenmai/khuyenmai.component';
+import { KhuyenMaiService } from './khuyenmai/khuyenmai.service';
+import { DanhmucComponent } from './danhmuc/danhmuc.component';
+import { DanhmucService } from './danhmuc/danhmuc.service';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
@@ -30,7 +34,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     BanComponent,
     MonanComponent, 
     NhanvienComponent,
-    ThongkeComponent
+    ThongkeComponent,
+    KhuyenMaiComponent,
+    DanhmucComponent
   ],
   imports: [
     CommonModule,
@@ -50,6 +56,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MonanService,
     NhanvienService,
     ThongkeService,
+    KhuyenMaiService,
+    DanhmucService,
     NgbTooltipConfig,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,

@@ -14,13 +14,20 @@ export class NhanvienService {
   getDataNhanvien = ()=>{
     return this.http.get(`${this.baseAPIAdmin}nhanvien/getNhanvien`);
   }
-  postDeleteBan = (item)=>{
-    let data = { item };
-    return this.http.post(`${this.baseAPIAdmin}monan/delBan`, data);
+  getHinh = () => {
+    return this.http.get(`${this.baseAPI}hinh`);
   }
-  postUpdateBan = (item)=>{
+  postDeleteNhanVien = (item)=>{
     let data = { item };
-    return this.http.post(`${this.baseAPIAdmin}monan/updateBan`, data);
-  }   
+    return this.http.post(`${this.baseAPIAdmin}nhanvien/delNhanvien`, data);
+  }
+  postUpdateNhanVien = (item)=>{
+    let data = { item };
+    return this.http.post(`${this.baseAPIAdmin}nhanvien/updateNhanVien`, data);
+  }
+  postInserteNhanVien = (item)=>{
+    let data = { item };
+    return this.http.post(`${this.baseAPIAdmin}nhanvien/insertNhanvien`, data);
+  }  
 }
  

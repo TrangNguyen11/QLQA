@@ -19,11 +19,5 @@ export class MenuComponent implements OnInit {
     this.service.getData(this.email, this.pass)
     .subscribe(lst => console.log(lst))
   }
-  btnMangVe(tenkh){
-    let thoigian = moment().format("YYYY-MM-DD hh:mm:ss");
-      this.service.socket.emit('sudungban', { idArr: [ tenkh ], thoigian: thoigian, mangve: 11}, (tenkh)=> {
-        this._router.navigate(['order', tenkh]);
-      });
-    
-  }
+
 }

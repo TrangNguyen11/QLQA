@@ -50,6 +50,7 @@ export class ThongkeComponent implements OnInit {
     })
     var day = moment().endOf('month').format('DD');
     console.log(day)
+
     let arr = [...Array(100)]
     console.log(arr)
     let data = [...arr].map( (e,key) => { return key} )
