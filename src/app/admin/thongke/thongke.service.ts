@@ -45,6 +45,9 @@ export class ThongkeService {
   getMonAn = ()=>{
     return this.http.get(`${this.baseAPIAdmin}thongke/getMonAn`);
   }
-   
+  
+  changeSelectTK = (item) => {
+    return this.http.post(`${this.baseAPIAdmin}thongke/changeSelect`, {item});
+  }
 }
  

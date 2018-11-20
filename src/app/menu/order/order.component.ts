@@ -8,6 +8,7 @@ import * as moment from 'moment';
 import { Router } from '@angular/router';
 import {NgbTooltipConfig} from '@ng-bootstrap/ng-bootstrap';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NotificationService } from '../../notification/notification.service';
 @Component({
   selector: 'menu-order',
   templateUrl: './order.component.html',
@@ -23,7 +24,8 @@ export class OrderComponent implements OnInit {
     @Inject(LOCAL_STORAGE) private storage: WebStorageService,
     private modalService: NgbModal, 
     private _router: Router,
-    private config: NgbTooltipConfig
+    private config: NgbTooltipConfig,
+    private notification: NotificationService
   ) {
     config.placement = 'left';
     config.triggers = 'click';
@@ -137,8 +139,13 @@ export class OrderComponent implements OnInit {
   }
   //btn gui bep 
   btnGuiBep(){
-    let monan = this.dlDatMon.map( e=> (e.status === undefined ? {...e, manhanvien:this.storage.get("id") } : e ));
-    this.sodoservice.socket.emit('dataDatMon', {sessionID: this.dataSession.id, monan, tongtien: this.tongtien(), nameban: this.nameBan})
+    if(this.dlDatMon.length>0){
+      let monan = this.dlDatMon.map( e=> (e.status === undefined ? {...e, manhanvien:this.storage.get("id") } : e ));
+      this.sodoservice.socket.emit('dataDatMon', {sessionID: this.dataSession.id, monan, tongtien: this.tongtien(), nameban: this.nameBan})
+    }else{
+      this.notification.e('error', 'Vui lòng chọn món ăn gửi bếp')
+    }
+    
     // totalDatmon = totalDatmon.map(e => {
     //   let { id, dongia, soluong} = e;      
     //   return ({ id:null, idmonan: id, idban: 1, gia: dongia, soluong: soluong, tenkh: "a", 

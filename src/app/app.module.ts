@@ -5,7 +5,7 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
 import { LoginComponent } from './login/login.component';
-
+import { ToastrModule } from 'ngx-toastr';
 import { CommonModule} from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MenuService } from './menu/menu.service';
@@ -20,7 +20,7 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { AdminComponent } from './admin/admin.component';
 import { AdminService } from './admin/admin.service';
 import { AdminModule } from './admin/admin.module';
-
+import { NotificationService } from './notification/notification.service';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -34,6 +34,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   ],
   imports: [
     BrowserModule,
+    ToastrModule.forRoot(),
     CommonModule,
     FormsModule,
     HttpClientModule,
@@ -48,6 +49,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MenuService,
     LoginService,
     AdminService,
+    NotificationService,
     AuthGuard,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,

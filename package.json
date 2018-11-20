@@ -34,6 +34,7 @@
     "moment": "^2.22.2",
     "ngx-color-picker": "^7.0.2",
     "ngx-perfect-scrollbar": "^6.3.1",
+    "ngx-toastr": "^9.1.1",
     "rxjs": "~6.2.0",
     "socket.io-client": "^2.1.1",
     "ts-md5": "^1.2.4",

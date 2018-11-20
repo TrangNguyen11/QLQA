@@ -1,9 +1,11 @@
 <input type="file" style="display:none" #file (change)="onFileChanged($event)">
+<h1 style="text-align: center">Quản lý account</h1>
+
 <div class="row">
     <div class="col-md-2">
         <img src="{{ !!dataAccount.hinh ? 'data:image/jpeg;base64,' + dataAccount.hinh :  hinh}}" width="200px" height="300px" (click)="changePic(0)" />
         <br>
-        <button class="btn btn-primary" (click)="btnChangeAccount(change)">Sửa</button>
+        <button class="btn btn-primary" (click)="btnChangeAccount(change)" style="margin-left: 70px">Sửa</button>
     </div>
     <div class="col-md-10">
         <div class="container">
@@ -36,7 +38,7 @@
 </div>
 <ng-template #change let-modal style="margin-top: 80px">
     <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Thêm Món ăn</h4>
+        <h4 class="modal-title" id="modal-basic-title">Chỉnh sửa Account</h4>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
             <span aria-hidden="true">&times;</span>
         </button>

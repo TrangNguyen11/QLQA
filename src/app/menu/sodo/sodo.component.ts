@@ -5,6 +5,8 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
+import { NotificationService } from '../../notification/notification.service';
+
 
 @Component({
   selector: 'menu-sodo',  
@@ -21,7 +23,13 @@ export class SodoComponent implements OnInit {
   closeResult: string;
   listCheckbox={};
   lstmangve = [];
-  constructor(private service: SodoService, config: NgbTooltipConfig, private _router: Router, private modalService: NgbModal) { 
+  constructor(
+    private service: SodoService, 
+    config: NgbTooltipConfig, 
+    private _router: Router, 
+    private modalService: NgbModal,
+    private notification: NotificationService
+  ) { 
     config.placement = 'bottom';
     config.triggers = 'click';
   }
@@ -120,10 +128,17 @@ export class SodoComponent implements OnInit {
   }
 
   btnMangVe(tenkh){
-    let thoigian = moment().format("YYYY-MM-DD hh:mm:ss");
-    this.service.socket.emit('sudungban', { idArr: [ tenkh ], thoigian: thoigian, mangve: 1, nameban: tenkh }, (tenkh)=> {
-      this._router.navigate(['order', tenkh]);
-    });
+    console.log(tenkh);
+    if(tenkh != undefined){
+      let thoigian = moment().format("YYYY-MM-DD hh:mm:ss");
+      this.service.socket.emit('sudungban', { idArr: [ tenkh ], thoigian: thoigian, mangve: 1, nameban: tenkh }, (tenkh)=> {
+        this._router.navigate(['order', tenkh]);
+      });
+    }
+    else{
+      this.notification.e('error', 'Tên khách hàng không được để trống')
+    }
+    
   }
   btnDetailMangve(idsession){
     this._router.navigate(['order', idsession]);

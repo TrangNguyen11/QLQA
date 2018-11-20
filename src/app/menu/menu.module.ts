@@ -21,6 +21,9 @@ import { AccountComponent } from './account/account.component';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+// import { ToastrModule } from 'ngx-toastr';
+// import { NotificationService } from '.././notification/notification.service';
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -39,6 +42,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MenuRoutingModule,
     FormsModule,
     NgbModule.forRoot(),
+    // ToastrModule.forRoot(),
     ReactiveFormsModule,
     NgbTooltipModule,
     PerfectScrollbarModule
@@ -49,6 +53,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     CheckorderService,
     NgbTooltipConfig,
     BepService,
+    // NotificationService,
     AccountService,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,

@@ -3,6 +3,7 @@ import { ThongkeService } from './thongke.service';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
+import { NotificationService } from '../../notification/notification.service';
 
 @Component({
   selector: 'admin-thongke',
@@ -80,7 +81,8 @@ export class ThongkeComponent implements OnInit {
   constructor(
     private service: ThongkeService,
     private router: Router,
-    private modalService: NgbModal) {
+    private modalService: NgbModal, 
+    private notification: NotificationService) {
   }
   ngOnInit() {
     this.loadData();
@@ -173,17 +175,20 @@ export class ThongkeComponent implements OnInit {
     this.service.exportAsExcelFile(this.dlThongke, 'hoadon');
   }
   onChange = () => {
+    console.log(this.selectThang)
     var dlChange = [];
-    var dlOnchange = [...this.dlThongke];
-    this.dlThongke.forEach((e, key)=>{
-      var check = moment(e.datedt, 'YYYY/MM/DD');
-      var month = check.format('M');
-      if(month === this.selectThang){
-        dlChange.push(e);
-        this.dlThongke = dlChange;
-      }else{
-        this.dlThongke = dlChange;
-      }      
-    })
+    if(this.selectThang == 0 ){
+      this.service.getDataThongKe().subscribe((lst: any) => {
+        this.dlThongke = lst.thongke;
+        console.log(this.dlThongke);
+      })
+    }else if(this.selectThang != undefined){
+      this.service.changeSelectTK(this.selectThang).subscribe((lst: any)=>{
+        this.dlThongke = lst.result;
+      });
+    }
+    else{
+      this.dlThongke = this.dlThongke;
+    }
   }
 }

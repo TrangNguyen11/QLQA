@@ -109,9 +109,14 @@ export class HoadonComponent implements OnInit {
     return this.tiennhan - tienthoi;
   }
   btnIn = () => {
-    let newWindow = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+    let newWindow = window.open('', '_blank', 'top=0,left=0,height=100%,width="50px"');
     newWindow.document.write('<h3 style="text-alight: center;width: 100%">Quán mì cay sasin</h3>')
     newWindow.document.write(document.getElementById('print').innerHTML)
+    newWindow.document.write(`<h3 style="text-alight: center;width: 100%">Mã giảm giá: ${ this.makm }</h3>`)
+    newWindow.document.write(`<h3 style="text-alight: center;width: 100%">Tổng tiền: ${ this.tongtien }</h3>`)
+    newWindow.document.write(`<h3 style="text-alight: center;width: 100%">Số tiền nhận: ${ this.tiennhan }</h3>`)
+    newWindow.document.write(`<h3 style="text-alight: center;width: 100%">Tiền thừa: ${ this.getTienNhanLai }</h3>`)
+
     newWindow.print();
   }
   btnCancel = () => {
