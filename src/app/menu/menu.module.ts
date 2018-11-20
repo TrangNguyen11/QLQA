@@ -16,6 +16,8 @@ import { CheckorderService } from './checkorder/checkorder.service';
 import { CheckorderComponent } from './checkorder/checkorder.component';
 import { BepService } from './bep/bep.service';
 import { BepComponent } from './bep/bep.component';
+import { AccountService } from './account/account.service';
+import { AccountComponent } from './account/account.component';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
@@ -29,7 +31,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SodoComponent,
     HoadonComponent,
     CheckorderComponent,
-    BepComponent
+    BepComponent,
+    AccountComponent
   ],
   imports: [
     CommonModule,
@@ -46,6 +49,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     CheckorderService,
     NgbTooltipConfig,
     BepService,
+    AccountService,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG

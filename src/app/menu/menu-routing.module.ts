@@ -8,6 +8,7 @@ import { SodoComponent } from './sodo/sodo.component';
 import { HoadonComponent } from './hoadon/hoadon.component';
 import { CheckorderComponent } from './checkorder/checkorder.component';
 import { BepComponent } from './bep/bep.component';
+import { AccountComponent } from './account/account.component';
 
 const routes: Routes = [
   { path: '', 
@@ -42,6 +43,10 @@ const routes: Routes = [
       {
         path: "checkorder",
         component: CheckorderComponent
+      },
+      {
+        path: "account",
+        component: AccountComponent
       },
     ]
 

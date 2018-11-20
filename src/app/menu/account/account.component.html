@@ -1,0 +1,85 @@
+<input type="file" style="display:none" #file (change)="onFileChanged($event)">
+<div class="row">
+    <div class="col-md-2">
+        <img src="{{ !!dataAccount.hinh ? 'data:image/jpeg;base64,' + dataAccount.hinh :  hinh}}" width="200px" height="300px" (click)="changePic(0)" />
+        <br>
+        <button class="btn btn-primary" (click)="btnChangeAccount(change)">Sửa</button>
+    </div>
+    <div class="col-md-10">
+        <div class="container">
+            <label for="email">
+                <b>Họ tên</b>
+            </label>
+            <input class="form-control" type="text" [(ngModel)]="dataAccount.hoten">
+
+            <label for="psw">
+                <b>Địa chỉ</b>
+            </label>
+            <input class="form-control" type="text" [(ngModel)]="dataAccount.diachi">
+
+            <label for="psw-repeat">
+                <b>Ngày sinh</b>
+            </label>
+            <input class="form-control" type="date" [(ngModel)]="dataAccount.ngaysinh">
+
+            <label for="psw-repeat">
+                <b>Số điện toại</b>
+            </label>
+            <input class="form-control" type="text" [(ngModel)]="dataAccount.sdt">
+
+            <label for="psw-repeat">
+                <b>Mật khẩu</b>
+            </label>
+            <input class="form-control" type="text" [(ngModel)]="dataAccount.matkhau">
+        </div>
+    </div>
+</div>
+<ng-template #change let-modal style="margin-top: 80px">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Thêm Món ăn</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="col-md-12">
+            <div class="col-md-10">
+                <div class="container">
+                    <label for="email">
+                        <b>Họ tên</b>
+                    </label>
+                    <input class="form-control" type="text" [(ngModel)]="dataAccount.hoten">
+
+                    <label for="psw">
+                        <b>Địa chỉ</b>
+                    </label>
+                    <input class="form-control" type="text" [(ngModel)]="dataAccount.diachi">
+
+                    <label for="psw-repeat">
+                        <b>Ngày sinh</b>
+                    </label>
+                    <input class="form-control" type="date" [(ngModel)]="dataAccount.ngaysinh">
+
+                    <label for="psw-repeat">
+                        <b>Số điện toại</b>
+                    </label>
+                    <input class="form-control" type="text" [(ngModel)]="dataAccount.sdt">
+
+                    <label for="psw-repeat">
+                        <b>Mật khẩu</b>
+                    </label>
+                    <input class="form-control" type="text" [(ngModel)]="dataAccount.matkhau">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <img src="{{ !!dataAccount.hinh ? 'data:image/jpeg;base64,' + dataAccount.hinh :  hinh}}" width="200px" height="100px" (click)="changePic()" />
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="row col-md-12" style="margin-left: 70px;">
+            <button type="button" class="btn btn-primary" (click)="saveAccount()">Save</button>
+            <button type="button" class="btn btn-danger" (click)="cancelAccount()">Hủy bỏ</button>
+        </div>
+    </div>
+</ng-template>

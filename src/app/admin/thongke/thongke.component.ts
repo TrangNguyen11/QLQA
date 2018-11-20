@@ -14,27 +14,69 @@ export class ThongkeComponent implements OnInit {
   dlThongke = [];
   closeResult: string;
   dlUpdate;
+  isLoading = false;
+  thang = []
   option = {
-    schemeType:'ordinal',
+    schemeType: 'ordinal',
     // options
     showXAxis: true,
     showYAxis: true,
     gradient: false,
     showLegend: false,
     showXAxisLabel: true,
-    xAxisLabel: 'Number',
+    // xAxisLabel: 'Number',
     showYAxisLabel: true,
-    yAxisLabel: 'Color Value',
+    // yAxisLabel: 'Color Value',
     timeline: false,
 
     colorScheme: {
       domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
     },
     multi: [
-      
-    ]
-  } 
 
+    ]
+  }
+  isLoadingGio = false;
+  tkgio = {
+    schemeType: 'ordinal',
+    // options
+    showXAxis: true,
+    showYAxis: true,
+    gradient: false,
+    showLegend: false,
+    showXAxisLabel: true,
+    // xAxisLabel: 'Number',
+    showYAxisLabel: true,
+    // yAxisLabel: 'Color Value',
+    timeline: false,
+    colorScheme: {
+      domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+    },
+    multi: [
+    ]
+  }
+  isLoadingMonAn = false;
+  tkmonan = {
+    schemeType: 'ordinal',
+    // options
+    showXAxis: true,
+    showYAxis: true,
+    gradient: false,
+    showLegend: false,
+    showXAxisLabel: true,
+    // xAxisLabel: 'Number',
+    showYAxisLabel: true,
+    // yAxisLabel: 'Color Value',
+    timeline: false,
+    colorScheme: {
+      domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+    },
+    multi: [
+    ]
+  }
+  dlTKMonAn = [];
+  selectThang;//moment().months();
+  tongTienHoaDon;
   constructor(
     private service: ThongkeService,
     private router: Router,
@@ -42,24 +84,106 @@ export class ThongkeComponent implements OnInit {
   }
   ngOnInit() {
     this.loadData();
-    console.log([...Array(5)].map((item, index) => ({ index })))
+    this.tkNgay();
+    this.tkGio();
+    for(var i = 1; i<13 ; i++){
+      this.thang.push(i);
+    }
+    // this.tkMonAn();
   }
   loadData = () => {
     this.service.getDataThongKe().subscribe((lst: any) => {
       this.dlThongke = lst.thongke;
     })
-    var day = moment().endOf('month').format('DD');
-    console.log(day)
+  }
+  getSum() : number {
+    let sum = 0;
+    for(let i = 0; i < this.dlThongke.length; i++) {
+      sum += +this.dlThongke[i].sotien
+    }
+    return sum;
+  }
+  tkNgay = () => {
+    //Thống kê theo tháng
+    this.service.getThongKeThang().subscribe((lst: any) => {
+      let valueDay = {};
+      lst.data.forEach(e => valueDay[e.ngay] = e.tien)
+      var day = moment().endOf('month').format('DD');
+      let arr = [...Array(+day)].fill(' ')
 
-    let arr = [...Array(100)]
-    console.log(arr)
-    let data = [...arr].map( (e,key) => { return key} )
-    // this.option.multi.push(
-    //   {
-    //     name: 'So luong',
-    //     series: 
-    //   }
-    // );
-    console.log(data)
+      let series = arr.map((e, key) => ({
+        name: `Ngay ${key + 1}`,
+        value: !!valueDay[key + 1] ? valueDay[key + 1] : 0
+      }))
+      this.option.multi.push(
+        {
+          name: 'Tổng tiền',
+          series
+        }
+      );
+      this.isLoading = true;
+    })
+  }
+  tkGio = () => {
+    //Thống kê theo giờ
+    this.service.getThongKeGio().subscribe((lst: any) => {
+      let valueDay = {};
+      lst.data.forEach(e => valueDay[e.gio] = e.dem)
+      let arr = [...Array(24)].fill(' ')
+      let series = arr.map((e, key) => ({
+        name: `${key} Giờ `,
+        value: !!valueDay[key] ? valueDay[key] : 0
+      }))
+      this.tkgio.multi.push(
+        {
+          name: 'Số lượng',
+          series
+        }
+      );
+      this.isLoadingGio = true;
+    })
+  }
+  tkMonAn = () => {
+    //Thống kê theo món ăn
+    this.service.getThongKeMonAn().subscribe((lstdata: any) => {
+      this.service.getMonAn().subscribe((lst: any) => {
+        lst.data.forEach((e) => {
+          this.dlTKMonAn[e.tenmon] = e.tenmon
+        })
+        let valueDay = {};
+        lstdata.data.forEach(e => valueDay[e.tenmon] = e.demmon)
+        console.log(valueDay)
+        console.log(this.dlTKMonAn)
+        let series = this.dlTKMonAn.map((e, key) => ({
+          name: e,
+          value: !!valueDay[key] ? valueDay[key] : 0
+        }))
+        console.log(series)
+        this.tkmonan.multi.push(
+          {
+            name: 'Thời gian',
+            series
+          }
+        );
+      });
+      this.isLoadingMonAn = true;
+    })
+  }
+  btnExport = () =>{
+    this.service.exportAsExcelFile(this.dlThongke, 'hoadon');
+  }
+  onChange = () => {
+    var dlChange = [];
+    var dlOnchange = [...this.dlThongke];
+    this.dlThongke.forEach((e, key)=>{
+      var check = moment(e.datedt, 'YYYY/MM/DD');
+      var month = check.format('M');
+      if(month === this.selectThang){
+        dlChange.push(e);
+        this.dlThongke = dlChange;
+      }else{
+        this.dlThongke = dlChange;
+      }      
+    })
   }
 }

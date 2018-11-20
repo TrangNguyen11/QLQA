@@ -1,45 +1,84 @@
-<div class="row" style="height: 300px;">
-  <ngx-charts-area-chart
-      [view]="option.view"
-      [scheme]="option.colorScheme"
-      [schemeType] = "option.schemeType"
-      [results]="option.multi"
-      [gradient]="option.gradient"
-      [xAxis]="option.showXAxis"
-      [yAxis]="option.showYAxis"
-      [legend]="option.showLegend"
-      [showXAxisLabel]="option.showXAxisLabel"
-      [showYAxisLabel]="option.showYAxisLabel"
-      [xAxisLabel]="option.xAxisLabel"
-      [yAxisLabel]="option.yAxisLabel"
-      [autoScale]="option.autoScale"
-      [timeline]="option.timeline"
-      (select)="onSelect($event)">
-  </ngx-charts-area-chart>
-</div>
-<div class = "row">
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <td>Mã hóa đơn</td>
-        <td>Ngày tạo hóa đơn</td>
-        <td>Số tiên</td>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor = "let data of dlThongke; index as i">
-        <td>
-            <div>{{ data.id }}</div>
-        </td>
-        <td>
-            <div>
-                  {{ data.datedt }}
+<div class="row fullScreen">
+  <div class="col-md-12">
+    <div class="container">
+      <ngb-tabset>
+        <ngb-tab title="Thống kê">
+          <ng-template ngbTabContent>
+            <h3>Thống kê theo ngày</h3>
+            <div *ngIf="isLoading" class="row" style="height: 300px;">
+              <ngx-charts-area-chart [view]="option.view" [scheme]="option.colorScheme" [schemeType]="option.schemeType" [results]="option.multi"
+                [gradient]="option.gradient" [xAxis]="option.showXAxis" [yAxis]="option.showYAxis" [legend]="option.showLegend"
+                [showXAxisLabel]="option.showXAxisLabel" [showYAxisLabel]="option.showYAxisLabel" [xAxisLabel]="option.xAxisLabel"
+                [yAxisLabel]="option.yAxisLabel" [autoScale]="option.autoScale" [timeline]="option.timeline" (select)="onSelect($event)">
+              </ngx-charts-area-chart>
             </div>
-        </td>
-        <td>
-            <div>{{ data.sotien }}</div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+            <h3>Thống kê theo giờ nào có số lượng khách đông nhất</h3>
+            <div *ngIf="isLoadingGio" class="row" style="height: 300px;">
+              <ngx-charts-area-chart [view]="tkgio.view" [scheme]="tkgio.colorScheme" [schemeType]="tkgio.schemeType" [results]="tkgio.multi"
+                [gradient]="tkgio.gradient" [xAxis]="tkgio.showXAxis" [yAxis]="tkgio.showYAxis" [legend]="tkgio.showLegend"
+                [showXAxisLabel]="tkgio.showXAxisLabel" [showYAxisLabel]="tkgio.showYAxisLabel" [xAxisLabel]="tkgio.xAxisLabel"
+                [yAxisLabel]="tkgio.yAxisLabel" [autoScale]="tkgio.autoScale" [timeline]="tkgio.timeline" (select)="onSelect($event)">
+              </ngx-charts-area-chart>
+            </div>
+            <h3>Thống kê theo món ăn khách sử dụng nhiều nhất</h3>
+            <div *ngIf="isLoadingMonAn" class="row" style="height: 300px;">
+              <ngx-charts-area-chart [view]="tkmonan.view" [scheme]="tkmonan.colorScheme" [schemeType]="tkmonan.schemeType" [results]="tkmonan.multi"
+                [gradient]="tkmonan.gradient" [xAxis]="tkmonan.showXAxis" [yAxis]="tkmonan.showYAxis" [legend]="tkmonan.showLegend"
+                [showXAxisLabel]="tkmonan.showXAxisLabel" [showYAxisLabel]="tkmonan.showYAxisLabel" [xAxisLabel]="tkmonan.xAxisLabel"
+                [yAxisLabel]="tkmonan.yAxisLabel" [autoScale]="tkmonan.autoScale" [timeline]="tkmonan.timeline" (select)="onSelect($event)">
+              </ngx-charts-area-chart>
+            </div>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab title="Danh sách">
+          <ng-template ngbTabContent>
+            <div class="row">
+              <div style="float: right;">
+                <div class="form-inline">                  
+                  <div class="form-group">
+                    <label for="exampleFormControlSelect1">Chọn tháng</label>
+                    <select class="form-control" [(ngModel)]="selectThang" (change)="onChange()">
+                        <option *ngFor="let t of thang" [value]="t">{{t}}</option>
+                    </select>
+                    <button class="btn btn-danger" (click)="btnExport()">Export</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <td>Mã hóa đơn</td>
+                    <td>Ngày tạo hóa đơn</td>
+                    <td>Số tiên</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of dlThongke; index as i">
+                    <td>
+                      <div>{{ data.id }}</div>
+                    </td>
+                    <td>
+                      <div>
+                        {{ data.datedt }}
+                      </div>
+                    </td>
+                    <td>
+                      <div>{{ data.sotien }}</div>
+                    </td>
+                  </tr>
+                </tbody>
+                
+              </table>
+              <div style="float: right; font-weight: bold; font-size: 20px">
+                  Tổng tiền: {{ getSum() }}
+                </div>
+            </div>
+          </ng-template>
+        </ngb-tab>
+      </ngb-tabset>
+    </div>
+  </div>
 </div>

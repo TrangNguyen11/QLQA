@@ -45,7 +45,7 @@ export class SodoComponent implements OnInit {
     this.modalService.dismissAll();
     let arrCheck = Object.keys(this.listCheckbox);
     let data = this.dlSoDo.filter(e => arrCheck.indexOf(e.id + "") > -1 )[0];
-    let thoigian = moment().format("YYYY-MM-DD hh:mm:ss");
+    let thoigian = moment().format("YYYY-MM-DD HH:mm:ss");
     let nameban = this.dlSoDo.filter(e => arrCheck.indexOf(e.id+ "") > -1 ).map( e => e.name ).join(' ');
     this.service.socket.emit('ghepban', { idArr: arrCheck , color: data.color, session: data.session, thoigian, nameban });
   }
@@ -74,7 +74,7 @@ export class SodoComponent implements OnInit {
     if(!!idsession ){
       this._router.navigate(['order', idsession]);
     }else{
-      let thoigian = moment().format("YYYY-MM-DD hh:mm:ss");
+      let thoigian = moment().format("YYYY-MM-DD HH:mm:ss");
       let nameban = this.dlSoDo.filter(e => e.id === id)[0].name
       this.service.socket.emit('sudungban', { idArr: [ id+"" ], color, thoigian: thoigian, nameban}, (id)=> {
         this._router.navigate(['order', id]);
