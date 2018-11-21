@@ -26,6 +26,7 @@ export class BepComponent implements OnInit {
   loadDataBep(){
     this.service.getDataBep().subscribe((lst:any)=>{
       this.dataBep = lst;
+      console.log(this.dataBep);
          // moment.locale('vi');
           //const b = moment(a.timeDat);          
           //console.log(b.startOf('minutes').fromNow());
@@ -49,5 +50,14 @@ export class BepComponent implements OnInit {
   }
   btnHuy(data){
     this.service.socket.emit('dataHuy', data);
+  }
+  btnIn(data){
+    let newWindow = window.open('', '_blank', 'top=0,left=0,height="100%",width="100%"');
+    newWindow.document.write('<h3 style="text-align: center;">Món ăn</h3>')
+    newWindow.document.write(`<h3 style="text-align: center;">${data.tenmon}</h3>`)
+    newWindow.document.write(`<h6 style="text-align: center;">#${data.nameban}</h6>`)
+    newWindow.document.write(`<h6 style="text-align: center;">SL: x${data.soluong}</h6>`)
+    newWindow.document.write(`<h6 style="text-align: center;">${ moment().format("YYYY-MM-DD HH:mm:ss")}</h6>`)
+    newWindow.print();  
   }
 }

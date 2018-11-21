@@ -27,11 +27,13 @@
         </td>
         <td>
           <div>
-              <input class="form-control" type="text" [(ngModel)]="data.sdt" >
+              <input class="form-control" type="text" [(ngModel)]="data.sdt" minlength="10" maxlength="10"
+              #title="ngModel" id="sdt" class="form-control" #sdtRef [ngModelOptions]="{updateOn: 'blur'}"
+              required> 
           </div>
         </td>
         <td>
-          <div><input class="form-control" type="text" [(ngModel)]="data.ngaysinh" ></div>
+          <div><input class="form-control" type="date" [(ngModel)]="data.ngaysinh"style="width: 150px" ></div>
         </td>
         <td>
           <div>
@@ -43,18 +45,23 @@
         </td>
         <td>
           <div>
-              <input class="form-control" type="text" [(ngModel)]="data.matkhau" >
+              <input class="form-control" type="text" [(ngModel)]="data.matkhau" style="width: 115px">
           </div>
         </td>
         <td>
           <div>
-              <input class="form-control" type="text" [(ngModel)]="data.quyen" >
+              <select class="form-control" [(ngModel)]="data.quyen" style="width: 115px"> 
+                <option value="4">Phục vụ</option>
+                <option value="3">Thu ngân</option>
+                <option value="2">Bep</option>
+                <option value="1">Admin</option>
+              </select>
           </div>
         </td>
         <td style="width: 180px">
           <div class="row">
             <button class="btn btn-link" (click)="btnUpdateNhanvien(i)">
-              <i class="fa fa-eye" style="color: rgb(47, 0, 255)"></i>
+              <i class="fa fa-save" style="color: rgb(47, 0, 255)"></i>
             </button>
             <button class="btn btn-link" (click)="btnDeleteNhanVien(i)">
               <i class="fa fa-trash" style="color: red"></i>
@@ -74,18 +81,16 @@
       </button>
     </div>
     <div class="modal-body">
-      <div class="row">
-        <div class="col-md-12">
           <div class="row">
             <div class="col-md-6">
               <div class="row">
                 <div class="col-md-4">
                   <label for="">Họ tên</label>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-8">                    
                   <input class="form-control" [(ngModel)]="insertNhanvien.hoten" type="text">
                 </div>
-              </div>
+              </div><br>
               <div class="row">
                 <div class="col-md-4">
                   <label for="">Ngày sinh</label>
@@ -93,16 +98,23 @@
                 <div class="col-md-8">
                   <input class="form-control" [(ngModel)]="insertNhanvien.ngaysinh" type="date">
                 </div>
-              </div>
+              </div><br>
               <div class="row">
                 <div class="col-md-4">
                   <label for="">Số điện thoại</label>
                 </div>
+                
                 <div class="col-md-8">
-                  <input class="form-control" [(ngModel)]="insertNhanvien.sdt" type="text">
+                  <input class="form-control" [(ngModel)]="insertNhanvien.sdt" minlength="10" maxlength="10" type="text" #uname="ngModel">
+                  <div *ngIf="uname.errors?.minlength">
+                      <p style="color: red"></p>Số điện thoại phải ít nhất chứa 10 ký tự.
+                 </div> 
+                 <div *ngIf="uname.errors?.maxlength" style="color: red">
+                    <p></p>Số điện thoại không được vượt quá 10 ký tự.
+                </div> 
                 </div>
               </div>
-            </div>
+            </div><br>
             <div class="col-md-6">
               <div class="row">
                 <div class="col-md-3">
@@ -111,7 +123,7 @@
                 <div class="col-md-9">
                   <input class="form-control" [(ngModel)]="insertNhanvien.diachi" type="text">
                 </div>
-              </div>
+              </div><br>
               <div class="row">
                 <div class="col-md-3">
                   <label for="">Quyền</label>
@@ -120,11 +132,11 @@
                   <select class="form-control" [(ngModel)]="insertNhanvien.quyen"> 
                     <option value="4">Phục vụ</option>
                     <option value="3">Thu ngân</option>
-                    <option value="2">Quản lý</option>
+                    <option value="2">Bep</option>
                     <option value="1">Admin</option>
                   </select>
                 </div>
-              </div>
+              </div><br>
               <div class="row">
                 <div class="col-md-3">
                   <label for="">Mật khẩu</label>
@@ -143,12 +155,10 @@
               </div>
             </div>
           </div>
-        </div>
-      </div>
     </div>
     <div class="modal-footer">
-      <div class="row col-md-12" style="margin-left: 70px;">
-        <button type="button" class="btn btn-primary" (click)="saveInsertNhanVien(data)">Thêm</button>
+      <div class="row col-md-12">
+        <button type="button"  style="margin-left: 160px;" class="btn btn-primary" (click)="saveInsertNhanVien(data)">Thêm</button>
         <button type="button" class="btn btn-danger" (click)="cancelNhanvien()">Hủy bỏ</button>
       </div>
     </div>

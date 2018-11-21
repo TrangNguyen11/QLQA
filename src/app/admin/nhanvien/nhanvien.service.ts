@@ -28,6 +28,9 @@ export class NhanvienService {
   postInserteNhanVien = (item)=>{
     let data = { item };
     return this.http.post(`${this.baseAPIAdmin}nhanvien/insertNhanvien`, data);
-  }  
+  }
+  postCheckSDT = (item)=>{
+    return this.http.post(`${this.baseAPIAdmin}nhanvien/checkSdtNV`, { item });
+  }
 }
  

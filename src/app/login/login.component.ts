@@ -30,11 +30,8 @@ export class LoginComponent implements OnInit {
     // });
   }  
   email = "";
-  password = "";
-  
+  password = "";  
   btnlogin(){
-    console.log(this.email )
-    console.log( this.password)
     const md5 = new Md5();
     console.log(md5.appendStr(this.password).end().toString());
     if(this.email == "" && this.password == ""){
@@ -51,10 +48,19 @@ export class LoginComponent implements OnInit {
             this.storage.set("id", reponse.login[0].id);
             this.storage.set("username", reponse.login[0].sdt);
             this.storage.set("password", reponse.login[0].matkhau);
+            this.storage.set("quyen", reponse.login[0].quyen);
+            this.storage.set("hoten", reponse.login[0].hoten);
             var quyen = reponse.login[0].quyen;
-            if(quyen == 0){
+            if(quyen == 4){
               this.router.navigateByUrl('');
-            }else{
+            }else if(quyen == 1){
+              this.router.navigateByUrl('admin');
+            }else if(quyen == 2){
+              this.router.navigateByUrl('bep');
+            }else if(quyen == 3){
+              this.router.navigateByUrl('thanhtoan');
+            }
+            else{
               this.router.navigateByUrl('admin');
             }
             this.notification.s('success', 'Đăng nhập thành công')         

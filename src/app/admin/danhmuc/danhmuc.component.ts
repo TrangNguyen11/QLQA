@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { DanhmucService } from './danhmuc.service';
 import { Router } from '@angular/router';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { NotificationService } from '../../notification/notification.service';
 
 @Component({
   selector: 'admin-danhmuc',
@@ -15,7 +16,10 @@ export class DanhmucComponent implements OnInit {
   datainsertdanhmuc = {
     name: '',
   }
-  constructor(private service: DanhmucService, private router: Router, private modalService: NgbModal) {
+  constructor(private service: DanhmucService, 
+    private router: Router, 
+    private modalService: NgbModal,
+    private notification: NotificationService) {
   }
   ngOnInit() {
     this.loadData();
@@ -29,18 +33,18 @@ export class DanhmucComponent implements OnInit {
     this.service.postDeleteDanhmuc( this.dlDanhmuc[i].id).subscribe((lst: any)=>{
       if(lst.name == 1){
         this.dlDanhmuc.splice(i,1);
-        alert("Xóa thành công");
+        this.notification.s('success', `Xóa danh mục ${ this.dlDanhmuc[i].name}  thành công`)
       }else{
-        alert("Xóa thất bại");
+        this.notification.e('error', `Xóa danh mục ${ this.dlDanhmuc[i].name}  thất bại`)
       }
     })
   }
   saveUpdateDanhmuc(i){
     this.service.postUpdateDanhmuc(this.dlDanhmuc[i]).subscribe((lst: any)=>{
       if(lst.name == 1){
-        alert("Cập nhật thành công");
+        this.notification.s('success', `Cập nhật thông tin danh mục ${ this.dlDanhmuc[i].name}  thành công`)
       }else{
-        alert("Cập nhật thất bại");
+        this.notification.e('error', `Cập nhật thông tin danh mục ${ this.dlDanhmuc[i].name}  thất bại`)
       }
     })
   }
@@ -53,12 +57,18 @@ export class DanhmucComponent implements OnInit {
     });
   }
   saveInsertDanhmuc(){
+    if(this.datainsertdanhmuc.name === ""){
+      this.notification.e('error', `Tên danh mục không được để trống`)
+      return true
+    }
     this.service.postInserteDanhmuc(this.datainsertdanhmuc)
     .subscribe(
       (res: any) =>{
         if(res.result === true){
           this.loadData();
+          this.notification.s('success', `Thêm bàn thành công`)                                                                                                                                                                             
           this.modalService.dismissAll();
+          
         }
       }
     )

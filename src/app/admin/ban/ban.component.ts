@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { BanService } from './ban.service';
 import { Router } from '@angular/router';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { NotificationService } from '../../notification/notification.service';
 
 @Component({
   selector: 'admin-ban',
@@ -16,7 +17,11 @@ export class BanComponent implements OnInit {
     name: '',
     color: ''
   }
-  constructor(private service: BanService, private router: Router, private modalService: NgbModal) {
+  constructor(
+    private service: BanService, 
+    private router: Router, 
+    private modalService: NgbModal,
+    private notification: NotificationService,) {
   }
   ngOnInit() {
     this.loadData();
@@ -30,18 +35,18 @@ export class BanComponent implements OnInit {
     this.service.postDeleteBan( this.dlBan[i].id).subscribe((lst: any)=>{
       if(lst.name == 1){
         this.dlBan.splice(i,1);
-        alert("Xóa thành công");
+        this.notification.s('success', `Xóa bàn ${ this.dlBan[i].name}  thành công`)
       }else{
-        alert("Xóa thất bại");
+        this.notification.e('error', `Xóa bàn ${ this.dlBan[i].name}  thất bại`)
       }
     })
   }
   saveUpdateBan(i){
     this.service.postUpdateBan(this.dlBan[i]).subscribe((lst: any)=>{
       if(lst.name == 1){
-        alert("Cập nhật thành công");
+        this.notification.s('success', `Cập nhật thông tin bàn ${ this.dlBan[i].name}  thành công`)
       }else{
-        alert("Cập nhật thất bại");
+        this.notification.e('error', `Cập nhật thông tin bàn ${ this.dlBan[i].name}  thất bại`)
       }
     })
   }
@@ -54,13 +59,21 @@ export class BanComponent implements OnInit {
     });
   }
   saveInsertBan(){
+    if(this.insert.name === ""){
+      this.notification.e('error', `Tên bàn không được để trống`)
+      return true
+    }
+    if(this.insert.color === ""){
+      this.notification.e('error', `Cột màu không được để trống`)
+      return true
+    }
     this.service.postInserteBan(this.insert)
     .subscribe(
       (res: any) =>{
         if(res.result === true){
           this.loadData();
+          this.notification.s('success', `Thêm bàn thành công`)
           this.modalService.dismissAll();
-
         }
       }
     )

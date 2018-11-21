@@ -22,6 +22,9 @@ export class KhuyenMaiService {
   }   
   postInserKhuyenmai = (item)=>{
     return this.http.post(`${this.baseAPIAdmin}khuyenmai/insertKhuyenmai`, { item });
-  }  
+  }
+  checkMaKM = (item)=>{
+    return this.http.post(`${this.baseAPIAdmin}khuyenmai/checkMa`, { item });
+  }
 }
  

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { forkJoin } from 'rxjs'
 import {Md5} from 'ts-md5/dist/md5';
+import { NotificationService } from '../../notification/notification.service';
 @Component({
   selector: 'admin-nhanvien',
   templateUrl: './nhanvien.component.html',
@@ -15,8 +16,10 @@ export class NhanvienComponent implements OnInit {
   public data:any=[];
   dlNhanvien = [];
   closeResult: string;
-  dlUpdate ;
-  insertNhanvien = {
+  dlUpdate ;  
+  hinh = "";
+  idChangePic = -1;
+  insertNhanvien = ({
     hoten: '',
     ngaysinh: '',
     sdt: '',
@@ -24,14 +27,17 @@ export class NhanvienComponent implements OnInit {
     quyen: '',
     matkhau: '',
     hinh: ''
-  }
-  hinh = "";
-  idChangePic = -1;
-
-  constructor(private service: NhanvienService, private router: Router, private modalService: NgbModal) {
+  });
+  constructor(
+    private service: NhanvienService, 
+    private router: Router, 
+    private modalService: NgbModal,
+    private notification: NotificationService,
+  ){
   }
   ngOnInit() {
     this.loadData();
+    
   }
   loadData = () =>{
     forkJoin([ 
@@ -46,10 +52,10 @@ export class NhanvienComponent implements OnInit {
   btnDeleteNhanVien = (i) =>{
     this.service.postDeleteNhanVien(this.dlNhanvien[i]).subscribe((lst: any)=>{
       if(lst.name == 1){
-        this.dlNhanvien.splice(i,1);
-        alert("Xóa thành công");
+        this.notification.s('success', `Xóa nhân viên ${this.dlNhanvien[i].hoten} thành công`)    
+        this.dlNhanvien.splice(i,1);        
       }else{
-        alert("Xóa thất bại");
+        this.notification.e('errors', `Xóa nhân viên ${this.dlNhanvien[i].hoten} thất bại`)
       }
     })
   }
@@ -63,16 +69,43 @@ export class NhanvienComponent implements OnInit {
   }
   saveInsertNhanVien(){
     const md5 = new Md5();
+    
+    if(this.insertNhanvien.hoten === ""){
+      this.notification.e('errors', `Họ tên không được để trống `)
+      return true
+    }
+    if(this.insertNhanvien.quyen === ""){
+      this.notification.e('errors', `Vui lòng set quyền cho nhân viên `)
+      return true
+    }
+    if(this.insertNhanvien.matkhau === ""){
+      this.notification.e('errors', `Mật khẩu không được để trống`)
+      return true
+    }
+    if(this.insertNhanvien.sdt === ""){
+      this.notification.e('errors', `Số điện thoại không được để trống`)
+      return true
+    }
     this.insertNhanvien.matkhau = md5.appendStr(this.insertNhanvien.matkhau).end().toString();
-    this.service.postInserteNhanVien(this.insertNhanvien)
-    .subscribe(
-      (res: any) =>{
-        if(res.result === true){
-          this.loadData();
-          this.modalService.dismissAll();
-        }
+    this.service.postCheckSDT(this.insertNhanvien.sdt).subscribe((lst:any)=>{
+      if(lst.length === 0){
+        this.service.postInserteNhanVien(this.insertNhanvien).subscribe(
+          (res: any) =>{
+            if(res.result === true){
+              this.loadData();
+              this.notification.s('success', `Thêm nhân viên thành công`)
+              this.modalService.dismissAll();
+            }else{
+              this.notification.e('errors', `Thêm nhân viên thất bại`)
+            }
+          }
+        )
+      }else{        
+        this.notification.e('errors', `Số điện thoại này đã được sử dụng`)
+        return true
       }
-    )
+    })
+    
   }
   changePic(id){
     this.idChangePic = id;
@@ -103,10 +136,12 @@ export class NhanvienComponent implements OnInit {
     reader.readAsDataURL(file);
     reader.onload = () => {
       let data = reader.result;
-      this.insertNhanvien.hinh = data;
+      // this.insertNhanvien.hinh = data;
     };
   }
-  btnUpdateNhanvien(i){ 
-    this.service.postUpdateNhanVien(this.dlNhanvien[i]).subscribe( (res: any) => res.result === 1 ? alert('Cập nhật thành công'): alert('Cập nhật lỗi') )
+  btnUpdateNhanvien(i){
+    this.service.postUpdateNhanVien(this.dlNhanvien[i]).subscribe(
+      (res: any) => res.result === 1 ? this.notification.s('success', `Cập nhật thông tin nhân viên ${ this.dlNhanvien[i].hoten} thành công`):
+      this.notification.e('errors', `Cập nhật nhân viên ${ this.dlNhanvien[i].hoten } thất bại`) )
   }
 }

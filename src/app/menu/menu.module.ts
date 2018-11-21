@@ -1,7 +1,6 @@
 
 import { NgModule } from '@angular/core';
 import { MenuRoutingModule } from './menu-routing.module';
-import { MonanComponent } from './monan/monan.component';
 import { OrderComponent } from './order/order.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {CommonModule} from '@angular/common';
@@ -29,7 +28,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 };
 @NgModule({
   declarations: [
-    MonanComponent,
     OrderComponent,
     SodoComponent,
     HoadonComponent,

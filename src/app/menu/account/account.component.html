@@ -63,10 +63,15 @@
                     <input class="form-control" type="date" [(ngModel)]="dataAccount.ngaysinh">
 
                     <label for="psw-repeat">
-                        <b>Số điện toại</b>
+                        <b>Số điện thoại</b>
                     </label>
-                    <input class="form-control" type="text" [(ngModel)]="dataAccount.sdt">
-
+                    <input class="form-control" type="text" [(ngModel)]="dataAccount.sdt" [(ngModel)]="insertNhanvien.sdt" minlength="10" maxlength="10" #uname="ngModel" >
+                    <div *ngIf="uname.errors?.minlength">
+                        <p style="color: red">Số điện thoại phải ít nhất chứa 10 ký tự.</p>
+                    </div>
+                    <div *ngIf="uname.errors?.maxlength" style="color: red">
+                        <p style="color: red">Số điện thoại không được vượt quá 10 ký tự.</p>
+                    </div> 
                     <label for="psw-repeat">
                         <b>Mật khẩu</b>
                     </label>
@@ -74,7 +79,7 @@
                 </div>
             </div>
             <div class="col-md-2">
-                <img src="{{ !!dataAccount.hinh ? 'data:image/jpeg;base64,' + dataAccount.hinh :  hinh}}" width="200px" height="100px" (click)="changePic()" />
+                <img src="{{ !!dataAccount.hinh ? 'data:image/jpeg;base64,' + dataAccount.hinh :  'data:image/jpeg;base64,'+ hinh}}" width="200px" height="100px" (click)="changePic()" />
             </div>
         </div>
     </div>

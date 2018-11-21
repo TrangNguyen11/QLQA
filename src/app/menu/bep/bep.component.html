@@ -23,6 +23,7 @@
                             <div class="row">
                                 <button class="btn btn-warning" *ngIf = "data.status !== 1" (click) = "btnNau(data)" >Nấu</button>
                                 <button class="btn btn-success" (click) = "btnXong(data)" *ngIf = "data.status === 1">Xong</button>
+                                <button class="btn btn-primary" (click) = "btnIn(data)" *ngIf = "data.status === 1">In</button>
                                 <button class="btn btn-danger" *ngIf = "data.status !== 1" (click) = "btnHuy(data)">Hủy</button>
                             </div>                              
                           </td>

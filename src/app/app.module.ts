@@ -43,7 +43,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     StorageServiceModule,
     MenuModule,
     PerfectScrollbarModule,
-    AdminModule
+    AdminModule,
   ],
   providers: [
     MenuService,

@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MenuComponent }      from './menu.component';
 import { AuthGuard }                from '../auth-guard.service';
-import { MonanComponent } from './monan/monan.component';
 import { OrderComponent } from './order/order.component';
 import { SodoComponent } from './sodo/sodo.component';
 import { HoadonComponent } from './hoadon/hoadon.component';
@@ -20,10 +19,6 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     component: MenuComponent,
     children: [
-      {
-        path: "monan",
-        component: MonanComponent
-      },
       {
         path: "order/:idsession",
         component: OrderComponent

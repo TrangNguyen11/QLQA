@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { HoadonService } from './hoadon.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { forkJoin } from 'rxjs'
+import {LOCAL_STORAGE, WebStorageService} from 'angular-webstorage-service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'menu-hoadon',
@@ -11,7 +13,11 @@ import { forkJoin } from 'rxjs'
 })
 
 export class HoadonComponent implements OnInit {
-  constructor(private service: HoadonService, private route: ActivatedRoute, private modalService: NgbModal) {
+  constructor(
+    private service: HoadonService, 
+    @Inject(LOCAL_STORAGE) private storage: WebStorageService,
+    private route: ActivatedRoute, 
+    private modalService: NgbModal) {
   }
   public sub: any;
   dataSession;
@@ -39,7 +45,8 @@ export class HoadonComponent implements OnInit {
     this.dlHoaDon = [];
     this.dlMangVe = [];
     Object.keys(data).forEach((e) => {
-      this.dlhd = { tenban: data[e].nameban, sessionID: e, thoigian: data[e].thoigian, tongtien: data[e].tongtien, monan: data[e].monan, };
+      this.dlhd = { tenban: data[e].nameban, sessionID: e, thoigian: data[e].thoigian, tongtien: data[e].tongtien, 
+        monan: data[e].monan, tennv:this.storage.get("hoten")};
       if(!data[e].dathanhtoan){
         if (!!data[e].mangve) {
           this.dlhd.mangve = 1;
@@ -109,14 +116,19 @@ export class HoadonComponent implements OnInit {
     return this.tiennhan - tienthoi;
   }
   btnIn = () => {
-    let newWindow = window.open('', '_blank', 'top=0,left=0,height=100%,width="50px"');
-    newWindow.document.write('<h3 style="text-alight: center;width: 100%">Quán mì cay sasin</h3>')
-    newWindow.document.write(document.getElementById('print').innerHTML)
-    newWindow.document.write(`<h3 style="text-alight: center;width: 100%">Mã giảm giá: ${ this.makm }</h3>`)
-    newWindow.document.write(`<h3 style="text-alight: center;width: 100%">Tổng tiền: ${ this.tongtien }</h3>`)
-    newWindow.document.write(`<h3 style="text-alight: center;width: 100%">Số tiền nhận: ${ this.tiennhan }</h3>`)
-    newWindow.document.write(`<h3 style="text-alight: center;width: 100%">Tiền thừa: ${ this.getTienNhanLai }</h3>`)
-
+    let newWindow = window.open('', '_blank', 'top=0,left=0,height="100%",width="100%"');
+    newWindow.document.write('<h3 style="text-align: center;">Quán mì cay sasin</h3>')
+    newWindow.document.write('<h5 style="text-align: center;">Hotline: 0393939393</h5>')
+    newWindow.document.write('<h3 style="text-align: center;">Hóa đơn thanh toán</h3>')
+    newWindow.document.write(`<h6 style="text-align: center;">#${this.sessionIDThanhToan}</h6>`)
+    newWindow.document.write(`<h6 style="text-align: center;">#${ moment().format("YYYY-MM-DD HH:mm:ss")}</h6>`)
+    newWindow.document.write(`<div style="text-align: center;>${document.getElementById('print').innerHTML}<div>`)
+    newWindow.document.write(`<h5 style="text-align: center;width: 100%">Mã giảm giá: ${ this.makm === undefined? "": this.makm }</h5>`)
+    newWindow.document.write(`<h3 style="text-align: center;width: 100%">Tổng tiền: ${ this.tongtien !== undefined ? this.tongtien: 0 }</h3>`)
+    newWindow.document.write(`<h5 style="text-align: center;width: 100%">Số tiền nhận: ${ this.tiennhan !== undefined ? this.tiennhan: 0 }</h5>`)
+    newWindow.document.write(`<h5 style="text-align: center;width: 100%">Tiền thừa: ${ this.getTienNhanLai === NaN ? 0:this.getTienNhanLai}</h5>`)
+    newWindow.document.write(`<h6 style="text-align: center;width: 100%">Cám ơn quý khách!</h6>`)
+    newWindow.document.write(`<h6 style="text-align: center;width: 100%">360B Lê Văn Sỹ, Tân Bình</h6>`)
     newWindow.print();
   }
   btnCancel = () => {
