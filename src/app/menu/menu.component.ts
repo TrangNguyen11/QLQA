@@ -19,5 +19,8 @@ export class MenuComponent implements OnInit {
     this.service.getData(this.email, this.pass)
     .subscribe(lst => console.log(lst))
   }
-
+  logout(){
+    localStorage.clear();
+    this._router.navigate(['/login'])
+  }
 }

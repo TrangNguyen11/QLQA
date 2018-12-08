@@ -53,11 +53,10 @@ export class BepComponent implements OnInit {
   }
   btnIn(data){
     let newWindow = window.open('', '_blank', 'top=0,left=0,height="100%",width="100%"');
-    newWindow.document.write('<h3 style="text-align: center;">Món ăn</h3>')
-    newWindow.document.write(`<h3 style="text-align: center;">${data.tenmon}</h3>`)
-    newWindow.document.write(`<h6 style="text-align: center;">#${data.nameban}</h6>`)
-    newWindow.document.write(`<h6 style="text-align: center;">SL: x${data.soluong}</h6>`)
-    newWindow.document.write(`<h6 style="text-align: center;">${ moment().format("YYYY-MM-DD HH:mm:ss")}</h6>`)
+    newWindow.document.write(`<h5 style="text-align: center;">Món ăn: ${data.tenmon}</h5>`)
+    newWindow.document.write(`<h6 >${ moment().format("YYYY-MM-DD HH:mm:ss")}</h6>`)
+
+    newWindow.document.write(`<h6>#${data.nameban} <span style="float:right">SL: x${data.soluong}</span></h6>`)
     newWindow.print();  
   }
 }

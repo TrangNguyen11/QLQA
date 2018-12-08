@@ -75,10 +75,10 @@
 						<td style="width: 80px">Số lượng</td>
 						<td style="width: 90px">Thành tiền</td>
 					</tr>
-					<tr *ngFor="let datmon of chitietmonan; index as i">
+					<tr *ngFor="let datmon of chitietmonan; index as i" class="background{{datmon.status}}">
 						<td>{{ datmon.tenmon }}</td>
 						<td>x{{ datmon.soluong }}</td>
-						<td>{{ datmon.dongia * datmon.soluong }}</td>
+						<td>{{ datmon.status != 4 ? datmon.dongia * datmon.soluong : 0 }}</td>
 					</tr>
 				</table>
 			</div>

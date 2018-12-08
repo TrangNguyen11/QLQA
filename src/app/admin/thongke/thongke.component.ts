@@ -18,7 +18,7 @@ export class ThongkeComponent implements OnInit {
   isLoading = false;
   thang = []
   option = {
-    schemeType: 'ordinal',
+    schemeType: 'ordinal',//linear',
     // options
     showXAxis: true,
     showYAxis: true,

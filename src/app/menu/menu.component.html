@@ -1,32 +1,35 @@
 <div class="container-fluid setFullbody">
-    <div class = "menu">
-        <!-- BEGIN HEADER MENU -->
-          <ul>
-            <li class="dropdown dropdown-fw dropdown-fw-disabled  ">
-              <a  routerLink="/sodo">
-                <i class="fa fa-map-o" style="font-size:20px;"></i> Sơ đồ </a>
-            </li>
-            <li class="dropdown dropdown-fw dropdown-fw-disabled  ">
-              <a  routerLink="/hoadon">
-                <i class="fa fa-calculator" style="font-size:20px;"></i>Thanh Toán</a>
-            </li>
-            <li class="dropdown dropdown-fw dropdown-fw-disabled  ">
-              <a  routerLink="/bep">
-                <i class="fa fa-calculator" style="font-size:20px;"></i>Bếp</a>
-            </li>
-            <div  style="float: right;">
-                <li>
-                    <a  routerLink="/account"> 
-                      <i class="fa fa-user" style="font-size:20px;">Account</i>
-                    </a>
-                  </li>
-            </div>
-            
-          </ul>
-    </div> 
-    <div class="bodyContent">
-        <router-outlet></router-outlet>
-    </div>
+  <div class="menu">
+    <!-- BEGIN HEADER MENU -->
+    <ul>
+      <li class="dropdown dropdown-fw dropdown-fw-disabled  ">
+        <a routerLink="/sodo">
+          <i class="fa fa-map-o" style="font-size:20px;"></i> Sơ đồ </a>
+      </li>
+      <li class="dropdown dropdown-fw dropdown-fw-disabled  ">
+        <a routerLink="/hoadon">
+          <i class="fa fa-calculator" style="font-size:20px;"></i>Thanh Toán</a>
+      </li>
+      <li class="dropdown dropdown-fw dropdown-fw-disabled  ">
+        <a routerLink="/bep">
+          <i class="fa fa-calculator" style="font-size:20px;"></i>Bếp</a>
+      </li>
+
+      <li>
+        <a routerLink="/account">
+          <i class="fa fa-user" style="font-size:20px;">Tài khoản</i>
+        </a>
+      </li>
+      <li class="right-nav">
+        <a (click)="logout()">
+          <i class="fa fa-user" style="font-size:20px;">Đăng xuất</i>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="bodyContent">
+    <router-outlet></router-outlet>
+  </div>
 </div>
 
 <!-- <input type="text" [(ngModel)]="email" />

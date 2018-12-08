@@ -26,6 +26,7 @@ export class NhanvienComponent implements OnInit {
     diachi: '',
     quyen: '',
     matkhau: '',
+    diachimoi: '',
     hinh: ''
   });
   constructor(

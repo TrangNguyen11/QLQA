@@ -6,12 +6,11 @@ import { forkJoin } from 'rxjs'
 @Component({
   selector: 'admin-monan',
   templateUrl: './monan.component.html',
-  styleUrls: ['./monan.component.css']
+  styleUrls: ['./monan.component.css'],
 })
 export class MonanComponent implements OnInit {
   @ViewChild('file') file: ElementRef;
   @ViewChild('insertFile') insertFile: ElementRef;
-
   public data:any=[];
   dlMonan = [];
   dlDanhmuc = [];

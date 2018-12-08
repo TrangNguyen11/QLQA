@@ -14,6 +14,7 @@
     </thead>
     <tbody>
       <tr *ngFor = "let data of dlMonan; index as i">
+        <!-- <tr *ngFor = "let data of dlMonan; index as i | paginate: { itemsPerPage: 10, currentPage: page }"> -->
         <td>
             <div >
               <input class="form-control" type="text" [(ngModel)]="data.tenmon" >
@@ -44,7 +45,9 @@
     </tbody>
   </table>
 </div>
-
+<!-- <div class="has-text-centered">
+  <pagination-controls (pageChange)="page = $event"></pagination-controls>
+</div> -->
 <div>
   <ng-template #insertmonan let-modal style="margin-top: 80px">
       <div class="modal-header">

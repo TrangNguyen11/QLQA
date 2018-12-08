@@ -44,9 +44,9 @@ export class KhuyenMaiComponent implements OnInit {
   }
   btnDeleteKhuyenmai(i){
     this.service.postDeleteKhuyenmai( this.dlKhuyenmai[i].id).subscribe((lst: any)=>{
-      if(lst.result == 1){
-        this.dlKhuyenmai.splice(i,1);
+      if(lst.result == 1){        
         this.notification.s('success', `Xóa mã khuyến mãi ${ this.dlKhuyenmai[i].id}  thành công`)
+        this.dlKhuyenmai.splice(i,1);
       }else{
         this.notification.e('error', `Xóa mã khuyến mãi ${ this.dlKhuyenmai[i].id}  thất bại`)
       }

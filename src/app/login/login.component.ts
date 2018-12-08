@@ -52,16 +52,16 @@ export class LoginComponent implements OnInit {
             this.storage.set("hoten", reponse.login[0].hoten);
             var quyen = reponse.login[0].quyen;
             if(quyen == 4){
-              this.router.navigateByUrl('');
+              this.router.navigateByUrl('sodo');
             }else if(quyen == 1){
               this.router.navigateByUrl('admin');
             }else if(quyen == 2){
               this.router.navigateByUrl('bep');
             }else if(quyen == 3){
-              this.router.navigateByUrl('thanhtoan');
+              this.router.navigateByUrl('hoadon');
             }
             else{
-              this.router.navigateByUrl('admin');
+              this.router.navigateByUrl('login');
             }
             this.notification.s('success', 'Đăng nhập thành công')         
           }else{

@@ -12,6 +12,7 @@
         <td>Địa chỉ</td>
         <td>Hình</td>
         <td>Mật khẩu</td>
+        <td>Địa chỉ mới</td>
         <td>Quyền</td>
         <td>
           <button class="btn btn-link" (click)="btnInsertNhanVien(insertnhanvien)">
@@ -46,6 +47,11 @@
         <td>
           <div>
               <input class="form-control" type="text" [(ngModel)]="data.matkhau" style="width: 115px">
+          </div>
+        </td>
+        <td>
+          <div>
+              <input class="form-control" type="text" [(ngModel)]="data.diachimoi" style="width: 115px">
           </div>
         </td>
         <td>
@@ -143,6 +149,14 @@
                 </div>
                 <div class="col-md-9">
                   <input class="form-control" [(ngModel)]="insertNhanvien.matkhau" type="text">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <label for="">dia chi moi</label>
+                </div>
+                <div class="col-md-9">
+                  <input class="form-control" [(ngModel)]="insertNhanvien.diachimoi" type="text">
                 </div>
               </div>
               <div class="row">

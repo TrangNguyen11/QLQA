@@ -3,7 +3,7 @@
 
 <div class="row">
     <div class="col-md-2">
-        <img src="{{ !!dataAccount.hinh ? 'data:image/jpeg;base64,' + dataAccount.hinh :  hinh}}" width="200px" height="300px" (click)="changePic(0)" />
+        <img src="{{ !!dataAccount.hinh ? dataAccount.hinh :  hinh}}" width="200px" height="300px" (click)="changePic(0)" />
         <br>
         <button class="btn btn-primary" (click)="btnChangeAccount(change)" style="margin-left: 70px">Sửa</button>
     </div>
@@ -79,7 +79,7 @@
                 </div>
             </div>
             <div class="col-md-2">
-                <img src="{{ !!dataAccount.hinh ? 'data:image/jpeg;base64,' + dataAccount.hinh :  'data:image/jpeg;base64,'+ hinh}}" width="200px" height="100px" (click)="changePic()" />
+                <img src="{{ !!dataAccount.hinh ? dataAccount.hinh :  hinh}}" width="200px" height="100px" (click)="changePic()" />
             </div>
         </div>
     </div>
