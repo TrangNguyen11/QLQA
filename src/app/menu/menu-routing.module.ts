@@ -8,7 +8,7 @@ import { HoadonComponent } from './hoadon/hoadon.component';
 import { CheckorderComponent } from './checkorder/checkorder.component';
 import { BepComponent } from './bep/bep.component';
 import { AccountComponent } from './account/account.component';
-
+import { LoiComponent } from '../loi/loi.component'
 const routes: Routes = [
   {
     path: '',
@@ -54,6 +54,10 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         component: AccountComponent
       },
+      {
+        path: 'loi',
+        component: LoiComponent
+      }
     ]
 
   },

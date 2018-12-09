@@ -16,9 +16,14 @@
                       <b style="font-size: 14px; color: blue">Ghép bàn</b>
                     </i>
                   </button>
-                  <button type="button" class="btn btn-link mr-2 btnsodo"  (click)="openChuyenBan(chuyenban, sodo.id, sodo.session)" >
+                  <button *ngIf="!!sodo.session" type="button" class="btn btn-link mr-2 btnsodo"  (click)="openChuyenBan(chuyenban, sodo.id, sodo.session)" >
                     <i class="fa fa-external-link iconBtnLink" style=" color: red">
                       <b style="font-size: 14px; color: red">Chuyển bàn</b>
+                    </i>
+                  </button>
+                  <button *ngIf="!!sodo.session" type="button" class="btn btn-link mr-2 btnsodo"  (click)="huyBan( sodo.id, sodo.session)" >
+                    <i class="fa fa-external-link iconBtnLink" style=" color: red">
+                      <b style="font-size: 14px; color: red">Hủy bàn</b>
                     </i>
                   </button>
                 </div>
@@ -26,7 +31,7 @@
               <button class="btn btn-light" [ngStyle]="{'border': '5px solid ' + sodo.colorActive }" tooltipClass="my-custom-class" [ngbTooltip]="tipContent">
                     <div class="relative">
                       <img  width="123px" height="115px" 
-                      src="{{ !!sodo.status ? hinhdasudung : hinhchuasudung }}" />
+                      src="{{ !!sodo.session ? hinhdasudung : hinhchuasudung }}" />
                       <div class="nameBan">
                           {{ sodo.name }}
                       </div>
@@ -71,7 +76,7 @@
                 <button class="btn btn-light"  tooltipClass="my-custom-class" [ngbTooltip]="tipContent" (click)="changeCheckGhepBan(sodo.id)">
                     <div class="relative"   >
                       <img  width="123px" height="115px" 
-                      src="{{ !!sodo.status ? hinhdasudung : hinhchuasudung }}" />
+                      src="{{ !!sodo.session ? hinhdasudung : hinhchuasudung }}" />
                       <div class="nameBan">
                           {{ sodo.name}}
                       </div>
@@ -105,7 +110,7 @@
                 <button class="btn btn-light"  tooltipClass="my-custom-class" [ngbTooltip]="tipContent" (click)="chooseChuyen(sodo.id)">
                     <div class="relative"   >
                       <img  width="123px" height="115px" 
-                      src="{{ !!sodo.status ? hinhdasudung : hinhchuasudung }}" />
+                      src="{{ !!sodo.session ? hinhdasudung : hinhchuasudung }}" />
                       <div class="nameBan">
                           {{ sodo.name}}
                       </div>

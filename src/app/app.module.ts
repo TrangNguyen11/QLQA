@@ -22,7 +22,7 @@ import { AdminService } from './admin/admin.service';
 import { AdminModule } from './admin/admin.module';
 import { NotificationService } from './notification/notification.service';
 import {NgxPaginationModule} from 'ngx-pagination';
-
+ import { LoiComponent} from './loi/loi.component'
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -32,6 +32,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MenuComponent,
     LoginComponent,
     AdminComponent,
+    LoiComponent
   ],
   imports: [
     BrowserModule,

@@ -1,52 +1,18 @@
 <input type="file" style="display:none" #file (change)="onFileChanged($event)">
 <h1 style="text-align: center">Quản lý account</h1>
 
-<div class="row">
+<div class="row" style="padding: 10px;">
     <div class="col-md-2">
-        <img src="{{ !!dataAccount.hinh ? dataAccount.hinh :  hinh}}" width="200px" height="300px" (click)="changePic(0)" />
-        <br>
-        <button class="btn btn-primary" (click)="btnChangeAccount(change)" style="margin-left: 70px">Sửa</button>
-    </div>
-    <div class="col-md-10">
-        <div class="container">
-            <label for="email">
-                <b>Họ tên</b>
-            </label>
-            <input class="form-control" type="text" [(ngModel)]="dataAccount.hoten">
+        <div class="avata">
+            <img src="{{ !!dataAccount.hinh ? dataAccount.hinh :  hinh}}" (click)="changePic(0)" />
 
-            <label for="psw">
-                <b>Địa chỉ</b>
-            </label>
-            <input class="form-control" type="text" [(ngModel)]="dataAccount.diachi">
-
-            <label for="psw-repeat">
-                <b>Ngày sinh</b>
-            </label>
-            <input class="form-control" type="date" [(ngModel)]="dataAccount.ngaysinh">
-
-            <label for="psw-repeat">
-                <b>Số điện toại</b>
-            </label>
-            <input class="form-control" type="text" [(ngModel)]="dataAccount.sdt">
-
-            <label for="psw-repeat">
-                <b>Mật khẩu</b>
-            </label>
-            <input class="form-control" type="text" [(ngModel)]="dataAccount.matkhau">
         </div>
     </div>
-</div>
-<ng-template #change let-modal style="margin-top: 80px">
-    <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Chỉnh sửa Account</h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        <div class="col-md-12">
-            <div class="col-md-10">
-                <div class="container">
+    <div class="col-md-10">
+
+        <ngb-tabset>
+            <ngb-tab title="thông tin">
+                <ng-template ngbTabContent>
                     <label for="email">
                         <b>Họ tên</b>
                     </label>
@@ -63,30 +29,35 @@
                     <input class="form-control" type="date" [(ngModel)]="dataAccount.ngaysinh">
 
                     <label for="psw-repeat">
-                        <b>Số điện thoại</b>
+                        <b>Số điện toại</b>
                     </label>
-                    <input class="form-control" type="text" [(ngModel)]="dataAccount.sdt" [(ngModel)]="insertNhanvien.sdt" minlength="10" maxlength="10" #uname="ngModel" >
-                    <div *ngIf="uname.errors?.minlength">
-                        <p style="color: red">Số điện thoại phải ít nhất chứa 10 ký tự.</p>
-                    </div>
-                    <div *ngIf="uname.errors?.maxlength" style="color: red">
-                        <p style="color: red">Số điện thoại không được vượt quá 10 ký tự.</p>
-                    </div> 
+                    <input class="form-control" type="text" [(ngModel)]="dataAccount.sdt">
+        <button class="btn btn-primary" (click)="saveInfoAccount()" style="margin-left: 70px">Sửa</button>
+
+                </ng-template>
+
+
+            </ngb-tab>
+            <ngb-tab title="mật khẩu">
+                <ng-template ngbTabContent>
                     <label for="psw-repeat">
-                        <b>Mật khẩu</b>
+                        <b>Mật khẩu cũ</b>
                     </label>
-                    <input class="form-control" type="text" [(ngModel)]="dataAccount.matkhau">
-                </div>
-            </div>
-            <div class="col-md-2">
-                <img src="{{ !!dataAccount.hinh ? dataAccount.hinh :  hinh}}" width="200px" height="100px" (click)="changePic()" />
-            </div>
-        </div>
+                    <input class="form-control" type="password" [(ngModel)]="mk.oldmk">
+                    <label for="psw-repeat">
+                        <b>Mật khẩu mới </b>
+                    </label>
+                    <input class="form-control" type="password" [(ngModel)]="mk.newmk">
+                    <label for="psw-repeat">
+                        <b>Mật khẩu mới </b>
+                    </label>
+                    <input class="form-control" type="password" [(ngModel)]="mk.renewmk">
+        <button class="btn btn-primary" (click)="savePassAccount()" style="margin-left: 70px">Sửa</button>
+
+                </ng-template>
+
+            </ngb-tab>
+
+        </ngb-tabset>
     </div>
-    <div class="modal-footer">
-        <div class="row col-md-12" style="margin-left: 70px;">
-            <button type="button" class="btn btn-primary" (click)="saveAccount()">Save</button>
-            <button type="button" class="btn btn-danger" (click)="cancelAccount()">Hủy bỏ</button>
-        </div>
-    </div>
-</ng-template>
+</div>

@@ -35,19 +35,23 @@ export class SodoComponent implements OnInit {
   }
   ngOnInit() {
     this.getDataSodo();
-    this.service.picBanChuaSD().subscribe((lst: any)=>{
+    this.service.picBanChuaSD().subscribe((lst: any) => {
       this.hinhchuasudung = lst.hinhban;
     });
-    this.service.picBanDaSD().subscribe((lst: any)=>{
+    this.service.picBanDaSD().subscribe((lst: any) => {
       this.hinhdasudung = lst.hinhban;
     });
-    this.service.socket.on('ban', ({id,ban, color, status = true, thoigian})=>{
-      this.dlSoDo = this.dlSoDo.map(e => ( ban.indexOf(e.id+"") == -1) ? e : {...e , session: id, colorActive: color,status, thoigian});
+    this.service.socket.on('mangve', ({id,ban, color, thoigian, dathanhtoan}) => {
+      if(!dathanhtoan) this.lstmangve.push({ session:id, nameban: ban, ban, status, thoigian });
+      else  this.lstmangve=this.lstmangve.filter(e => e.session !== id );
+    })
+    this.service.socket.on('ban', ({id,ban, color, thoigian}) => {
+      this.dlSoDo = this.dlSoDo.map(e => ( ban.indexOf(e.id+"") == -1) ? e : { ...e , session: id, colorActive: color, thoigian });
     });
   }
   changeCheckGhepBan(id){
     if( !!this.listCheckbox[id]) delete this.listCheckbox[id];
-    else this.listCheckbox[id] = true
+    else this.listCheckbox[id] = true;
   }
   saveGhepBan(){
     this.modalService.dismissAll();
@@ -58,10 +62,10 @@ export class SodoComponent implements OnInit {
     this.service.socket.emit('ghepban', { idArr: arrCheck , color: data.color, session: data.session, thoigian, nameban });
   }
   //get dữ liệu số lượng bàn
-  getDataSodo = ()=>{
+  getDataSodo = () => {
     let seft = this;
-    this.service.getData().subscribe((lst: any)=>{
-      this.service.getSession().subscribe(data => {
+    this.service.getData().subscribe( (lst: any) => {
+      this.service.getSession().subscribe( data => {
         let dataArr = {}
         for (var key in data) {
           if(!!data[key].mangve){
@@ -78,7 +82,7 @@ export class SodoComponent implements OnInit {
     })
   }
   //bấm sử dụng bàn  
-  getChonban = (id, color, idsession)=>{
+  getChonban = (id, color, idsession)=> {
     if(!!idsession ){
       this._router.navigate(['order', idsession]);
     }else{
@@ -128,10 +132,9 @@ export class SodoComponent implements OnInit {
   }
 
   btnMangVe(tenkh){
-    console.log(tenkh);
     if(tenkh != undefined){
       let thoigian = moment().format("YYYY-MM-DD hh:mm:ss");
-      this.service.socket.emit('sudungban', { idArr: [ tenkh ], thoigian: thoigian, mangve: 1, nameban: tenkh }, (tenkh)=> {
+      this.service.socket.emit('sudungmangve', { idArr: [ tenkh ], thoigian: thoigian, mangve: 1, nameban: tenkh }, (tenkh)=> {
         this._router.navigate(['order', tenkh]);
       });
     }
@@ -143,5 +146,9 @@ export class SodoComponent implements OnInit {
   btnDetailMangve(idsession){
     this._router.navigate(['order', idsession]);
   }
-
+  huyBan(idBan, sessionID ){
+    this.service.socket.emit('huyban', { idBan, sessionID}, (res) => {
+      if(!res) this.notification.e('Lỗi', 'Bàn này không thể hủy')
+    } )
+  }
 }

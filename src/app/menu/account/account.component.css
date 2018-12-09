@@ -11,6 +11,15 @@
  background-color: #01bb08;
 
 }
+.avata{
+  height: 200px;
+  width: 200px;
+}
+.avata img {
+  border:2px solid black;
+  border-radius: 15px;
+  width:100%;
+}
 .menubepxong{
   background-color: rgb(0, 140, 255);
   padding: 15px;

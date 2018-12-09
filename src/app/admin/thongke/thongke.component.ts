@@ -16,7 +16,8 @@ export class ThongkeComponent implements OnInit {
   closeResult: string;
   dlUpdate;
   isLoading = false;
-  thang = []
+  thang = [];
+  nam = [];
   option = {
     schemeType: 'ordinal',//linear',
     // options
@@ -76,7 +77,8 @@ export class ThongkeComponent implements OnInit {
     ]
   }
   dlTKMonAn = [];
-  selectThang;//moment().months();
+  selectThang = moment().months();
+  selectNam = moment().years();
   tongTienHoaDon;
   constructor(
     private service: ThongkeService,
@@ -91,11 +93,15 @@ export class ThongkeComponent implements OnInit {
     for(var i = 1; i<13 ; i++){
       this.thang.push(i);
     }
+    for(let i = this.selectNam-10;i<= this.selectNam;i ++ ){
+      this.nam.push(i);
+    }
     // this.tkMonAn();
   }
   loadData = () => {
     this.service.getDataThongKe().subscribe((lst: any) => {
-      this.dlThongke = lst.thongke;
+ 
+      this.dlThongke = lst.thongke.filter(e => e.datedt.indexOf(`${this.selectNam}-${this.selectThang}`) !== -1);
     })
   }
   getSum() : number {
@@ -175,20 +181,9 @@ export class ThongkeComponent implements OnInit {
     this.service.exportAsExcelFile(this.dlThongke, 'hoadon');
   }
   onChange = () => {
-    console.log(this.selectThang)
-    var dlChange = [];
-    if(this.selectThang == 0 ){
-      this.service.getDataThongKe().subscribe((lst: any) => {
-        this.dlThongke = lst.thongke;
-        console.log(this.dlThongke);
-      })
-    }else if(this.selectThang != undefined){
-      this.service.changeSelectTK(this.selectThang).subscribe((lst: any)=>{
-        this.dlThongke = lst.result;
-      });
-    }
-    else{
-      this.dlThongke = this.dlThongke;
-    }
+    this.service.getDataThongKe().subscribe((lst: any) => {
+      this.dlThongke = lst.thongke.filter(e => e.datedt.indexOf(`${this.selectNam}-${this.selectThang}`) !== -1);
+    })
+
   }
 }

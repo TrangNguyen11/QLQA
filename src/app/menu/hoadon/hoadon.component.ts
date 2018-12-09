@@ -39,6 +39,9 @@ export class HoadonComponent implements OnInit {
     this.service.getSession().subscribe((lst: any) => {
       this.setDlHoaDon(lst);
     });
+    this.service.socket.on('listthanhtoan', (lst)=>{
+      this.setDlHoaDon(lst);
+    })
     this.service.socket.on('thanhtoanxong', (data) => {
       this.setDlHoaDon(data);
     });
@@ -132,7 +135,7 @@ export class HoadonComponent implements OnInit {
     newWindow.document.write(`<h6 style="text-align: center;">#${this.sessionIDThanhToan}</h6>`)
     newWindow.document.write(`<h6 style="text-align: center;">#${ moment().format("YYYY-MM-DD HH:mm:ss")}</h6>`)    
     newWindow.document.write(`<div style="text-align: right;"><table border=1 width=100% align="center" style="margin: 0px auto;"><tr> ${document.getElementById('print').innerHTML}</tr></table><div>`)
-    newWindow.document.write(`<h5 style="width: 100%">Mã giảm giá: ${ this.makm === undefined? "": this.makm }</h5>`)
+    if(!!this.makm) newWindow.document.write(`<h5 style="width: 100%">Mã giảm giá: ${ this.makm }</h5>`)
     newWindow.document.write(`<h4 style="width: 100%">Tổng tiền: ${ this.tongtien !== undefined ? this.tongtien: 0 }</h4>`)
     newWindow.document.write(`<h5 style="width: 100%">    Thu ngân: ${this.storage.get('hoten')} </h5>`)
 

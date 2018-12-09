@@ -13,9 +13,14 @@ import { DanhmucComponent } from './danhmuc/danhmuc.component';
 const routes: Routes = [
   {
     path: 'admin',
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     component: AdminComponent,
     children: [
+      {
+        path: '',
+        redirectTo: 'ban',
+        pathMatch: 'full'
+      },
       {
         path: "ban",
         component: BanComponent

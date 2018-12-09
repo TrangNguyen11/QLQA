@@ -43,11 +43,11 @@
 										<b>{{ datht.thoigian}}</b>
 									</p>
 									<p>Thành tiền:
-										<b>{{ datht.tongtien}}</b>
+										<b>{{ datht.tongtien || 0}}đ </b>
 									</p>
 									<!-- <p>Nhân viên: <b>{{ datht.manhanvien}}</b></p> -->
 									<div class="row btnhoadon">
-										<button class=" btn btn-success" style="margin-right: 10px;" (click)="openthanhtoan(thanhtoanhd, datht)">Thanh toán</button>
+										<button [disabled]="!datht.tongtien" class=" btn btn-success" style="margin-right: 10px;" (click)="openthanhtoan(thanhtoanhd, datht)">Thanh toán</button>
 									</div>
 								</div>
 							</div>
@@ -123,8 +123,8 @@
 				</tr>
 				<tr>
 					<td colspan="2" style="text-align: right;">
-						<button type="button" class="btn btn-primary" (click)="btnThanhToanDialog(sessionIDThanhToan)">Thanh toán</button>
-						<button type="button" class="btn btn-success" (click)="btnIn()" style="margin: 0px 10px;">In</button>
+						<button [disabled]="!tiennhan || getTienNhanLai < 0 " type="button" class="btn btn-primary" (click)="btnThanhToanDialog(sessionIDThanhToan)">Thanh toán</button>
+						<button [disabled]="!tiennhan || getTienNhanLai < 0 " type="button" class="btn btn-success" (click)="btnIn()" style="margin: 0px 10px;">In</button>
 						<button type="button" class="btn btn-danger" (click)="btnCancel()">Hủy bỏ</button>
 					</td>
 				</tr>

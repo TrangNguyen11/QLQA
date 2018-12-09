@@ -38,8 +38,11 @@
                   <div class="form-group">
                     <label for="exampleFormControlSelect1">Chọn tháng</label>
                     <select class="form-control" [(ngModel)]="selectThang" (change)="onChange()">
-                        <option [value]="0">--Tháng--</option>
                         <option *ngFor="let t of thang" [value]="t">{{t}}</option>
+                    </select>
+                    <label for="exampleFormControlSelect1">Chọn năm</label>
+                    <select class="form-control" [(ngModel)]="selectNam" (change)="onChange()">
+                        <option *ngFor="let t of nam" [value]="t">{{t}}</option>
                     </select>
                     <button class="btn btn-danger" (click)="btnExport()">Export</button>
                   </div>
